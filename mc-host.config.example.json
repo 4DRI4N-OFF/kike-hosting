@@ -1,0 +1,8 @@
+{
+  "ramMB": 4096,
+  "backupIntervalMin": 30,
+  "rollingKeep": 7,
+  "weeklyKeep": 4,
+  "motd": "Kike Hosting",
+  "maxPlayers": 10
+}
