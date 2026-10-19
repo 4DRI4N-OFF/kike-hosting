@@ -1,0 +1,10 @@
+mc-host.config.json
+instances/
+backups/
+*.log
+*.err
+*.jar
+node_modules/
+.env*
+*.pem
+*.key
