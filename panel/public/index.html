@@ -1405,6 +1405,9 @@ details.bloque.sin-resumen .bloque-cuerpo{display:flex;opacity:1;transform:none}
 @media (prefers-color-scheme:dark){:root:not([data-theme='light']) .btn.peligro{color:#ff6961;outline-color:rgba(255,105,97,.45)}}
 .btn.peligro:hover:not(:disabled){background:rgba(255,59,48,.1);outline-color:rgba(255,59,48,.7)}
 @media (prefers-reduced-transparency: reduce){.ventana-top{background:#fdfdfd}:root[data-theme='dark'] .ventana-top{background:#1c1c1e}}
+.btn .spin{display:inline-block;width:15px;height:15px;margin-right:8px;vertical-align:-2px;border-radius:50%;border:2px solid currentColor;border-top-color:transparent;opacity:.9;animation:gira .7s linear infinite}
+@keyframes gira{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.btn .spin{animation-duration:1.8s}}
 </style>
 </head>
 <body>
@@ -1678,6 +1681,19 @@ let instancia = null;
 let historial = [], hIdx = -1;
 const $ = id => document.getElementById(id);
 
+function btnProgreso(btn, txt) {
+  if (!btn || btn.dataset.ocupado) return;
+  btn.dataset.ocupado = '1';
+  btn.dataset.txt = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spin" aria-hidden="true"></span>' + txt;
+}
+function btnListo(btn) {
+  if (!btn || !btn.dataset.ocupado) return;
+  delete btn.dataset.ocupado;
+  btn.innerHTML = btn.dataset.txt;
+  btn.disabled = false;
+}
 function toast(msg, err) {
   if (!msg) return;
   const t = $('toast');
@@ -1747,11 +1763,14 @@ async function salir() {
 }
 async function cambiarPin() {
   const a = $('pin-actual').value.trim(), n = $('pin-nuevo').value.trim();
+  const b = (window.event && window.event.target && window.event.target.closest) ? window.event.target.closest('button') : null;
+  btnProgreso(b, 'Cambiando...');
   try {
     await api('/api/panel/pin', { body: { current: a, next: n } });
     $('pin-actual').value = ''; $('pin-nuevo').value = '';
     toast('PIN cambiado');
   } catch (e) { toast(e.message, true); }
+  btnListo(b);
 }
 
 function pintarEstado(data) {
@@ -1822,7 +1841,7 @@ async function restaurarCopia() {
   const file = $('restore-sel').value;
   const newName = $('restore-nombre').value.trim();
   if (!file || !newName || !instancia) return;
-  $('btn-restaurar').disabled = true;
+  btnProgreso($('btn-restaurar'), 'Restaurando...');
   toast('Restaurando copia como "' + newName + '"… puede tardar con mundos grandes');
   try {
     await api(`/api/backups/${instancia}/${encodeURIComponent(file)}/restore`, { body: { newName } });
@@ -1831,7 +1850,7 @@ async function restaurarCopia() {
     instancia = newName;
     cargarTodo();
   } catch (e) { toast(e.message, true); }
-  $('btn-restaurar').disabled = false;
+  btnListo($('btn-restaurar'));
 }
 
 function addLinea(entry) {
@@ -1876,6 +1895,7 @@ async function cargarConfig() {
 }
 async function guardarConfig() {
   if (!instancia) return;
+  const bc = $('btn-guardar-cfg'); btnProgreso(bc, 'Guardando...');
   const props = {};
   for (const k of CFG_KEYS) {
     const el = $('cfg-' + k);
@@ -1887,14 +1907,18 @@ async function guardarConfig() {
     await api('/api/instances/' + instancia + '/config', { body: { props } });
     toast('Ajustes guardados');
   } catch (e) { toast(e.message, true); }
+  btnListo(bc);
 }
 async function guardarRaw() {
   if (!instancia) return;
+  const b = (window.event && window.event.target && window.event.target.closest) ? window.event.target.closest('button') : null;
+  btnProgreso(b, 'Guardando...');
   try {
     await api('/api/instances/' + instancia + '/config/raw', { body: { raw: $('cfg-raw').value } });
     toast('server.properties guardado');
     cargarConfig();
   } catch (e) { toast(e.message, true); }
+  btnListo(b);
 }
 function ponerFlagsAikar() {
   $('panel-extra-args').value = '-XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1';
@@ -1912,10 +1936,13 @@ async function cargarPanelConfig() {
   } catch (e) {}
 }
 async function guardarPanelConfig() {
+  const b = (window.event && window.event.target && window.event.target.closest) ? window.event.target.closest('button') : null;
+  btnProgreso(b, 'Guardando...');
   try {
     await api('/api/panel/config', { body: { ramMB: (+$('panel-ram').value) * 1024, extraJavaArgs: $('panel-extra-args').value, backupIntervalMin: +$('panel-backup-min').value, autoStartLastServer: $('panel-autostart').checked, autoStopEmptyMin: +$('panel-autostop-min').value, backupMirrorDir: $('panel-mirror-dir').value } });
     toast('Rendimiento guardado');
   } catch (e) { toast(e.message, true); }
+  btnListo(b);
 }
 
 // ---------- ops ----------
@@ -2004,6 +2031,8 @@ async function subirDatapack() {
   if (!f || !instancia) return;
   if (f.size > 50 * 1048576) { toast('Máximo 50 MB', true); return; }
   toast('Subiendo ' + f.name + '…');
+  const b = (window.event && window.event.target && window.event.target.closest) ? window.event.target.closest('button') : null;
+  btnProgreso(b, 'Subiendo...');
   const b64 = await new Promise(res => { const fr = new FileReader(); fr.onload = () => res(fr.result.split(',')[1]); fr.readAsDataURL(f); });
   try {
     await api('/api/instances/' + instancia + '/datapacks', { body: { filename: f.name, dataBase64: b64 } });
@@ -2011,6 +2040,7 @@ async function subirDatapack() {
     $('dp-file').value = ''; dpElegido($('dp-file'));
     cargarDatapacks();
   } catch (e) { toast(e.message, true); }
+  btnListo(b);
 }
 async function borrarDatapack(fn) {
   try {
@@ -2031,7 +2061,7 @@ async function accion(a) {
 async function crearInstancia(ev) {
   ev.preventDefault();
   const nombre = $('nueva-nombre').value.trim(), version = $('nueva-version').value;
-  $('btn-crear').disabled = true;
+  btnProgreso($('btn-crear'), 'Creando...');
   toast('Creando "' + nombre + '"… descarga de Mojang en marcha');
   try {
     await api('/api/instances', { body: { name: nombre, version, type: $('nueva-tipo').value } });
@@ -2039,7 +2069,7 @@ async function crearInstancia(ev) {
     toast('Instancia "' + nombre + '" lista. Dale a Encender.');
     cargarTodo();
   } catch (e) { toast(e.message, true); }
-  $('btn-crear').disabled = false;
+  btnListo($('btn-crear'));
 }
 async function enviarCmd() {
   const inp = $('cmd'), cmd = inp.value.trim();
@@ -2054,8 +2084,10 @@ function cmdKey(ev) {
 }
 async function backupAhora() {
   if (!instancia) return;
+  const b = $('btn-backup'); btnProgreso(b, 'Creando copia...');
   toast('Haciendo copia del mundo…');
   try { const j = await api(`/api/instances/${instancia}/backup`, {}); toast('Copia lista: ' + j.file); } catch (e) { toast(e.message, true); }
+  btnListo(b);
 }
 async function borrarCopia(file) {
   if (!instancia) return;
