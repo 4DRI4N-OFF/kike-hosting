@@ -1325,6 +1325,10 @@ select{appearance:none;-webkit-appearance:none;background-image:url("data:image/
 .toast.ver.err{background:rgba(28,28,30,.72);color:#fff}
 .toast.ver.err::before{color:var(--color-red)}
 </style>
+<style id="skin-ios26-lote12">
+/* lote 12: aviso copia vieja */
+.aviso-copia{background:rgba(255,141,40,.14);color:var(--color-orange);border-radius:12px;padding:12px 16px;font-size:14px;font-weight:600;margin-bottom:12px}
+</style>
 </head>
 <body>
 <div class="wallpaper"></div>
@@ -1428,7 +1432,7 @@ select{appearance:none;-webkit-appearance:none;background-image:url("data:image/
             <summary>Operadores (ops)</summary>
             <div class="bloque-cuerpo">
               <div class="input-fila">
-                <input type="text" id="op-nombre" placeholder="Nombre de jugador (ej: Steve)" maxlength="16">
+                <input type="text" id="op-nombre" placeholder="Nombre de jugador (ej: _4DRI4N_)" maxlength="16">
                 <button class="btn" onclick="addOp()">Dar op</button>
               </div>
               <div class="op-chips" id="op-chips"><div class="vacio">Sin ops.</div></div>
@@ -1489,7 +1493,7 @@ select{appearance:none;-webkit-appearance:none;background-image:url("data:image/
                 <div class="campo"><label>Apagar si está vacío (min) <span class="ayuda">0 = nunca</span></label><input type="number" id="panel-autostop-min" min="0" max="120" step="5"></div>
               </div>
               <label class="check-fila"><input type="checkbox" id="panel-autostart"><span>Arrancar el último servidor al abrir el panel <span class="ayuda">si se va la luz y el PC vuelve, el servidor se enciende solo</span></span></label>
-              <div class="campo"><label>Copia extra en otro disco (carpeta) <span class="ayuda">vacío = desactivado; cada copia se replica ahí con la misma rotación</span></label><input type="text" id="panel-mirror-dir" placeholder="D:\KikeHosting-Backups"></div>
+              <div class="campo"><label>Copia extra en otro disco (carpeta) <span class="ayuda">vacío = desactivado; cada copia se replica ahí con la misma rotación</span></label><input type="text" id="panel-mirror-dir" placeholder="F:\KikeHosting-Backups"></div>
               <div class="campo"><label>Argumentos Java extra <span class="ayuda">solo si sabes lo que haces</span></label><input type="text" id="panel-extra-args" placeholder="-XX:+UseG1GC …"></div>
               <button class="btn" type="button" onclick="ponerFlagsAikar()">⚡ Rellenar flags optimizados (Aikar)</button>
               <button class="btn" onclick="guardarPanelConfig()">Guardar rendimiento</button>
@@ -1537,7 +1541,7 @@ select{appearance:none;-webkit-appearance:none;background-image:url("data:image/
           <div class="consola-caja" id="consola"><div class="consola-vacia">La consola cobra vida cuando enciendas el servidor.</div></div>
           <button id="consola-bajar" class="mini-btn consola-bajar" onclick="bajarConsola()" style="display:none">↓ Ir al final</button>
           <div class="consola-input">
-            <input type="text" id="cmd" placeholder="Escribe un comando: say hola, list, op Steve…" onkeydown="cmdKey(event)">
+            <input type="text" id="cmd" placeholder="Escribe un comando: say hola, list, op 4DRI4N…" onkeydown="cmdKey(event)">
             <button class="btn" id="btn-cmd" onclick="enviarCmd()">Enviar</button>
           </div>
         </section>
@@ -1707,8 +1711,13 @@ function pintarCopias(backups) {
   c.innerHTML = backups.map(b => {
     const f = new Date(b.date);
     const cuando = f.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' }) + ' · ' + f.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
-    return `<div class="fila-item"><span style="font-size:17px">🗂️</span><div style="flex:1;min-width:0"><div class="fn">${esc(b.file)}</div><div class="fm">${cuando} · ${b.sizeMB} MB</div></div><button class="mini-btn" onclick="borrarCopia('${encodeURIComponent(b.file)}')">Borrar</button></div>`;
+    return `<div class="fila-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="flex:0 0 auto;color:var(--label-secondary)"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/></svg><div style="flex:1;min-width:0"><div class="fn">${esc(b.file)}</div><div class="fm">${cuando} · ${b.sizeMB} MB</div></div><button class="mini-btn" onclick="borrarCopia('${encodeURIComponent(b.file)}')">Borrar</button></div>`;
   }).join('');
+  try {
+    const newest = Math.max.apply(null, backups.map(b => new Date(b.date).getTime()));
+    const dias = Math.floor((Date.now() - newest) / 864e5);
+    if (dias >= 7) c.insertAdjacentHTML('afterbegin', '<div class="aviso-copia">Tu copia más reciente tiene ' + dias + ' días. Crea una nueva para no perder nada.</div>');
+  } catch (_) {}
   $('restore-sel').innerHTML = backups.map(b => `<option value="${esc(b.file)}">${esc(b.file)} (${b.sizeMB} MB)</option>`).join('');
   if (!$('restore-nombre').value) $('restore-nombre').value = instancia ? instancia + '-rescate' : '';
 }
@@ -2148,6 +2157,9 @@ if(copCardRest)cC.appendChild(copCardRest);
 function bajarConsola(){const c=$('consola'); if(c){c.scrollTop=c.scrollHeight; actualizaBajar();}}
 function actualizaBajar(){const c=$('consola'),b=$('consola-bajar'); if(!c||!b)return; const peg=c.scrollTop+c.clientHeight>=c.scrollHeight-60; b.style.display=peg?'none':'inline-flex';}
 document.addEventListener('DOMContentLoaded',()=>{const c=$('consola'); if(c) c.addEventListener('scroll',actualizaBajar);});
+</script>
+<script>
+document.addEventListener('keydown',function(e){ if(e.key==='/'){ const t=e.target; if(t && t.matches && t.matches('input,textarea,select')) return; e.preventDefault(); const cmd=$('cmd'); if(cmd) cmd.focus(); }});
 </script>
 </body>
 </html>
