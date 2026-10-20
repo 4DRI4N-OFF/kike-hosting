@@ -1304,6 +1304,17 @@ footer{background:var(--fill-quaternary);border:0;color:var(--label-secondary)}
 code,.mono,kbd{background:var(--fill-quaternary);border-radius:6px}
 
 </style>
+<style id="skin-ios26-lote10">
+/* lote 10: consola con niveles + ir al final + bloques anidados */
+.lina.err,.lina.error{color:var(--color-red)}
+.lina.warn{color:var(--color-orange)}
+.lina.chat{color:var(--color-blue)}
+.lina.join{color:var(--color-green)}
+.lina .hora{color:var(--label-tertiary)}
+.consola-bajar{margin-top:10px;align-items:center;gap:6px}
+.col:first-child>.tarjeta:nth-child(2)>.bloque{background:var(--fill-quaternary)}
+.col:first-child>.tarjeta:nth-child(2)>.bloque .check-fila{background:var(--fill-tertiary)}
+</style>
 </head>
 <body>
 <div class="wallpaper"></div>
@@ -1514,6 +1525,7 @@ code,.mono,kbd{background:var(--fill-quaternary);border-radius:6px}
             <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9l3 3-3 3m6 0h4"/></svg></div><div><h2>Consola en vivo</h2><div class="sub">Todo lo que dice el servidor, al momento</div></div>
           </div>
           <div class="consola-caja" id="consola"><div class="consola-vacia">La consola cobra vida cuando enciendas el servidor.</div></div>
+          <button id="consola-bajar" class="mini-btn consola-bajar" onclick="bajarConsola()" style="display:none">↓ Ir al final</button>
           <div class="consola-input">
             <input type="text" id="cmd" placeholder="Escribe un comando: say hola, list, op Steve…" onkeydown="cmdKey(event)">
             <button class="btn" id="btn-cmd" onclick="enviarCmd()">Enviar</button>
@@ -1711,13 +1723,22 @@ function addLinea(entry) {
   const vacia = c.querySelector('.consola-vacia');
   if (vacia) vacia.remove();
   const d = document.createElement('div');
-  d.className = 'lina ' + (entry.stream === 'panel' ? 'panel' : entry.stream === 'error' ? 'error' : '');
+  let cls10 = entry.stream === 'panel' ? 'panel' : entry.stream === 'error' ? 'err' : '';
+  const ln10 = entry.line || '';
+  if (!cls10) {
+    if (/\b(ERROR|FATAL|SEVERE)\b/.test(ln10)) cls10 = 'err';
+    else if (/\bWARN(ING)?\b/.test(ln10)) cls10 = 'warn';
+    else if (/<[^>]{1,24}>\s/.test(ln10)) cls10 = 'chat';
+    else if (/(joined|left) the game/.test(ln10)) cls10 = 'join';
+  }
+  d.className = 'lina' + (cls10 ? ' ' + cls10 : '');
   const h = new Date(entry.t).toLocaleTimeString('es-ES', { hour12: false });
   d.innerHTML = '<span class="hora">' + h + '</span>' + esc(entry.line);
   const pegado = c.scrollTop + c.clientHeight >= c.scrollHeight - 60;
   c.appendChild(d);
   while (c.children.length > 900) c.removeChild(c.firstChild);
   if (pegado) c.scrollTop = c.scrollHeight;
+  if (window.actualizaBajar) actualizaBajar();
 }
 
 // ---------- ajustes ----------
@@ -2113,5 +2134,10 @@ var copCardRest=null;var bs=document.querySelectorAll('details.bloque');for(var 
 if(copCardRest)cC.appendChild(copCardRest);
 [ajustesCard,jugCard,copCard].forEach(function(card){if(card&&card.parentNode)card.parentNode.removeChild(card)});
 });
-</script></body>
+</script><script>
+function bajarConsola(){const c=$('consola'); if(c){c.scrollTop=c.scrollHeight; actualizaBajar();}}
+function actualizaBajar(){const c=$('consola'),b=$('consola-bajar'); if(!c||!b)return; const peg=c.scrollTop+c.clientHeight>=c.scrollHeight-60; b.style.display=peg?'none':'inline-flex';}
+document.addEventListener('DOMContentLoaded',()=>{const c=$('consola'); if(c) c.addEventListener('scroll',actualizaBajar);});
+</script>
+</body>
 </html>
