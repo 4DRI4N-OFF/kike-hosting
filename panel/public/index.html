@@ -1315,6 +1315,16 @@ code,.mono,kbd{background:var(--fill-quaternary);border-radius:6px}
 .col:first-child>.tarjeta:nth-child(2)>.bloque{background:var(--fill-quaternary)}
 .col:first-child>.tarjeta:nth-child(2)>.bloque .check-fila{background:var(--fill-tertiary)}
 </style>
+<style id="skin-ios26-lote11">
+/* lote 11: chevron selects, toast con icono, foco visible, headers agrupados */
+select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path d='M2.5 4.5 6 8l3.5-3.5' fill='none' stroke='%238e8e93' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/></svg>");background-repeat:no-repeat;background-position:right 12px center;padding-right:34px}
+.toast.ver::before{content:'\2713';color:var(--color-green);font-weight:700;margin-right:8px}
+.toast.ver.err::before{content:'!';color:var(--color-red)}
+.btn:focus-visible,.mini-btn:focus-visible,.inst-pill:focus-visible,.lp-tile:focus-visible,.nav-a:focus-visible,.vx:focus-visible,.theme-toggle:focus-visible{outline:0;box-shadow:0 0 0 3.5px rgba(0,136,255,.38)}
+.seccion-sub{color:var(--label-secondary);font-size:var(--text-footnote);font-weight:400;text-transform:uppercase;letter-spacing:.02em;margin-top:24px}
+.toast.ver.err{background:rgba(28,28,30,.72);color:#fff}
+.toast.ver.err::before{color:var(--color-red)}
+</style>
 </head>
 <body>
 <div class="wallpaper"></div>
