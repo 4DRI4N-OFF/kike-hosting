@@ -1409,11 +1409,15 @@ details.bloque.sin-resumen .bloque-cuerpo{display:flex;opacity:1;transform:none}
 @keyframes gira{to{transform:rotate(360deg)}}
 @media(prefers-reduced-motion:reduce){.btn .spin{animation-duration:1.8s}}
 .btn[data-ocupado]:disabled{opacity:1;cursor:progress}
+.nav{box-shadow:inset 0 -.5px 0 rgba(127,127,127,0);transition:box-shadow .3s var(--ease)}
+.nav.baja{box-shadow:inset 0 -.5px 0 rgba(127,127,127,.35)}
+.nav-marca{transition:color .3s var(--ease),font-weight .3s var(--ease);color:var(--label-secondary,#474747)}
+.nav.baja .nav-marca{color:var(--label-primary,#1d1d1f);font-weight:600}
 </style>
 </head>
 <body>
 <div class="wallpaper"></div>
-<nav class="nav"><div class="nav-inner"><a href="#">Kike Hosting</a><div class="theme-controls"><div class="nav-links"><a href="#inst-pills">Servidor</a><a href="#" onclick="abrirVentana('v-ajustes');return false">Ajustes</a><a href="#" onclick="abrirVentana('v-copias');return false">Copias</a></div><button class="theme-toggle" type="button" aria-label="Cambiar a modo oscuro" title="Cambiar a modo oscuro"><svg class="theme-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 13.1A8.6 8.6 0 0 1 10.9 3.5a8.6 8.6 0 1 0 9.6 9.6Z"/></svg><svg class="theme-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg></button>
+<nav class="nav"><div class="nav-inner"><a href="#" class="nav-marca">Kike Hosting</a><div class="theme-controls"><div class="nav-links"><a href="#inst-pills">Servidor</a><a href="#" onclick="abrirVentana('v-ajustes');return false">Ajustes</a><a href="#" onclick="abrirVentana('v-copias');return false">Copias</a></div><button class="theme-toggle" type="button" aria-label="Cambiar a modo oscuro" title="Cambiar a modo oscuro"><svg class="theme-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 13.1A8.6 8.6 0 0 1 10.9 3.5a8.6 8.6 0 1 0 9.6 9.6Z"/></svg><svg class="theme-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg></button>
 </div></div></nav>
   <div class="orbe orbe-1"></div>
   <div class="orbe orbe-2"></div>
@@ -1800,6 +1804,7 @@ function pintarEstado(data) {
   $('stat-up').textContent = inst ? fmtUp(inst.uptimeSec) : '—';
   $('stat-jug').textContent = inst ? inst.players.length + '/' + inst.maxPlayers : '0/0';
   $('btn-start').disabled = !inst || st !== 'offline';
+  $('btn-start').classList.toggle('primario', !$('btn-start').disabled);
   $('btn-stop').disabled = !inst || (st !== 'online' && st !== 'starting');
   $('btn-restart').disabled = !inst || (st !== 'online' && st !== 'starting');
   $('btn-backup').disabled = !inst;
@@ -2191,6 +2196,12 @@ if (location.search.includes('plano')) {
   document.head.appendChild(st);
 }
 
+if ('IntersectionObserver' in window) {
+  const h1grande = document.querySelector('header h1');
+  if (h1grande) new IntersectionObserver(en => {
+    const n = document.querySelector('.nav'); if (n) n.classList.toggle('baja', !en[0].isIntersecting);
+  }, { rootMargin: '-44px 0px 0px 0px' }).observe(h1grande);
+}
 function iniciarApp() {
   if (es) { es.close(); es = null; }
   es = new EventSource('/api/events');
