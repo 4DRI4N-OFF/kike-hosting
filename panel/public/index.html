@@ -1357,6 +1357,24 @@ details.bloque.sin-resumen .bloque-cuerpo{display:flex;opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){.bloque-cuerpo,.bloque summary .plus{transition:none!important}}
 @media(prefers-contrast:more){.bloque summary .plus i{height:2.4px;background:var(--label,#1d1d1f)}}
 </style>
+<style id="skin-ios26-lote15">
+/* lote 15: ajustes de accesibilidad del sistema (doc Apple: probar con configuraciones de pantalla y accesibilidad) */
+@media (prefers-reduced-transparency: reduce){
+  :root{--material-chrome-opacity:1!important;--material-thick-opacity:1!important;--material-regular-opacity:1!important;--material-thin-opacity:1!important;--material-ultrathin-opacity:1!important}
+  .material-chrome,.material-thick,.material-regular,.material-thin,.material-ultrathin,.velo-ventana{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+  .velo-ventana{background:rgba(0,0,0,.55)}
+  .ventana{background:#fdfdfd}
+  :root[data-theme='dark'] .ventana{background:#1c1c1e}
+  @media (prefers-color-scheme: dark){ :root:not([data-theme='light']) .ventana{background:#1c1c1e} }
+}
+@media (prefers-contrast: more){
+  .fm,.ayuda,.vacio,.rotacion-nota,.vsub,.stat .k,.campo label{color:#3a3a3c}
+  [data-theme="dark"] .fm,[data-theme="dark"] .ayuda,[data-theme="dark"] .vacio,[data-theme="dark"] .rotacion-nota,[data-theme="dark"] .vsub,[data-theme="dark"] .stat .k,[data-theme="dark"] .campo label{color:#aeaeb2}
+  .fila-item,.check-fila,.tarjeta,.consola-caja{outline:1px solid rgba(60,60,67,.32);outline-offset:-1px}
+  [data-theme="dark"] .fila-item,[data-theme="dark"] .check-fila,[data-theme="dark"] .tarjeta,[data-theme="dark"] .consola-caja{outline-color:rgba(235,235,245,.38)}
+  .atajo-fila{border-bottom-width:1px}
+}
+</style>
 </head>
 <body>
 <div class="wallpaper"></div>
