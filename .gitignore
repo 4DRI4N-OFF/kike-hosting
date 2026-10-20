@@ -4,6 +4,7 @@ backups/
 *.log
 *.err
 *.jar
+*.bak*
 node_modules/
 .env*
 *.pem
