@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es"><script>(()=>{let choice;try{choice=localStorage.getItem('apple-theme');}catch(_){}const d=document.documentElement,system=matchMedia('(prefers-color-scheme: dark)');if(choice==='light'||choice==='dark')d.dataset.theme=choice;else delete d.dataset.theme;d.dataset.themeEffective=d.dataset.theme||(system.matches?'dark':'light');})();
+</script>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,14 +8,1456 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style id="ios26-tokens">
+/* ==========================================================================
+   iOS 26 Design Tokens — CSS Custom Properties
+   Source: Apple iOS & iPadOS 26 Figma Community Kit
+   Target: Pure Svelte 5 (runes mode)
+   ========================================================================== */
+
+
+/* --------------------------------------------------------------------------
+   Light Mode (Default)
+   -------------------------------------------------------------------------- */
+
+:root {
+
+  /* -- System Colors (12) ------------------------------------------------ */
+  --color-red: #ff383c;
+  --color-orange: #ff8d28;
+  --color-yellow: #ffcc00;
+  --color-green: #34c759;
+  --color-mint: #00c8b3;
+  --color-teal: #00c3d0;
+  --color-cyan: #00c0e8;
+  --color-blue: #0088ff;
+  --color-indigo: #6155f5;
+  --color-purple: #cb30e0;
+  --color-pink: #ff2d55;
+  --color-brown: #ac7f5e;
+
+  /* -- Labels (4 levels) ------------------------------------------------- */
+  --label-primary: #000000;
+  --label-secondary: rgba(60, 60, 67, 0.6);
+  --label-tertiary: rgba(60, 60, 67, 0.3);
+  --label-quaternary: rgba(60, 60, 67, 0.18);
+
+  /* -- Backgrounds (6) --------------------------------------------------- */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f2f2f7;
+  --bg-tertiary: #ffffff;
+  --bg-grouped-primary: #f2f2f7;
+  --bg-grouped-secondary: #ffffff;
+  --bg-grouped-tertiary: #f2f2f7;
+
+  /* -- Fills (4 levels) -------------------------------------------------- */
+  --fill-primary: rgba(120, 120, 128, 0.2);
+  --fill-secondary: rgba(120, 120, 128, 0.16);
+  --fill-tertiary: rgba(118, 118, 128, 0.12);
+  --fill-quaternary: rgba(116, 116, 128, 0.08);
+
+  /* -- Grays (8) --------------------------------------------------------- */
+  --black: #000000;
+  --gray: #8e8e93;
+  --gray-2: #aeaeb2;
+  --gray-3: #c7c7cc;
+  --gray-4: #d1d1d6;
+  --gray-5: #e5e5ea;
+  --gray-6: #f2f2f7;
+  --white: #ffffff;
+
+  /* -- Separators -------------------------------------------------------- */
+  --separator-opaque: #c6c6c8;
+  --separator: rgba(0, 0, 0, 0.12);
+
+  /* -- Vibrant Labels (Light) -------------------------------------------- */
+  --vibrant-label-primary: #000000;
+  --vibrant-label-secondary: #3d3d3d;
+  --vibrant-label-tertiary: rgba(61, 61, 61, 0.5);
+  --vibrant-label-quaternary: rgba(61, 61, 61, 0.5);
+
+  /* -- Vibrant Fills (Light) --------------------------------------------- */
+  --vibrant-fill-primary: #cccccc;
+  --vibrant-fill-secondary: #e0e0e0;
+  --vibrant-fill-tertiary: #ededed;
+
+  /* -- Typography -------------------------------------------------------- */
+  --font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+
+  /* Type Scale — Size */
+  --text-large-title: 34px;
+  --text-title1: 28px;
+  --text-title2: 22px;
+  --text-title3: 20px;
+  --text-headline: 17px;
+  --text-body: 17px;
+  --text-callout: 16px;
+  --text-subheadline: 15px;
+  --text-footnote: 13px;
+  --text-caption1: 12px;
+  --text-caption2: 11px;
+
+  /* Type Scale — Line Height */
+  --lh-large-title: 41px;
+  --lh-title1: 34px;
+  --lh-title2: 28px;
+  --lh-title3: 25px;
+  --lh-headline: 22px;
+  --lh-body: 22px;
+  --lh-callout: 21px;
+  --lh-subheadline: 20px;
+  --lh-footnote: 18px;
+  --lh-caption1: 16px;
+  --lh-caption2: 13px;
+
+  /* Type Scale — Loose Line Height (+2px for multiline) */
+  --lh-large-title-loose: 43px;
+  --lh-title1-loose: 36px;
+  --lh-title2-loose: 30px;
+  --lh-title3-loose: 27px;
+  --lh-headline-loose: 24px;
+  --lh-body-loose: 24px;
+  --lh-callout-loose: 23px;
+
+  /* Type Scale — Letter Spacing */
+  --ls-large-title: 0.4px;
+  --ls-title1: 0.38px;
+  --ls-title2: -0.26px;
+  --ls-title3: -0.45px;
+  --ls-headline: -0.43px;
+  --ls-body: -0.43px;
+  --ls-callout: -0.31px;
+  --ls-subheadline: -0.23px;
+  --ls-footnote: -0.08px;
+  --ls-caption1: 0px;
+  --ls-caption2: 0.06px;
+
+  /* Type Scale — Font Weight */
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* -- Materials (Liquid Glass & Blur) ----------------------------------- */
+
+  /* Background Materials — Blur Radius */
+  --blur-chrome: 50px;
+  --blur-thick: 100px;
+  --blur-regular: 100px;
+  --blur-thin: 100px;
+  --blur-ultrathin: 100px;
+
+  /* Background Materials — Opacity */
+  --material-chrome-opacity: 0.75;
+  --material-thick-opacity: 0.84;
+  --material-regular-opacity: 0.60;
+  --material-thin-opacity: 0.40;
+  --material-ultrathin-opacity: 0.03;
+
+  /* Liquid Glass */
+  --glass-large-bg: rgba(250, 250, 250, 0.7);
+  --glass-large-radius: 14px;
+  --glass-large-shadow-blur: 40px;
+
+  --glass-medium-bg: rgba(245, 245, 245, 0.6);
+  --glass-medium-radius: 12px;
+  --glass-medium-shadow-blur: 40px;
+
+  --glass-small-bg: #f7f7f7;
+  --glass-small-border: #dddddd;
+  --glass-small-shadow-blur: 40px;
+
+  --glass-primary-bg: #ffffff;
+  --glass-primary-icon-color: #0091ff;
+  --glass-primary-shadow-blur: 40px;
+
+  --glass-clear-bg: rgba(255, 255, 255, 0.07);
+  --glass-clear-radius: 5px;
+  --glass-clear-shadow-blur: 40px;
+
+  /* Scroll Edge Effects */
+  --scroll-edge-soft-blur: 10px;
+  --scroll-edge-hard-blur: 60px;
+  --scroll-edge-gradient-blur: 60px;
+
+  /* -- Spacing (4px base grid) ------------------------------------------- */
+  --space-0: 0px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 28px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* -- Layout ------------------------------------------------------------ */
+  --safe-area-top: 59px;
+  --safe-area-bottom: 34px;
+  --content-inset: 16px;
+  --list-row-height: 44px;
+  --toolbar-height: 44px;
+  --tabbar-height: 49px;
+  --separator-height: 0.5px;
+}
+
+
+/* --------------------------------------------------------------------------
+   Dark Mode
+   -------------------------------------------------------------------------- */
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+
+    /* -- System Colors (Dark adjustments) -------------------------------- */
+    --color-red: #ff453a;
+    --color-orange: #ff9f0a;
+    --color-yellow: #ffd60a;
+    --color-green: #30d158;
+    --color-mint: #63e6e2;
+    --color-teal: #40c8e0;
+    --color-cyan: #64d2ff;
+    --color-blue: #0a84ff;
+    --color-indigo: #5e5ce6;
+    --color-purple: #bf5af2;
+    --color-pink: #ff375f;
+    --color-brown: #ac8e68;
+
+    /* -- Labels (Dark) --------------------------------------------------- */
+    --label-primary: #ffffff;
+    --label-secondary: rgba(235, 235, 245, 0.6);
+    --label-tertiary: rgba(235, 235, 245, 0.3);
+    --label-quaternary: rgba(235, 235, 245, 0.18);
+
+    /* -- Backgrounds (Dark) ---------------------------------------------- */
+    --bg-primary: #000000;
+    --bg-secondary: #1c1c1e;
+    --bg-tertiary: #2c2c2e;
+    --bg-grouped-primary: #000000;
+    --bg-grouped-secondary: #1c1c1e;
+    --bg-grouped-tertiary: #2c2c2e;
+
+    /* -- Fills (Dark) ---------------------------------------------------- */
+    --fill-primary: rgba(120, 120, 128, 0.36);
+    --fill-secondary: rgba(120, 120, 128, 0.32);
+    --fill-tertiary: rgba(118, 118, 128, 0.24);
+    --fill-quaternary: rgba(118, 118, 128, 0.18);
+
+    /* -- Grays (Dark) ---------------------------------------------------- */
+    --black: #000000;
+    --gray: #8e8e93;
+    --gray-2: #636366;
+    --gray-3: #48484a;
+    --gray-4: #3a3a3c;
+    --gray-5: #2c2c2e;
+    --gray-6: #1c1c1e;
+    --white: #ffffff;
+
+    /* -- Separators (Dark) ----------------------------------------------- */
+    --separator-opaque: #38383a;
+    --separator: rgba(84, 84, 88, 0.65);
+
+    /* -- Vibrant Labels (Dark) ------------------------------------------- */
+    --vibrant-label-primary: #ffffff;
+    --vibrant-label-secondary: #999999;
+    --vibrant-label-tertiary: #404040;
+    --vibrant-label-quaternary: #262626;
+
+    /* -- Vibrant Fills (Dark) -------------------------------------------- */
+    --vibrant-fill-primary: #333333;
+    --vibrant-fill-secondary: #1f1f1f;
+    --vibrant-fill-tertiary: #121212;
+
+    /* -- Liquid Glass (Dark) --------------------------------------------- */
+    --glass-large-bg: rgba(0, 0, 0, 0.8);
+    --glass-medium-bg: rgba(0, 0, 0, 0.6);
+    --glass-small-bg: rgba(0, 0, 0, 0.6);
+    --glass-small-border: rgba(255, 255, 255, 0.06);
+    --glass-clear-bg: rgba(255, 255, 255, 0.07);
+
+    /* -- Materials (Dark overlays) --------------------------------------- */
+    --material-chrome-opacity: 0.75;
+    --material-thick-opacity: 0.84;
+    --material-regular-opacity: 0.60;
+    --material-thin-opacity: 0.40;
+    --material-ultrathin-opacity: 0.03;
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   Manual Dark Mode Override (data-theme="dark")
+   -------------------------------------------------------------------------- */
+
+:root[data-theme="dark"] {
+
+  /* -- System Colors (Dark adjustments) -------------------------------- */
+  --color-red: #ff453a;
+  --color-orange: #ff9f0a;
+  --color-yellow: #ffd60a;
+  --color-green: #30d158;
+  --color-mint: #63e6e2;
+  --color-teal: #40c8e0;
+  --color-cyan: #64d2ff;
+  --color-blue: #0a84ff;
+  --color-indigo: #5e5ce6;
+  --color-purple: #bf5af2;
+  --color-pink: #ff375f;
+  --color-brown: #ac8e68;
+
+  /* -- Labels (Dark) --------------------------------------------------- */
+  --label-primary: #ffffff;
+  --label-secondary: rgba(235, 235, 245, 0.6);
+  --label-tertiary: rgba(235, 235, 245, 0.3);
+  --label-quaternary: rgba(235, 235, 245, 0.18);
+
+  /* -- Backgrounds (Dark) ---------------------------------------------- */
+  --bg-primary: #000000;
+  --bg-secondary: #1c1c1e;
+  --bg-tertiary: #2c2c2e;
+  --bg-grouped-primary: #000000;
+  --bg-grouped-secondary: #1c1c1e;
+  --bg-grouped-tertiary: #2c2c2e;
+
+  /* -- Fills (Dark) ---------------------------------------------------- */
+  --fill-primary: rgba(120, 120, 128, 0.36);
+  --fill-secondary: rgba(120, 120, 128, 0.32);
+  --fill-tertiary: rgba(118, 118, 128, 0.24);
+  --fill-quaternary: rgba(118, 118, 128, 0.18);
+
+  /* -- Grays (Dark) ---------------------------------------------------- */
+  --black: #000000;
+  --gray: #8e8e93;
+  --gray-2: #636366;
+  --gray-3: #48484a;
+  --gray-4: #3a3a3c;
+  --gray-5: #2c2c2e;
+  --gray-6: #1c1c1e;
+  --white: #ffffff;
+
+  /* -- Separators (Dark) ----------------------------------------------- */
+  --separator-opaque: #38383a;
+  --separator: rgba(84, 84, 88, 0.65);
+
+  /* -- Vibrant Labels (Dark) ------------------------------------------- */
+  --vibrant-label-primary: #ffffff;
+  --vibrant-label-secondary: #999999;
+  --vibrant-label-tertiary: #404040;
+  --vibrant-label-quaternary: #262626;
+
+  /* -- Vibrant Fills (Dark) -------------------------------------------- */
+  --vibrant-fill-primary: #333333;
+  --vibrant-fill-secondary: #1f1f1f;
+  --vibrant-fill-tertiary: #121212;
+
+  /* -- Liquid Glass (Dark) --------------------------------------------- */
+  --glass-large-bg: rgba(0, 0, 0, 0.8);
+  --glass-medium-bg: rgba(0, 0, 0, 0.6);
+  --glass-small-bg: rgba(0, 0, 0, 0.6);
+  --glass-small-border: rgba(255, 255, 255, 0.06);
+  --glass-clear-bg: rgba(255, 255, 255, 0.07);
+
+  /* -- Materials (Dark overlays) --------------------------------------- */
+  --material-chrome-opacity: 0.75;
+  --material-thick-opacity: 0.84;
+  --material-regular-opacity: 0.60;
+  --material-thin-opacity: 0.40;
+  --material-ultrathin-opacity: 0.03;
+}
+
+</style>
+<style id="ios26-materials">
+/* ==========================================================================
+   iOS 26 Materials — Liquid Glass & Blur Effects
+   Requires: tokens.css
+   ========================================================================== */
+
+
+/* --------------------------------------------------------------------------
+   Background Materials (Frosted Glass Blur)
+   These simulate the system-level background materials.
+   Apply behind content that sits above a blurred background.
+   -------------------------------------------------------------------------- */
+
+.material-chrome {
+  background-color: rgba(255, 255, 255, var(--material-chrome-opacity));
+  backdrop-filter: blur(var(--blur-chrome));
+  -webkit-backdrop-filter: blur(var(--blur-chrome));
+}
+
+.material-thick {
+  background-color: rgba(255, 255, 255, var(--material-thick-opacity));
+  backdrop-filter: blur(var(--blur-thick));
+  -webkit-backdrop-filter: blur(var(--blur-thick));
+}
+
+.material-regular {
+  background-color: rgba(255, 255, 255, var(--material-regular-opacity));
+  backdrop-filter: blur(var(--blur-regular));
+  -webkit-backdrop-filter: blur(var(--blur-regular));
+}
+
+.material-thin {
+  background-color: rgba(255, 255, 255, var(--material-thin-opacity));
+  backdrop-filter: blur(var(--blur-thin));
+  -webkit-backdrop-filter: blur(var(--blur-thin));
+}
+
+.material-ultrathin {
+  background-color: rgba(255, 255, 255, var(--material-ultrathin-opacity));
+  backdrop-filter: blur(var(--blur-ultrathin));
+  -webkit-backdrop-filter: blur(var(--blur-ultrathin));
+}
+
+/* Dark mode material adjustments */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .material-chrome {
+    background-color: rgba(0, 0, 0, var(--material-chrome-opacity));
+  }
+  :root:not([data-theme="light"]) .material-thick {
+    background-color: rgba(0, 0, 0, var(--material-thick-opacity));
+  }
+  :root:not([data-theme="light"]) .material-regular {
+    background-color: rgba(0, 0, 0, var(--material-regular-opacity));
+  }
+  :root:not([data-theme="light"]) .material-thin {
+    background-color: rgba(0, 0, 0, var(--material-thin-opacity));
+  }
+  :root:not([data-theme="light"]) .material-ultrathin {
+    background-color: rgba(0, 0, 0, var(--material-ultrathin-opacity));
+  }
+}
+
+/* Manual dark mode material overrides */
+[data-theme="dark"] .material-chrome {
+  background-color: rgba(0, 0, 0, var(--material-chrome-opacity));
+}
+[data-theme="dark"] .material-thick {
+  background-color: rgba(0, 0, 0, var(--material-thick-opacity));
+}
+[data-theme="dark"] .material-regular {
+  background-color: rgba(0, 0, 0, var(--material-regular-opacity));
+}
+[data-theme="dark"] .material-thin {
+  background-color: rgba(0, 0, 0, var(--material-thin-opacity));
+}
+[data-theme="dark"] .material-ultrathin {
+  background-color: rgba(0, 0, 0, var(--material-ultrathin-opacity));
+}
+
+
+/* --------------------------------------------------------------------------
+   Liquid Glass — Large
+   Use for: Toolbars, Tab Bars, Navigation Bars
+   -------------------------------------------------------------------------- */
+
+.liquid-glass-large {
+  background-color: var(--glass-large-bg);
+  border-radius: var(--glass-large-radius);
+  box-shadow: 0 0 var(--glass-large-shadow-blur) rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(var(--glass-large-shadow-blur));
+  -webkit-backdrop-filter: blur(var(--glass-large-shadow-blur));
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .liquid-glass-large {
+    background-color: var(--glass-large-bg);
+    box-shadow:
+      0 0 var(--glass-large-shadow-blur) rgba(0, 0, 0, 0.3),
+      inset 0 0 0 0.5px rgba(255, 255, 255, 0.06);
+  }
+}
+[data-theme="dark"] .liquid-glass-large {
+  background-color: var(--glass-large-bg);
+  box-shadow:
+    0 0 var(--glass-large-shadow-blur) rgba(0, 0, 0, 0.3),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.06);
+}
+
+
+/* --------------------------------------------------------------------------
+   Liquid Glass — Medium
+   Use for: Floating action buttons, grouped controls
+   -------------------------------------------------------------------------- */
+
+.liquid-glass-medium {
+  background-color: var(--glass-medium-bg);
+  border-radius: var(--glass-medium-radius);
+  box-shadow: 0 0 var(--glass-medium-shadow-blur) rgba(0, 0, 0, 0.06);
+  backdrop-filter: blur(var(--glass-medium-shadow-blur));
+  -webkit-backdrop-filter: blur(var(--glass-medium-shadow-blur));
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .liquid-glass-medium {
+    background-color: var(--glass-medium-bg);
+    box-shadow:
+      0 0 var(--glass-medium-shadow-blur) rgba(0, 0, 0, 0.25),
+      inset 0 0 0 0.5px rgba(255, 255, 255, 0.06);
+  }
+}
+[data-theme="dark"] .liquid-glass-medium {
+  background-color: var(--glass-medium-bg);
+  box-shadow:
+    0 0 var(--glass-medium-shadow-blur) rgba(0, 0, 0, 0.25),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.06);
+}
+
+
+/* --------------------------------------------------------------------------
+   Liquid Glass — Small
+   Use for: Small buttons, icon buttons, badge-like elements
+   -------------------------------------------------------------------------- */
+
+.liquid-glass-small {
+  background-color: var(--glass-small-bg);
+  border: 0.5px solid var(--glass-small-border);
+  border-radius: 8px;
+  box-shadow: 0 0 var(--glass-small-shadow-blur) rgba(0, 0, 0, 0.04);
+  backdrop-filter: blur(var(--glass-small-shadow-blur));
+  -webkit-backdrop-filter: blur(var(--glass-small-shadow-blur));
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .liquid-glass-small {
+    background-color: var(--glass-small-bg);
+    border-color: var(--glass-small-border);
+    box-shadow:
+      0 0 var(--glass-small-shadow-blur) rgba(0, 0, 0, 0.2),
+      inset 0 0 0 0.5px rgba(255, 255, 255, 0.06);
+  }
+}
+[data-theme="dark"] .liquid-glass-small {
+  background-color: var(--glass-small-bg);
+  border-color: var(--glass-small-border);
+  box-shadow:
+    0 0 var(--glass-small-shadow-blur) rgba(0, 0, 0, 0.2),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.06);
+}
+
+
+/* --------------------------------------------------------------------------
+   Liquid Glass — Primary (Blue Tinted)
+   Use for: Primary action buttons, highlighted navigation items
+   -------------------------------------------------------------------------- */
+
+.liquid-glass-primary {
+  background-color: var(--glass-primary-bg);
+  border-radius: 8px;
+  box-shadow: 0 0 var(--glass-primary-shadow-blur) rgba(0, 0, 0, 0.06);
+  color: var(--glass-primary-icon-color);
+  backdrop-filter: blur(var(--glass-primary-shadow-blur));
+  -webkit-backdrop-filter: blur(var(--glass-primary-shadow-blur));
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .liquid-glass-primary {
+    background-color: var(--glass-primary-bg);
+    box-shadow:
+      0 0 var(--glass-primary-shadow-blur) rgba(0, 0, 0, 0.3),
+      inset 0 0 0 0.5px rgba(255, 255, 255, 0.06);
+  }
+}
+[data-theme="dark"] .liquid-glass-primary {
+  background-color: var(--glass-primary-bg);
+  box-shadow:
+    0 0 var(--glass-primary-shadow-blur) rgba(0, 0, 0, 0.3),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.06);
+}
+
+
+/* --------------------------------------------------------------------------
+   Liquid Glass — Clear
+   Use for: Subtle overlays, minimal glass effect
+   -------------------------------------------------------------------------- */
+
+.liquid-glass-clear {
+  background-color: var(--glass-clear-bg);
+  border-radius: var(--glass-clear-radius);
+  box-shadow: 0 0 var(--glass-clear-shadow-blur) rgba(0, 0, 0, 0.02);
+  backdrop-filter: blur(var(--glass-clear-shadow-blur));
+  -webkit-backdrop-filter: blur(var(--glass-clear-shadow-blur));
+}
+
+
+/* --------------------------------------------------------------------------
+   Scroll Edge Effects
+   Apply to scroll containers. The gradient masks content at scroll edges.
+   -------------------------------------------------------------------------- */
+
+/* Soft: gradient + blur fade */
+
+.scroll-edge-soft-top {
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black var(--scroll-edge-soft-blur),
+    black 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black var(--scroll-edge-soft-blur),
+    black 100%
+  );
+}
+
+.scroll-edge-soft-bottom {
+  mask-image: linear-gradient(
+    to top,
+    transparent 0%,
+    black var(--scroll-edge-soft-blur),
+    black 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to top,
+    transparent 0%,
+    black var(--scroll-edge-soft-blur),
+    black 100%
+  );
+}
+
+.scroll-edge-soft-leading {
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black var(--scroll-edge-soft-blur),
+    black 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black var(--scroll-edge-soft-blur),
+    black 100%
+  );
+}
+
+.scroll-edge-soft-trailing {
+  mask-image: linear-gradient(
+    to left,
+    transparent 0%,
+    black var(--scroll-edge-soft-blur),
+    black 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to left,
+    transparent 0%,
+    black var(--scroll-edge-soft-blur),
+    black 100%
+  );
+}
+
+/* Hard: solid + blur boundary */
+
+.scroll-edge-hard-top {
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 1px,
+    black 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 1px,
+    black 100%
+  );
+  backdrop-filter: blur(var(--scroll-edge-hard-blur));
+  -webkit-backdrop-filter: blur(var(--scroll-edge-hard-blur));
+}
+
+.scroll-edge-hard-bottom {
+  mask-image: linear-gradient(
+    to top,
+    transparent 0%,
+    black 1px,
+    black 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to top,
+    transparent 0%,
+    black 1px,
+    black 100%
+  );
+  backdrop-filter: blur(var(--scroll-edge-hard-blur));
+  -webkit-backdrop-filter: blur(var(--scroll-edge-hard-blur));
+}
+
+.scroll-edge-hard-leading {
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 1px,
+    black 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 1px,
+    black 100%
+  );
+  backdrop-filter: blur(var(--scroll-edge-hard-blur));
+  -webkit-backdrop-filter: blur(var(--scroll-edge-hard-blur));
+}
+
+.scroll-edge-hard-trailing {
+  mask-image: linear-gradient(
+    to left,
+    transparent 0%,
+    black 1px,
+    black 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to left,
+    transparent 0%,
+    black 1px,
+    black 100%
+  );
+  backdrop-filter: blur(var(--scroll-edge-hard-blur));
+  -webkit-backdrop-filter: blur(var(--scroll-edge-hard-blur));
+}
+
+
+/* --------------------------------------------------------------------------
+   Combined Scroll Edge (top + bottom)
+   Common case: vertical scroll container with both edges fading.
+   -------------------------------------------------------------------------- */
+
+.scroll-edge-soft-vertical {
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black var(--scroll-edge-soft-blur),
+    black calc(100% - var(--scroll-edge-soft-blur)),
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black var(--scroll-edge-soft-blur),
+    black calc(100% - var(--scroll-edge-soft-blur)),
+    transparent 100%
+  );
+}
+
+.scroll-edge-soft-horizontal {
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black var(--scroll-edge-soft-blur),
+    black calc(100% - var(--scroll-edge-soft-blur)),
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black var(--scroll-edge-soft-blur),
+    black calc(100% - var(--scroll-edge-soft-blur)),
+    transparent 100%
+  );
+}
+
+</style>
+<style id="ios26-typography">
+/* ==========================================================================
+   iOS 26 Typography — Type Scale Classes
+   All 11 text styles with emphasized, italic, and loose modifiers
+   Requires: tokens.css
+   ========================================================================== */
+
+
+/* --------------------------------------------------------------------------
+   Base Type Styles
+   -------------------------------------------------------------------------- */
+
+.text-large-title {
+  font-family: var(--font-family);
+  font-size: var(--text-large-title);
+  line-height: var(--lh-large-title);
+  letter-spacing: var(--ls-large-title);
+  font-weight: var(--weight-regular);
+  font-style: normal;
+}
+
+.text-title1 {
+  font-family: var(--font-family);
+  font-size: var(--text-title1);
+  line-height: var(--lh-title1);
+  letter-spacing: var(--ls-title1);
+  font-weight: var(--weight-regular);
+  font-style: normal;
+}
+
+.text-title2 {
+  font-family: var(--font-family);
+  font-size: var(--text-title2);
+  line-height: var(--lh-title2);
+  letter-spacing: var(--ls-title2);
+  font-weight: var(--weight-regular);
+  font-style: normal;
+}
+
+.text-title3 {
+  font-family: var(--font-family);
+  font-size: var(--text-title3);
+  line-height: var(--lh-title3);
+  letter-spacing: var(--ls-title3);
+  font-weight: var(--weight-regular);
+  font-style: normal;
+}
+
+.text-headline {
+  font-family: var(--font-family);
+  font-size: var(--text-headline);
+  line-height: var(--lh-headline);
+  letter-spacing: var(--ls-headline);
+  font-weight: var(--weight-semibold);
+  font-style: normal;
+}
+
+.text-body {
+  font-family: var(--font-family);
+  font-size: var(--text-body);
+  line-height: var(--lh-body);
+  letter-spacing: var(--ls-body);
+  font-weight: var(--weight-regular);
+  font-style: normal;
+}
+
+.text-callout {
+  font-family: var(--font-family);
+  font-size: var(--text-callout);
+  line-height: var(--lh-callout);
+  letter-spacing: var(--ls-callout);
+  font-weight: var(--weight-regular);
+  font-style: normal;
+}
+
+.text-subheadline {
+  font-family: var(--font-family);
+  font-size: var(--text-subheadline);
+  line-height: var(--lh-subheadline);
+  letter-spacing: var(--ls-subheadline);
+  font-weight: var(--weight-regular);
+  font-style: normal;
+}
+
+.text-footnote {
+  font-family: var(--font-family);
+  font-size: var(--text-footnote);
+  line-height: var(--lh-footnote);
+  letter-spacing: var(--ls-footnote);
+  font-weight: var(--weight-regular);
+  font-style: normal;
+}
+
+.text-caption1 {
+  font-family: var(--font-family);
+  font-size: var(--text-caption1);
+  line-height: var(--lh-caption1);
+  letter-spacing: var(--ls-caption1);
+  font-weight: var(--weight-regular);
+  font-style: normal;
+}
+
+.text-caption2 {
+  font-family: var(--font-family);
+  font-size: var(--text-caption2);
+  line-height: var(--lh-caption2);
+  letter-spacing: var(--ls-caption2);
+  font-weight: var(--weight-regular);
+  font-style: normal;
+}
+
+
+/* --------------------------------------------------------------------------
+   Emphasized Modifier
+   Applies the emphasized (bold/semibold) weight for each style.
+   Usage: <p class="text-body emphasized">
+   -------------------------------------------------------------------------- */
+
+.text-large-title.emphasized {
+  font-weight: var(--weight-bold);
+}
+
+.text-title1.emphasized {
+  font-weight: var(--weight-bold);
+}
+
+.text-title2.emphasized {
+  font-weight: var(--weight-bold);
+}
+
+.text-title3.emphasized {
+  font-weight: var(--weight-semibold);
+}
+
+/* Headline is already semibold; emphasized has no additional effect */
+.text-headline.emphasized {
+  font-weight: var(--weight-semibold);
+}
+
+.text-body.emphasized {
+  font-weight: var(--weight-semibold);
+}
+
+.text-callout.emphasized {
+  font-weight: var(--weight-semibold);
+}
+
+.text-subheadline.emphasized {
+  font-weight: var(--weight-semibold);
+}
+
+.text-footnote.emphasized {
+  font-weight: var(--weight-semibold);
+}
+
+.text-caption1.emphasized {
+  font-weight: var(--weight-medium);
+}
+
+.text-caption2.emphasized {
+  font-weight: var(--weight-semibold);
+}
+
+
+/* --------------------------------------------------------------------------
+   Italic Modifier
+   Usage: <p class="text-body italic">
+   -------------------------------------------------------------------------- */
+
+.text-large-title.italic,
+.text-title1.italic,
+.text-title2.italic,
+.text-title3.italic,
+.text-headline.italic,
+.text-body.italic,
+.text-callout.italic,
+.text-subheadline.italic,
+.text-footnote.italic,
+.text-caption1.italic,
+.text-caption2.italic {
+  font-style: italic;
+}
+
+
+/* --------------------------------------------------------------------------
+   Emphasized + Italic (compound modifier)
+   Usage: <p class="text-body emphasized italic">
+   -------------------------------------------------------------------------- */
+
+.text-large-title.emphasized.italic {
+  font-weight: var(--weight-bold);
+  font-style: italic;
+}
+
+.text-title1.emphasized.italic {
+  font-weight: var(--weight-bold);
+  font-style: italic;
+}
+
+.text-title2.emphasized.italic {
+  font-weight: var(--weight-bold);
+  font-style: italic;
+}
+
+.text-title3.emphasized.italic {
+  font-weight: var(--weight-semibold);
+  font-style: italic;
+}
+
+.text-headline.emphasized.italic {
+  font-weight: var(--weight-semibold);
+  font-style: italic;
+}
+
+.text-body.emphasized.italic {
+  font-weight: var(--weight-semibold);
+  font-style: italic;
+}
+
+.text-callout.emphasized.italic {
+  font-weight: var(--weight-semibold);
+  font-style: italic;
+}
+
+.text-subheadline.emphasized.italic {
+  font-weight: var(--weight-semibold);
+  font-style: italic;
+}
+
+.text-footnote.emphasized.italic {
+  font-weight: var(--weight-semibold);
+  font-style: italic;
+}
+
+.text-caption1.emphasized.italic {
+  font-weight: var(--weight-medium);
+  font-style: italic;
+}
+
+.text-caption2.emphasized.italic {
+  font-weight: var(--weight-semibold);
+  font-style: italic;
+}
+
+
+/* --------------------------------------------------------------------------
+   Loose Leading Modifier
+   Adds +2px line-height for multiline text blocks.
+   Only applicable to Large Title through Callout (7 styles).
+   Usage: <p class="text-body text-loose">
+   -------------------------------------------------------------------------- */
+
+.text-large-title.text-loose {
+  line-height: var(--lh-large-title-loose);
+}
+
+.text-title1.text-loose {
+  line-height: var(--lh-title1-loose);
+}
+
+.text-title2.text-loose {
+  line-height: var(--lh-title2-loose);
+}
+
+.text-title3.text-loose {
+  line-height: var(--lh-title3-loose);
+}
+
+.text-headline.text-loose {
+  line-height: var(--lh-headline-loose);
+}
+
+.text-body.text-loose {
+  line-height: var(--lh-body-loose);
+}
+
+.text-callout.text-loose {
+  line-height: var(--lh-callout-loose);
+}
+
+
+/* --------------------------------------------------------------------------
+   Semantic Color Utilities
+   Apply label colors to text.
+   -------------------------------------------------------------------------- */
+
+.text-primary {
+  color: var(--label-primary);
+}
+
+.text-secondary {
+  color: var(--label-secondary);
+}
+
+.text-tertiary {
+  color: var(--label-tertiary);
+}
+
+.text-quaternary {
+  color: var(--label-quaternary);
+}
+
+</style>
 <style>
 :root{--bg:#fff;--glass:#f5f5f7;--glass-strong:#e8e8ed;--borde:#d6d6d6;--borde-suave:transparent;--txt:#1d1d1f;--txt-dim:#707070;--cyan:#0066cc;--violeta:#474747;--verde:#474747;--ambar:#707070;--rojo:#b64400;--radio:28px;--radio-s:20px;--ease:cubic-bezier(.65,0,.35,1)}
-*{margin:0;padding:0;box-sizing:border-box}html{color-scheme:light;scroll-behavior:smooth}body{font-family:'SF Pro Text','Inter',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fff;color:var(--txt);font-size:17px;line-height:1.47;letter-spacing:-.022em;-webkit-font-smoothing:antialiased;overflow-x:hidden}button,input,select,textarea{font:inherit}button,a,input,select,summary,textarea{outline-offset:5px}button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid #0066cc}.orbe{display:none}.nav{height:44px;background:rgba(250,250,252,.94);backdrop-filter:blur(20px);position:sticky;top:0;z-index:10}.nav-inner{max-width:1200px;margin:auto;padding:0 32px;height:100%;display:flex;align-items:center;justify-content:space-between;font-size:12px;letter-spacing:0}.nav a{color:#474747;text-decoration:none}.nav a:hover{text-decoration:underline}.nav-links{display:flex;gap:28px}.envoltura{max-width:1264px;margin:auto;padding:80px 32px 40px}header{position:relative;margin-bottom:76px;animation:entra .8s var(--ease) both;display:flex;flex-direction:column;align-items:flex-start;gap:20px}header .logo-orb{display:none}header h1{font-size:clamp(56px,7vw,96px);font-weight:700;line-height:1.04;letter-spacing:-.015em}header h1 span{color:#1d1d1f}header p{font-size:21px;color:#707070;max-width:560px;margin-top:24px;line-height:1.38;letter-spacing:.011em}.eyebrow{font-size:17px;color:#474747;margin-bottom:16px}.pildora-estado{position:absolute;right:0;top:10px;display:flex;align-items:center;gap:9px;font-size:14px;background:#f5f5f7;padding:10px 18px;border-radius:999px}.punto{width:8px;height:8px;border-radius:50%;background:#a0a0a4;transition:background .5s var(--ease)}.punto.online{background:#1d1d1f}.punto.trabajando{background:#707070;animation:respira 1.5s ease-in-out infinite}.rejilla{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:start}.col{display:contents}.tarjeta{background:#f5f5f7;border:0;border-radius:28px;padding:36px;min-width:0;animation:entra .75s var(--ease) both;box-shadow:none}.tarjeta:nth-child(2){animation-delay:.09s}.tarjeta:nth-child(3){animation-delay:.15s}.col:first-child>.tarjeta:nth-child(1){grid-area:1/1}.col:first-child>.tarjeta:nth-child(2){grid-area:2/1/3/3;background:#fff;padding:76px 0}.col:first-child>.tarjeta:nth-child(3){grid-area:3/1}.col:first-child>.tarjeta:nth-child(4){grid-area:3/2}.col:nth-child(2)>.tarjeta{grid-area:1/2}.tarjeta-titulo{display:flex;gap:12px;align-items:center;margin-bottom:28px}.tarjeta-titulo .ico{display:grid;place-items:center;color:#474747;width:28px;height:28px;flex-shrink:0}.ico svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}.tarjeta-titulo h2{font-size:40px;line-height:1.15;letter-spacing:-.02em;font-weight:600}.tarjeta-titulo .sub{font-size:14px;color:#707070;margin-top:6px}.inst-pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}.inst-pill{padding:8px 18px;cursor:pointer;border-radius:999px;background:#e8e8ed;color:#474747;font-size:14px;transition:background .35s var(--ease),transform .35s var(--ease)}.inst-pill:hover{background:#dcdce1;transform:translateY(-2px)}.inst-pill.activa{background:#1d1d1f;color:#fff}.estado-hero{display:flex;align-items:center;gap:16px;margin-bottom:28px;padding:20px 0}.estado-orb{width:40px;height:40px;border-radius:50%;background:#e3e4e5;flex-shrink:0;transition:background .5s var(--ease)}.estado-orb.online{background:#474747}.estado-orb.trabajando{background:#707070;animation:respira 1.8s ease-in-out infinite}.nombre{font-size:24px;font-weight:600;letter-spacing:-.02em}.detalle{color:#707070;font-size:14px;margin-top:4px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:32px}.stat{padding:12px 0}.stat .v{font-size:24px;font-weight:600;font-feature-settings:'tnum','numr';letter-spacing:-.025em}.stat .k{font-size:12px;color:#707070;margin-top:4px}.botones{display:flex;gap:8px;flex-wrap:wrap}.btn{padding:12px 18px;border:0;border-radius:980px;background:#e8e8ed;color:#1d1d1f;font-size:17px;font-weight:400;cursor:pointer;transition:background .35s var(--ease),transform .35s var(--ease),opacity .35s var(--ease);line-height:1.3}.botones .btn{flex:1;font-size:14px;padding:12px 13px}.btn:hover:not(:disabled){background:#dedee3;transform:translateY(-2px)}.btn:active:not(:disabled){transform:scale(.96)}.btn.primario{background:#0071e3;color:#fff}.btn.primario:hover:not(:disabled){background:#0077ed}.btn.peligro{background:transparent;color:#474747;outline:1px solid #aaa;outline-offset:-1px}.btn:disabled{opacity:.36;cursor:not-allowed}.bloque{margin-top:24px;padding:0;background:transparent}.bloque summary{display:flex;align-items:center;gap:12px;cursor:pointer;list-style:none;color:#474747;font-size:17px;padding:16px 0;transition:color .35s var(--ease)}summary::-webkit-details-marker{display:none}.bloque summary:hover{color:#1d1d1f}.bloque summary:before{content:'+';display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#e8e8ed;font-size:21px;transition:transform .4s var(--ease)}.bloque[open] summary:before{transform:rotate(45deg)}.bloque-cuerpo{display:flex;flex-direction:column;gap:20px;margin-top:16px;padding-bottom:12px;animation:entra .5s var(--ease) both}.campo{display:flex;flex-direction:column;gap:8px;min-width:0}.campo label{font-size:14px;font-weight:500;color:#474747}.ayuda{font-size:12px;color:#707070;font-weight:400}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}input[type=text],input[type=password],input[type=number],select,textarea{width:100%;padding:14px 16px;background:#fff;color:#1d1d1f;border:1px solid #d6d6d6;border-radius:14px;font-size:17px;transition:border-color .35s var(--ease),background .35s var(--ease);min-width:0}input:focus,select:focus,textarea:focus{border-color:#0066cc;outline:2px solid #0066cc;outline-offset:2px}textarea{font-family:ui-monospace,monospace;font-size:14px;min-height:240px;line-height:1.6;resize:vertical}.check-fila{display:flex;align-items:center;gap:12px;border-radius:14px;padding:16px;background:#f5f5f7;font-size:14px;cursor:pointer}.check-fila input{width:18px;height:18px;accent-color:#1d1d1f}.check-fila span{line-height:1.4}#ajustes-cuerpo{gap:24px!important;max-width:900px}.col:first-child>.tarjeta:nth-child(2)>.bloque{background:#f5f5f7;border-radius:28px;padding:8px 28px;margin-top:20px}.col:first-child>.tarjeta:nth-child(2)>.bloque .check-fila{background:#fff}.consola-caja{height:326px;overflow-y:auto;padding:20px;border-radius:20px;background:#fff;color:#474747;font-family:ui-monospace,'JetBrains Mono',monospace;font-size:13px;letter-spacing:0;line-height:1.75;scroll-behavior:smooth}.lina{white-space:pre-wrap;word-break:break-word;animation:entra .35s var(--ease) both}.lina.panel{color:#474747}.lina.error{color:#b64400}.hora{color:#888;margin-right:8px}.consola-vacia{color:#707070;padding-top:100px;text-align:center;font-size:14px}.consola-input{display:flex;gap:8px;margin-top:16px}.consola-input input{font-size:14px}.consola-input .btn{flex:0 0 auto}.jugadores-lista,.op-chips{display:flex;gap:10px;flex-wrap:wrap}.jugador,.op-chip{display:flex;align-items:center;gap:10px;padding:8px 16px 8px 8px;border-radius:999px;background:#fff;font-size:14px;animation:entra .5s var(--ease) both}.jugador img{width:34px;height:34px;border-radius:10px;image-rendering:pixelated}.op-chip button{width:28px;height:28px;border:0;border-radius:50%;background:#e8e8ed;color:#474747;cursor:pointer}.vacio{font-size:17px;color:#707070;padding:16px 0;line-height:1.47}.fila-item{display:flex;align-items:center;gap:12px;margin-bottom:12px;padding:16px;background:#fff;border-radius:20px;min-width:0;animation:entra .5s var(--ease) both}.fn{font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.fm{font-size:12px;color:#707070;margin-top:4px}.mini-btn{padding:8px 14px;background:#e8e8ed;border:0;border-radius:999px;font:inherit;font-size:14px;color:#474747;cursor:pointer;transition:background .35s var(--ease),transform .35s var(--ease);white-space:nowrap}.mini-btn:hover{background:#dcdce1;transform:translateY(-1px)}.rotacion-nota{font-size:14px;color:#707070;margin-top:16px;line-height:1.5}.input-fila,.archivo-subir{display:flex;align-items:center;gap:12px}.input-fila input{flex:1;min-width:0}.input-fila .btn{flex:0 0 auto}.seccion-sub{font-size:17px;font-weight:600;margin-top:16px}.archivo-subir input[type=file]{display:none}.nombre-archivo{font-size:14px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}footer{margin-top:100px;background:#f5f5f7;border-radius:28px;padding:28px;display:flex;gap:20px;justify-content:space-between;align-items:center;color:#707070;font-size:12px}.apagar-panel{background:none;border:0;color:#474747;text-decoration:underline;font:inherit;cursor:pointer}.toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,30px);padding:16px 24px;border-radius:28px;background:#1d1d1f;color:#fff;z-index:150;opacity:0;pointer-events:none;transition:opacity .4s var(--ease),transform .4s var(--ease);font-size:14px;max-width:90vw}.toast.ver{opacity:1;transform:translate(-50%,0)}.toast.err{background:#474747}.login-velo{position:fixed;inset:0;z-index:100;display:none;place-items:center;background:rgba(255,255,255,.94);backdrop-filter:blur(20px);overflow:auto;padding:24px}.login-velo.ver{display:grid;animation:entra .65s var(--ease) both}.login-card{width:min(480px,100%);padding:48px;text-align:left;background:#f5f5f7}.logo-orb{display:grid;place-items:center;width:48px;height:48px;border-radius:16px;background:#1d1d1f;color:#fff;font-weight:600;font-size:24px}.login-card .logo-orb{margin:0 0 32px!important}.login-card h2{font-size:40px!important;font-weight:600!important;line-height:1.1}.login-card h2 span{background:none!important;color:#1d1d1f!important;-webkit-text-fill-color:#1d1d1f}.login-card p{font-size:17px!important;margin:20px 0 28px!important}.pin-caja{text-align:center;letter-spacing:8px;font-size:21px!important}.login-card .btn{margin-top:12px!important;width:100%}#login-err{font-size:14px!important}button{touch-action:manipulation}::selection{background:#d5e8fc}::-webkit-scrollbar{width:7px}::-webkit-scrollbar-thumb{background:#d6d6d6;border-radius:999px}@keyframes entra{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}@keyframes respira{50%{opacity:.5}}@media(max-width:1050px){.tarjeta{padding:28px}.tarjeta-titulo h2{font-size:32px}.botones{flex-direction:column}.consola-caja{height:400px}}@media(max-width:740px){.nav-inner{padding:0 24px}.nav-links{gap:16px}.envoltura{padding:56px 20px 24px}header{margin-bottom:48px}header h1{font-size:56px;max-width:340px}header p{font-size:20px;margin-top:20px;max-width:300px}.pildora-estado{position:static;font-size:12px;margin-top:8px}.rejilla{display:flex;flex-direction:column;gap:20px}.col{display:contents}.tarjeta{width:100%;padding:28px}.col:first-child>.tarjeta:nth-child(1){order:1}.col:nth-child(2)>.tarjeta{order:2}.col:first-child>.tarjeta:nth-child(2){order:3;padding:56px 0}.col:first-child>.tarjeta:nth-child(3){order:4}.col:first-child>.tarjeta:nth-child(4){order:5}.tarjeta-titulo h2{font-size:32px}.grid2{grid-template-columns:1fr;gap:20px}.botones{flex-direction:row}.botones .btn{font-size:13px;padding:12px 10px}.consola-input{flex-wrap:wrap}.consola-input input{flex:1 1 100%}.consola-input .btn{width:100%}.consola-caja{height:320px}.login-card{padding:32px}.login-card h2{font-size:40px!important}footer{margin-top:56px;flex-direction:column;align-items:flex-start}.archivo-subir{flex-wrap:wrap}.nombre-archivo{flex-basis:40%}.input-fila{flex-wrap:wrap}.input-fila input{flex-basis:100%}.col:first-child>.tarjeta:nth-child(2)>.bloque{padding:8px 20px}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+*{margin:0;padding:0;box-sizing:border-box}html{color-scheme:light;scroll-behavior:smooth}body{font-family:'SF Pro Text','Inter',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fff;color:var(--txt);font-size:17px;line-height:1.47;letter-spacing:-.022em;-webkit-font-smoothing:antialiased;overflow-x:hidden}button,input,select,textarea{font:inherit}button,a,input,select,summary,textarea{outline-offset:5px}button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid #0066cc}.orbe{display:none}.nav{height:44px;background:rgba(250,250,252,.94);backdrop-filter:blur(20px);position:sticky;top:0;z-index:10}.nav-inner{max-width:1200px;margin:auto;padding:0 32px;height:100%;display:flex;align-items:center;justify-content:space-between;font-size:12px;letter-spacing:0}.nav a{color:#474747;text-decoration:none}.nav a:hover{text-decoration:underline}.nav-links{display:flex;gap:28px}.envoltura{max-width:1264px;margin:auto;padding:80px 32px 40px}header{position:relative;margin-bottom:76px;animation:entra .8s var(--ease) both;display:flex;flex-direction:column;align-items:flex-start;gap:20px}header .logo-orb{display:none}header h1{font-size:clamp(56px,7vw,96px);font-weight:700;line-height:1.04;letter-spacing:-.015em}header h1 span{color:#1d1d1f}header p{font-size:21px;color:#707070;max-width:560px;margin-top:24px;line-height:1.38;letter-spacing:.011em}.eyebrow{font-size:17px;color:#474747;margin-bottom:16px}.pildora-estado{position:absolute;right:0;top:10px;display:flex;align-items:center;gap:9px;font-size:14px;background:#f5f5f7;padding:10px 18px;border-radius:999px}.punto{width:8px;height:8px;border-radius:50%;background:#a0a0a4;transition:background .5s var(--ease)}.punto.online{background:#1d1d1f}.punto.trabajando{background:#707070;animation:respira 1.5s ease-in-out infinite}.rejilla{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:start}.col{display:contents}.tarjeta{background:#f5f5f7;border:0;border-radius:28px;padding:36px;min-width:0;animation:entra .75s var(--ease) both;box-shadow:none}.tarjeta:nth-child(2){animation-delay:.09s}.tarjeta:nth-child(3){animation-delay:.15s}.col:first-child>.tarjeta:nth-child(1){grid-area:1/1}.col:first-child>.tarjeta:nth-child(2){grid-area:2/1/3/3;background:#fff;padding:76px 0}.col:first-child>.tarjeta:nth-child(3){grid-area:3/1}.col:first-child>.tarjeta:nth-child(4){grid-area:3/2}.col:nth-child(2)>.tarjeta{grid-area:1/2}.tarjeta-titulo{display:flex;gap:12px;align-items:center;margin-bottom:28px}.tarjeta-titulo .ico{display:grid;place-items:center;color:#474747;width:28px;height:28px;flex-shrink:0}.ico svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}.tarjeta-titulo h2{font-size:40px;line-height:1.15;letter-spacing:-.02em;font-weight:600}.tarjeta-titulo .sub{font-size:14px;color:#707070;margin-top:6px}.inst-pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}.inst-pill{padding:8px 18px;cursor:pointer;border-radius:999px;background:#e8e8ed;color:#474747;font-size:14px;transition:background .35s var(--ease),transform .35s var(--ease)}.inst-pill:hover{background:#dcdce1;transform:translateY(-2px)}.inst-pill.activa{background:#1d1d1f;color:#fff}.estado-hero{display:flex;align-items:center;gap:16px;margin-bottom:28px;padding:20px 0}.estado-orb{width:40px;height:40px;border-radius:50%;background:#e3e4e5;flex-shrink:0;transition:background .5s var(--ease)}.estado-orb.online{background:#474747}.estado-orb.trabajando{background:#707070;animation:respira 1.8s ease-in-out infinite}.nombre{font-size:24px;font-weight:600;letter-spacing:-.02em}.detalle{color:#707070;font-size:14px;margin-top:4px}.pill-version{display:inline-block;margin-top:8px;padding:6px 14px;border-radius:999px;background:var(--fill-tertiary,#e8e8ed);color:var(--label-secondary,#474747);font-size:13px;font-weight:600}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:32px}.stat{padding:12px 0}.stat .v{font-size:24px;font-weight:600;font-feature-settings:'tnum','numr';letter-spacing:-.025em}.stat .k{font-size:12px;color:#707070;margin-top:4px}.botones{display:flex;gap:8px;flex-wrap:wrap}.btn{padding:12px 18px;border:0;border-radius:980px;background:#e8e8ed;color:#1d1d1f;font-size:17px;font-weight:400;cursor:pointer;transition:background .35s var(--ease),transform .35s var(--ease),opacity .35s var(--ease);line-height:1.3}.botones .btn{flex:1;font-size:14px;padding:12px 13px}.btn:hover:not(:disabled){background:#dedee3;transform:translateY(-2px)}.btn:active:not(:disabled){transform:scale(.96)}.btn.primario{background:#0071e3;color:#fff}.btn.primario:hover:not(:disabled){background:#0077ed}.btn.peligro{background:transparent;color:#474747;outline:1px solid #aaa;outline-offset:-1px}.btn:disabled{opacity:.36;cursor:not-allowed}.bloque{margin-top:24px;padding:0;background:transparent}.bloque summary{display:flex;align-items:center;gap:12px;cursor:pointer;list-style:none;color:#474747;font-size:17px;padding:16px 0;transition:color .35s var(--ease)}summary::-webkit-details-marker{display:none}.bloque summary:hover{color:#1d1d1f}.bloque summary:before{content:'+';display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#e8e8ed;font-size:21px;transition:transform .4s var(--ease)}.bloque[open] summary:before{transform:rotate(45deg)}.bloque-cuerpo{display:flex;flex-direction:column;gap:20px;margin-top:16px;padding-bottom:12px;animation:entra .5s var(--ease) both}.campo{display:flex;flex-direction:column;gap:8px;min-width:0}.campo label{font-size:14px;font-weight:500;color:#474747}.ayuda{font-size:12px;color:#707070;font-weight:400}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}input[type=text],input[type=password],input[type=number],select,textarea{width:100%;padding:14px 16px;background:#fff;color:#1d1d1f;border:1px solid #d6d6d6;border-radius:14px;font-size:17px;transition:border-color .35s var(--ease),background .35s var(--ease);min-width:0}input:focus,select:focus,textarea:focus{border-color:#0066cc;outline:2px solid #0066cc;outline-offset:2px}textarea{font-family:ui-monospace,monospace;font-size:14px;min-height:240px;line-height:1.6;resize:vertical}.check-fila{display:flex;align-items:center;gap:12px;border-radius:14px;padding:16px;background:#f5f5f7;font-size:14px;cursor:pointer}.check-fila input{width:18px;height:18px;accent-color:#1d1d1f}.check-fila span{line-height:1.4}#ajustes-cuerpo{gap:24px!important;max-width:900px}.col:first-child>.tarjeta:nth-child(2)>.bloque{background:#f5f5f7;border-radius:28px;padding:8px 28px;margin-top:20px}.col:first-child>.tarjeta:nth-child(2)>.bloque .check-fila{background:#fff}.consola-caja{height:326px;overflow-y:auto;padding:20px;border-radius:20px;background:#fff;color:#474747;font-family:ui-monospace,'JetBrains Mono',monospace;font-size:13px;letter-spacing:0;line-height:1.75;scroll-behavior:smooth}.lina{white-space:pre-wrap;word-break:break-word;animation:entra .35s var(--ease) both}.lina.panel{color:#474747}.lina.error{color:#b64400}.hora{color:#888;margin-right:8px}.consola-vacia{color:#707070;padding-top:100px;text-align:center;font-size:14px}.consola-input{display:flex;gap:8px;margin-top:16px}.consola-input input{font-size:14px}.consola-input .btn{flex:0 0 auto}.jugadores-lista,.op-chips{display:flex;gap:10px;flex-wrap:wrap}.jugador,.op-chip{display:flex;align-items:center;gap:10px;padding:8px 16px 8px 8px;border-radius:999px;background:#fff;font-size:14px;animation:entra .5s var(--ease) both}.jugador img{width:34px;height:34px;border-radius:10px;image-rendering:pixelated}.op-chip button{width:28px;height:28px;border:0;border-radius:50%;background:#e8e8ed;color:#474747;cursor:pointer}.vacio{font-size:17px;color:#707070;padding:16px 0;line-height:1.47}.fila-item{display:flex;align-items:center;gap:12px;margin-bottom:12px;padding:16px;background:#fff;border-radius:20px;min-width:0;animation:entra .5s var(--ease) both}.fn{font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.fm{font-size:12px;color:#707070;margin-top:4px}.mini-btn{padding:8px 14px;background:#e8e8ed;border:0;border-radius:999px;font:inherit;font-size:14px;color:#474747;cursor:pointer;transition:background .35s var(--ease),transform .35s var(--ease);white-space:nowrap}.mini-btn:hover{background:#dcdce1;transform:translateY(-1px)}.rotacion-nota{font-size:14px;color:#707070;margin-top:16px;line-height:1.5}.input-fila,.archivo-subir{display:flex;align-items:center;gap:12px}.input-fila input{flex:1;min-width:0}.input-fila .btn{flex:0 0 auto}.seccion-sub{font-size:17px;font-weight:600;margin-top:16px}.archivo-subir input[type=file]{display:none}.nombre-archivo{font-size:14px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}footer{margin-top:100px;background:#f5f5f7;border-radius:28px;padding:28px;display:flex;gap:20px;justify-content:space-between;align-items:center;color:#707070;font-size:12px}.apagar-panel{background:none;border:0;color:#474747;text-decoration:underline;font:inherit;cursor:pointer}.toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,30px);padding:16px 24px;border-radius:28px;background:#1d1d1f;color:#fff;z-index:150;opacity:0;pointer-events:none;transition:opacity .4s var(--ease),transform .4s var(--ease);font-size:14px;max-width:90vw}.toast.ver{opacity:1;transform:translate(-50%,0)}.toast.err{background:#474747}.login-velo{position:fixed;inset:0;z-index:100;display:none;place-items:center;background:rgba(255,255,255,.94);backdrop-filter:blur(20px);overflow:auto;padding:24px}.login-velo.ver{display:grid;animation:entra .65s var(--ease) both}.login-card{width:min(480px,100%);padding:48px;text-align:left;background:#f5f5f7}.logo-orb{display:grid;place-items:center;width:48px;height:48px;border-radius:16px;background:#1d1d1f;color:#fff;font-weight:600;font-size:24px}.login-card .logo-orb{margin:0 0 32px!important}.login-card h2{font-size:40px!important;font-weight:600!important;line-height:1.1}.login-card h2 span{background:none!important;color:#1d1d1f!important;-webkit-text-fill-color:#1d1d1f}.login-card p{font-size:17px!important;margin:20px 0 28px!important}.pin-caja{text-align:center;letter-spacing:8px;font-size:21px!important}.login-card .btn{margin-top:12px!important;width:100%}#login-err{font-size:14px!important}button{touch-action:manipulation}::selection{background:#d5e8fc}::-webkit-scrollbar{width:7px}::-webkit-scrollbar-thumb{background:#d6d6d6;border-radius:999px}@keyframes entra{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}@keyframes respira{50%{opacity:.5}}@media(max-width:1050px){.tarjeta{padding:28px}.tarjeta-titulo h2{font-size:32px}.botones{flex-direction:column}.consola-caja{height:400px}}@media(max-width:740px){.nav-inner{padding:0 24px}.nav-links{gap:16px}.envoltura{padding:56px 20px 24px}header{margin-bottom:48px}header h1{font-size:56px;max-width:340px}header p{font-size:20px;margin-top:20px;max-width:300px}.pildora-estado{position:static;font-size:12px;margin-top:8px}.rejilla{display:flex;flex-direction:column;gap:20px}.col{display:contents}.tarjeta{width:100%;padding:28px}.col:first-child>.tarjeta:nth-child(1){order:1}.col:nth-child(2)>.tarjeta{order:2}.col:first-child>.tarjeta:nth-child(2){order:3;padding:56px 0}.col:first-child>.tarjeta:nth-child(3){order:4}.col:first-child>.tarjeta:nth-child(4){order:5}.tarjeta-titulo h2{font-size:32px}.grid2{grid-template-columns:1fr;gap:20px}.botones{flex-direction:row}.botones .btn{font-size:13px;padding:12px 10px}.consola-input{flex-wrap:wrap}.consola-input input{flex:1 1 100%}.consola-input .btn{width:100%}.consola-caja{height:320px}.login-card{padding:32px}.login-card h2{font-size:40px!important}footer{margin-top:56px;flex-direction:column;align-items:flex-start}.archivo-subir{flex-wrap:wrap}.nombre-archivo{flex-basis:40%}.input-fila{flex-wrap:wrap}.input-fila input{flex-basis:100%}.col:first-child>.tarjeta:nth-child(2)>.bloque{padding:8px 20px}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition-property:opacity,background-color,border-color,color,box-shadow!important;transition-duration:.18s!important;scroll-behavior:auto!important}}
 
+</style><style>.theme-toggle{position:relative;display:inline-grid;place-items:center;width:44px;height:44px;padding:0;flex-shrink:0;border:0;border-radius:999px;background:transparent;color:var(--color-primary-ink);cursor:pointer;vertical-align:middle;isolation:isolate}
+.theme-toggle:hover{background:var(--color-cool-wash)}.theme-toggle:focus-visible{outline:2px solid var(--color-focus);outline-offset:3px}
+.theme-toggle svg{position:absolute;width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;transition:opacity .65s ease-in-out,transform .65s ease-in-out;pointer-events:none}
+.theme-toggle .theme-moon{opacity:1;transform:rotate(0) scale(1)}.theme-toggle .theme-sun{opacity:0;transform:rotate(-90deg) scale(.45)}
+:root[data-theme-effective='dark'] .theme-toggle .theme-moon{opacity:0;transform:rotate(90deg) scale(.45)}
+:root[data-theme-effective='dark'] .theme-toggle .theme-sun{opacity:1;transform:rotate(0) scale(1)}
+.theme-controls{display:flex;align-items:center;gap:8px}
+@media(prefers-reduced-motion:reduce){.theme-toggle svg{transition:none}}
+</style>
+<style>:root {
+  color-scheme: light;
+  --color-primary-ink:#1d1d1f; --color-mid-gray:#707070; --color-deep-gray:#474747;
+  --color-paper:#fff; --color-canvas:#f5f5f7; --color-faded-surface:#fafafc;
+  --color-cool-wash:#e8e8ed; --color-hairline:#d6d6d6;
+  --color-electric-blue:#0071e3; --color-link-blue:#0066cc; --color-cta-ink:#fff;
+  --color-focus:#0066cc; --color-ember:#b64400; --color-quiet-dot:#777779;
+  --color-sky:#c8d8e0; --color-citrus:#dddc8c; --color-starlight:#f0e4d3;
+  --color-silver:#e3e4e5; --color-blush:#e8d0d0; --color-indigo:#596680; --color-midnight:#2e3642;
+  --font-sf-pro-display:'SF Pro Display',Inter,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --font-sf-pro-text:'SF Pro Text',Inter,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --radius-cards:28px; --radius-links:10px; --radius-badges:36px;
+  --radius-buttons:980px; --radius-smallbuttons:999px; --radius-productimages:28px;
+  --page-max-width:1200px; --section-gap:120px; --card-padding:28px; --element-gap:10px;
+  --spacing-unit:4px; --ease:cubic-bezier(.65,0,.35,1);
+}
+@media(prefers-color-scheme:dark) {
+  :root:not([data-theme='light']) {
+    color-scheme:dark;
+    --color-primary-ink:#f5f5f7; --color-mid-gray:#86868b; --color-deep-gray:#d2d2d7;
+    --color-paper:#000; --color-canvas:#1d1d1f; --color-faded-surface:#161617;
+    --color-cool-wash:#333336; --color-hairline:#424245;
+    --color-electric-blue:#2997ff; --color-link-blue:#2997ff; --color-cta-ink:#000;
+    --color-focus:#2997ff; --color-ember:#ff9f0a; --color-quiet-dot:#86868b;
+  }
+}
+:root[data-theme='dark'] {
+  color-scheme:dark;
+  --color-primary-ink:#f5f5f7; --color-mid-gray:#86868b; --color-deep-gray:#d2d2d7;
+  --color-paper:#000; --color-canvas:#1d1d1f; --color-faded-surface:#161617;
+  --color-cool-wash:#333336; --color-hairline:#424245;
+  --color-electric-blue:#2997ff; --color-link-blue:#2997ff; --color-cta-ink:#000;
+  --color-focus:#2997ff; --color-ember:#ff9f0a; --color-quiet-dot:#86868b;
+}
+:root{--bg:var(--color-paper);--glass:var(--color-canvas);--glass-strong:var(--color-cool-wash);--borde:var(--color-hairline);--txt:var(--color-primary-ink);--txt-dim:var(--color-deep-gray);--cyan:var(--color-electric-blue);--violeta:var(--color-deep-gray);--verde:var(--color-deep-gray);--ambar:var(--color-deep-gray);--rojo:var(--color-ember)}
+body{background:var(--color-paper);color:var(--color-primary-ink)}
+.nav{background:var(--color-faded-surface)}.nav a,header h1 span,header h1,.nombre,.tarjeta-titulo h2{color:var(--color-primary-ink)}
+header p,.eyebrow,.nav-links a{color:var(--color-mid-gray)}
+.tarjeta,.pildora-estado,footer,.check-fila,.col:first-child>.tarjeta:nth-child(2)>.bloque{background:var(--color-canvas);color:var(--color-primary-ink)}
+.col:first-child>.tarjeta:nth-child(2){background:var(--color-paper)}
+.tarjeta .sub,.detalle,.stat .k,.ayuda,.campo label,.bloque summary,.rotacion-nota,.vacio,.consola-vacia,.fm,.hora{color:var(--color-deep-gray)}
+.btn,.inst-pill,.mini-btn,.op-chip button,.bloque summary:before{background:var(--color-cool-wash);color:var(--color-primary-ink)}
+.btn:hover:not(:disabled),.mini-btn:hover,.inst-pill:hover{background:var(--color-hairline)}
+.btn.primario{background:var(--color-electric-blue);color:var(--color-cta-ink)}.btn.primario:hover:not(:disabled){background:#4aa7ff}
+.btn.peligro{background:transparent;outline-color:var(--color-hairline);color:var(--color-primary-ink)}
+.inst-pill.activa{background:var(--color-primary-ink);color:var(--color-paper)}
+input[type=text],input[type=password],input[type=number],select,textarea,.consola-caja,.fila-item,.op-chip,.jugador,.col:first-child>.tarjeta:nth-child(2)>.bloque .check-fila{background:var(--color-faded-surface);color:var(--color-primary-ink);border-color:var(--color-hairline)}
+input::placeholder,textarea::placeholder{color:var(--color-mid-gray)}
+.consola-caja,.lina,.lina.panel,.tarjeta-titulo .ico,.apagar-panel{color:var(--color-deep-gray)}.lina.error{color:var(--color-ember)}
+input:focus,select:focus,textarea:focus,button:focus-visible{border-color:var(--color-focus);outline-color:var(--color-focus)}
+.login-velo{background:var(--color-paper)}.login-card h2 span{color:var(--color-primary-ink)!important;-webkit-text-fill-color:var(--color-primary-ink)!important}.login-card .logo-orb{background:var(--color-primary-ink);color:var(--color-paper)}
+.toast{background:var(--color-primary-ink);color:var(--color-paper)}.toast.err{background:var(--color-canvas);color:var(--color-ember)}
+.estado-orb,.punto{background:var(--color-mid-gray)}.estado-orb.online,.punto.online{background:var(--color-primary-ink)}
+*{box-shadow:none!important}::selection{background:#003d73;color:#f5f5f7}
+</style><style>@media(max-width:740px){.nav-inner{padding:0 16px}.nav-links{gap:12px}.theme-controls{gap:4px}}</style><style id="ventanas-skin">
+.launchpad{margin-top:28px}
+.lp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:16px}
+.lp-tile{display:flex;flex-direction:column;gap:10px;background:var(--glass);border:0;border-radius:20px;padding:22px;cursor:pointer;text-align:left;font:inherit;color:var(--txt);transition:transform .35s var(--ease),background .35s var(--ease)}
+.lp-tile:hover{transform:translateY(-3px);background:var(--glass-strong)}
+.lp-tile:active{transform:scale(.97)}
+.lp-ico{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:var(--glass-strong);color:var(--cyan)}
+.lp-ico svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.lp-nombre{font-size:16px;font-weight:600;letter-spacing:-.01em}
+.lp-desc{font-size:12.5px;color:var(--txt-dim);line-height:1.35}
+.velo-ventana{position:fixed;inset:0;z-index:90;display:flex;align-items:center;justify-content:center;padding:28px;background:rgba(0,0,0,.38);backdrop-filter:blur(16px) saturate(1.2);-webkit-backdrop-filter:blur(16px) saturate(1.2);opacity:0;pointer-events:none;transition:opacity .32s var(--ease)}
+.velo-ventana.ver{opacity:1;pointer-events:auto}
+.ventana{width:min(860px,100%);max-height:min(84vh,940px);overflow-y:auto;background:var(--glass);border-radius:24px;padding:32px 36px;transform:translateY(30px) scale(.965);opacity:0;transition:transform .38s var(--ease),opacity .3s var(--ease)}
+.velo-ventana.ver .ventana{transform:none;opacity:1}
+.ventana-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:22px}
+.ventana-top h2{font-size:28px;font-weight:700;letter-spacing:-.02em;line-height:1.15}
+.ventana-top .vsub{font-size:13px;color:var(--txt-dim);margin-top:5px}
+.vx{flex-shrink:0;width:34px;height:34px;border-radius:50%;border:0;background:var(--glass-strong);color:var(--txt-dim);font-size:15px;cursor:pointer;display:grid;place-items:center;transition:transform .35s var(--ease),background .35s var(--ease)}
+.vx:hover{transform:rotate(90deg)}
+.ventana-cuerpo{display:flex;flex-direction:column;gap:14px}
+.ventana-cuerpo details.bloque{margin-top:0;background:var(--glass-strong);border-radius:16px;padding:4px 18px}
+.ventana-cuerpo details.bloque.sin-resumen summary{display:none}
+.ventana-cuerpo .check-fila{background:var(--glass-strong)}
+@media(max-width:740px){
+.velo-ventana{padding:0;align-items:flex-end}
+.ventana{width:100%;max-height:92vh;border-radius:22px 22px 0 0;padding:24px 20px 32px;transform:translateY(100%)}
+.velo-ventana.ver .ventana{transform:none}
+.lp-grid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+<style id="skin-ios26">
+/* === iOS 26 Liquid Glass skin (2026-10-20) === */
+:root{
+  --cyan:var(--color-blue); --violeta:var(--color-indigo); --verde:var(--color-green);
+  --ambar:var(--color-orange); --rojo:var(--color-red);
+  --txt:var(--label-primary); --txt-dim:var(--label-secondary);
+  --borde:var(--separator); --radio:20px; --radio-s:12px;
+  --ease:cubic-bezier(.25,.46,.45,.94);
+  --spring-snappy:cubic-bezier(.34,1.56,.64,1); --spring-bouncy:cubic-bezier(.68,-.55,.265,1.55);
+  --spring-gentle:cubic-bezier(.25,.46,.45,.94); --spring-stiff:cubic-bezier(.25,0,1,1);
+  --color-focus:var(--color-blue); --color-electric-blue:var(--color-blue); --color-ember:var(--color-red);
+}
+body{font-family:var(--font-family);background:var(--bg-grouped-primary)}
+body::before{display:none}
+.wallpaper{position:fixed;inset:0;z-index:-1;background:
+  radial-gradient(120% 90% at 15% 0%, rgba(10,132,255,.35), transparent 55%),
+  radial-gradient(100% 80% at 90% 15%, rgba(191,90,242,.30), transparent 55%),
+  radial-gradient(120% 100% at 50% 110%, rgba(48,209,88,.28), transparent 60%),
+  var(--bg-grouped-primary)}
+/* --- Liquid Glass surfaces --- */
+.tarjeta{background:rgba(250,250,250,.7);backdrop-filter:blur(40px) saturate(1.8);-webkit-backdrop-filter:blur(40px) saturate(1.8);border:0;box-shadow:0 8px 40px rgba(0,0,0,.08)}
+.lp-tile,.inst-pill,.pill-version{background:rgba(245,245,245,.6);backdrop-filter:blur(28px) saturate(1.8);-webkit-backdrop-filter:blur(28px) saturate(1.8);border:0;box-shadow:0 4px 16px rgba(0,0,0,.06)}
+.login-card{background:rgba(250,250,250,.7);backdrop-filter:blur(40px) saturate(1.8);-webkit-backdrop-filter:blur(40px) saturate(1.8);border:0;box-shadow:0 24px 80px rgba(0,0,0,.14)}
+.nav{background:rgba(255,255,255,.6);backdrop-filter:blur(40px) saturate(1.8);-webkit-backdrop-filter:blur(40px) saturate(1.8);border-bottom:.5px solid var(--separator)}
+@media (prefers-color-scheme:dark){:root:not([data-theme='light']) .tarjeta,:root:not([data-theme='light']) .login-card{background:rgba(0,0,0,.8);box-shadow:inset 0 0 0 .5px rgba(255,255,255,.06),0 8px 40px rgba(0,0,0,.4)}
+:root:not([data-theme='light']) .lp-tile,:root:not([data-theme='light']) .inst-pill,:root:not([data-theme='light']) .pill-version{background:rgba(0,0,0,.6);box-shadow:inset 0 0 0 .5px rgba(255,255,255,.06),0 4px 16px rgba(0,0,0,.3)}
+:root:not([data-theme='light']) .nav{background:rgba(0,0,0,.5)}}
+:root[data-theme='dark'] .tarjeta,:root[data-theme='dark'] .login-card{background:rgba(0,0,0,.8);box-shadow:inset 0 0 0 .5px rgba(255,255,255,.06),0 8px 40px rgba(0,0,0,.4)}
+:root[data-theme='dark'] .lp-tile,:root[data-theme='dark'] .inst-pill,:root[data-theme='dark'] .pill-version{background:rgba(0,0,0,.6);box-shadow:inset 0 0 0 .5px rgba(255,255,255,.06),0 4px 16px rgba(0,0,0,.3)}
+:root[data-theme='dark'] .nav{background:rgba(0,0,0,.5)}
+/* --- Hero --- */
+header{padding:28px 0 8px}
+header .eyebrow{color:var(--label-secondary);font-size:var(--text-footnote);font-weight:600;text-transform:none;letter-spacing:.02em}
+header h1{font-size:var(--text-large-title);line-height:41px;letter-spacing:.4px;font-weight:700;background:none;-webkit-text-fill-color:currentColor;color:var(--label-primary);margin:2px 0 6px}
+header .lema{color:var(--label-secondary);font-size:var(--text-subheadline)}
+/* --- Botones iOS --- */
+.btn{height:44px;border-radius:12px;border:0;background:var(--fill-tertiary);color:var(--label-primary);font-weight:600;font-size:var(--text-body);box-shadow:none;transition:all .18s var(--spring-snappy)}
+.btn:hover{background:var(--fill-secondary);transform:none}
+.btn:active{transform:scale(.94)}
+.btn.primario{background:var(--color-blue);color:#fff}
+.btn.primario:hover{background:#0a84ff;box-shadow:0 6px 16px rgba(0,136,255,.3)}
+.btn.peligro{background:var(--fill-tertiary);color:var(--color-red)}
+.btn.peligro:hover{background:var(--fill-secondary)}
+.btn:disabled{opacity:.45}
+/* --- Campos iOS --- */
+input[type=text],input[type=password],input[type=number],select,textarea{background:var(--fill-tertiary);border:0;border-radius:10px;min-height:40px;padding:9px 12px;color:var(--label-primary);font-size:var(--text-body);transition:box-shadow .18s var(--spring-snappy),background .18s}
+input:focus-visible,select:focus-visible,textarea:focus-visible{outline:0;box-shadow:0 0 0 3.5px rgba(0,136,255,.38);background:var(--bg-primary)}
+input[type=range]{accent-color:var(--color-blue)}
+/* --- Toggles iOS 51x31 --- */
+.check-fila input[type=checkbox]{appearance:none;-webkit-appearance:none;width:51px;height:31px;border-radius:16px;background:var(--fill-primary);position:relative;cursor:pointer;transition:background .25s var(--spring-snappy);flex:0 0 auto;margin:0}
+.check-fila input[type=checkbox]::after{content:'';position:absolute;top:2px;left:2px;width:27px;height:27px;border-radius:50%;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.2);transition:transform .25s var(--spring-snappy)}
+.check-fila input[type=checkbox]:checked{background:var(--color-green)}
+.check-fila input[type=checkbox]:checked::after{transform:translateX(20px)}
+/* --- Filas tipo lista --- */
+.fila,.check-fila,.fila-mini{border-radius:10px;transition:background .18s var(--spring-snappy)}
+.fila:hover,.check-fila:hover,.fila-mini:hover{background:var(--fill-quaternary)}
+.fila:active,.check-fila:active{background:var(--fill-tertiary)}
+/* --- Instancias (chips) --- */
+.inst-pill{border-radius:999px;transition:all .25s var(--spring-snappy)}
+.inst-pill:hover{transform:translateY(-1px)}
+.inst-pill:active{transform:scale(.96)}
+.inst-pill.activa{background:var(--color-blue);color:#fff;box-shadow:0 6px 16px rgba(0,136,255,.3)}
+/* --- Estado --- */
+.pildora-estado{background:var(--fill-tertiary);border:0;border-radius:999px;color:var(--label-secondary)}
+.estado-orb.online{background:var(--color-green);box-shadow:0 0 8px rgba(52,199,89,.5)}
+.punto.online{background:var(--color-green)}
+/* --- Launchpad --- */
+.lp-tile{border-radius:16px;position:relative;transition:all .25s var(--spring-snappy)}
+.lp-tile:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,0,0,.12)}
+.lp-tile:active{transform:scale(.97)}
+.lp-tile::after{content:'›';position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--label-tertiary);font-size:20px;font-weight:600}
+.lp-tile .ic{border-radius:7px}
+.lp-tile:nth-of-type(1) .ic{background:var(--color-blue)}.lp-tile:nth-of-type(2) .ic{background:var(--color-indigo)}
+.lp-tile:nth-of-type(3) .ic{background:var(--color-purple)}.lp-tile:nth-of-type(4) .ic{background:var(--color-orange)}
+.lp-tile:nth-of-type(5) .ic{background:var(--color-green)}.lp-tile:nth-of-type(6) .ic{background:var(--color-red)}
+/* --- Ventanas / sheets --- */
+.velo-ventana.abierto{background:rgba(0,0,0,.32);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.ventana{background:rgba(250,250,250,.82);backdrop-filter:blur(40px) saturate(1.8);-webkit-backdrop-filter:blur(40px) saturate(1.8);border:0;border-radius:20px;box-shadow:0 30px 90px rgba(0,0,0,.22);transition:transform .5s var(--spring-gentle),opacity .3s ease}
+@media (prefers-color-scheme:dark){:root:not([data-theme='light']) .ventana{background:rgba(20,20,22,.86);box-shadow:inset 0 0 0 .5px rgba(255,255,255,.06),0 30px 90px rgba(0,0,0,.55)}}
+:root[data-theme='dark'] .ventana{background:rgba(20,20,22,.86);box-shadow:inset 0 0 0 .5px rgba(255,255,255,.06),0 30px 90px rgba(0,0,0,.55)}
+.ventana.vh{border-radius:34px 34px 0 0;padding-bottom:calc(22px + env(safe-area-inset-bottom))}
+.ventana.vh::before{content:'';position:absolute;top:8px;left:50%;transform:translateX(-50%);width:36px;height:5px;border-radius:3px;background:var(--fill-primary)}
+.vx{background:var(--fill-tertiary);color:var(--label-primary);border:0;width:30px;height:30px;border-radius:50%;font-size:13px;transition:all .18s var(--spring-snappy)}
+.vx:hover{background:var(--fill-secondary)}
+.vx:active{transform:scale(.9)}
+/* --- Nav --- */
+.nav-logo .logo-txt{color:var(--label-primary)}
+.nav-a{border-radius:999px;color:var(--label-secondary);transition:all .25s var(--spring-snappy)}
+.nav-a:hover{color:var(--label-primary);background:var(--fill-quaternary)}
+.nav-a.on{color:var(--label-primary);background:var(--fill-primary)}
+.theme-toggle{background:var(--fill-tertiary);border:0;transition:all .18s var(--spring-snappy)}
+.theme-toggle:active{transform:scale(.9)}
+/* --- Toast arriba-centro bouncy --- */
+.toast{top:20px;bottom:auto;left:50%;transform:translate(-50%,-200%) scale(.9);background:rgba(28,28,30,.72);backdrop-filter:blur(28px) saturate(1.8);-webkit-backdrop-filter:blur(28px) saturate(1.8);color:#fff;border-radius:999px;padding:12px 20px;box-shadow:0 12px 40px rgba(0,0,0,.28);font-size:var(--text-subheadline);font-weight:600;transition:transform .4s var(--spring-snappy),opacity .25s}
+.toast.visible{transform:translate(-50%,0) scale(1)}
+/* --- Consola --- */
+.consola-caja{background:rgba(10,10,12,.86);backdrop-filter:blur(40px) saturate(1.6);-webkit-backdrop-filter:blur(40px) saturate(1.6);border:0;border-radius:16px;color:#e5e5ea;font-family:ui-monospace,Menlo,Consolas,monospace}
+/* --- Login --- */
+.login-btn{border-radius:12px;height:44px}
+/* --- Pie --- */
+footer{color:var(--label-secondary);font-size:var(--text-footnote)}
+/* --- refinamientos ronda 2 --- */
+.login-velo{background:rgba(255,255,255,.35);backdrop-filter:blur(24px) saturate(1.8);-webkit-backdrop-filter:blur(24px) saturate(1.8)}
+@media (prefers-color-scheme:dark){:root:not([data-theme='light']) .login-velo{background:rgba(0,0,0,.4)}}
+:root[data-theme='dark'] .login-velo{background:rgba(0,0,0,.4)}
+input:focus,select:focus,textarea:focus{outline:0;border-color:transparent}
+.check-fila{background:var(--fill-quaternary)}
+.fila-item,.jugador,.op-chip{background:var(--fill-quaternary);border:0;color:var(--label-primary)}
+.mini-btn{background:var(--fill-tertiary);border:0;color:var(--label-primary);transition:all .18s var(--spring-snappy)}
+.mini-btn:hover{background:var(--fill-secondary)}
+.mini-btn:active{transform:scale(.94)}
+footer{background:var(--fill-quaternary);border:0;color:var(--label-secondary)}
+.pin-caja{background:var(--fill-tertiary);border:0}
+@media (prefers-color-scheme:dark){:root:not([data-theme='light']) .consola-caja{background:rgba(10,10,12,.86)}}
+@media (prefers-color-scheme:dark){:root:not([data-theme='light']) .inst-pill.activa{background:var(--color-blue);color:#fff;box-shadow:0 6px 16px rgba(0,136,255,.3)}}
+:root[data-theme='dark'] .inst-pill.activa{background:var(--color-blue);color:#fff;box-shadow:0 6px 16px rgba(0,136,255,.3)}
+.inst-pill.activa .punto{background:#fff}
+
+</style>
+<style id="skin-ios26-pulido">
+/* === lote 9: pulido iOS (restos Apple -> tokens) === */
+.tarjeta-titulo h2{font-size:var(--text-title3);line-height:25px;letter-spacing:-.45px;font-weight:600;color:var(--label-primary)}
+.tarjeta-titulo p,.sub{color:var(--label-secondary);font-size:var(--text-subheadline)}
+.bloque summary{color:var(--label-primary);font-weight:600;font-size:var(--text-body);transition:color .18s var(--spring-snappy)}
+.bloque summary:before{background:var(--fill-tertiary);color:var(--label-secondary);transition:transform .3s var(--spring-snappy),background .18s}
+.bloque summary:hover:before{background:var(--fill-secondary)}
+.ayuda,.fm,.consola-vacia,.vacio,.rotacion-nota,.hora,.nombre-archivo{color:var(--label-secondary)}
+.lina.panel{color:var(--label-secondary)}
+.lina.error{color:var(--color-red)}
+::selection{background:rgba(0,136,255,.24)}
+::-webkit-scrollbar-thumb{background:var(--fill-primary)}
+.login-card .logo-orb{background:linear-gradient(135deg,#0a84ff,#0088ff);border-radius:14px}
+.op-chip button{background:var(--fill-tertiary);color:var(--label-secondary);transition:all .18s var(--spring-snappy)}
+.op-chip button:hover{background:var(--fill-secondary);color:var(--label-primary)}
+.jugador img{border-radius:8px}
+.seccion-sub{color:var(--label-primary);font-size:var(--text-headline);font-weight:600}
+.stat .k{color:var(--label-secondary);font-size:var(--text-caption1);text-transform:uppercase;letter-spacing:.04em}
+.stat .v{color:var(--label-primary)}
+.apagar-panel{color:var(--label-secondary)}
+.apagar-panel:hover{color:var(--color-red)}
+code,.mono,kbd{background:var(--fill-quaternary);border-radius:6px}
+
+</style>
+<style id="skin-ios26-lote10">
+/* lote 10: consola con niveles + ir al final + bloques anidados */
+.lina.err,.lina.error{color:var(--color-red)}
+.lina.warn{color:var(--color-orange)}
+.lina.chat{color:#f5f5f7}
+.lina.join{color:var(--color-green)}
+.lina .hora{color:var(--label-tertiary)}
+.consola-bajar{margin-top:10px;align-items:center;gap:6px}
+.col:first-child>.tarjeta:nth-child(2)>.bloque{background:var(--fill-quaternary)}
+.col:first-child>.tarjeta:nth-child(2)>.bloque .check-fila{background:var(--fill-tertiary)}
+</style>
+<style id="skin-ios26-lote11">
+/* lote 11: chevron selects, toast con icono, foco visible, headers agrupados */
+select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path d='M2.5 4.5 6 8l3.5-3.5' fill='none' stroke='%238e8e93' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/></svg>");background-repeat:no-repeat;background-position:right 12px center;padding-right:34px}
+.toast.ver::before{content:'\2713';color:var(--color-green);font-weight:700;margin-right:8px}
+.toast.ver.err::before{content:'!';color:var(--color-red)}
+.btn:focus-visible,.mini-btn:focus-visible,.inst-pill:focus-visible,.lp-tile:focus-visible,.nav-a:focus-visible,.vx:focus-visible,.theme-toggle:focus-visible{outline:0;box-shadow:0 0 0 3.5px rgba(0,136,255,.38)}
+.seccion-sub{color:var(--label-secondary);font-size:var(--text-footnote);font-weight:400;text-transform:uppercase;letter-spacing:.02em;margin-top:24px}
+.toast.ver.err{background:rgba(28,28,30,.72);color:#fff}
+.toast.ver.err::before{color:var(--color-red)}
+</style>
+<style id="skin-ios26-lote12">
+/* lote 12: aviso copia vieja */
+.aviso-copia{background:rgba(255,141,40,.14);color:var(--color-orange);border-radius:12px;padding:12px 16px;font-size:14px;font-weight:600;margin-bottom:12px}
+</style>
+<style id="skin-ios26-lote13">
+/* lote 13: ventana de atajos */
+.atajo-fila{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:13px 2px;border-bottom:.5px solid var(--separator,rgba(60,60,67,.12));font-size:15px}
+.atajo-fila:last-child{border-bottom:0}
+kbd{display:inline-grid;place-items:center;min-width:30px;height:30px;padding:0 8px;border-radius:8px;background:var(--fill-tertiary,#f5f5f7);box-shadow:inset 0 0 0 .5px var(--separator,rgba(60,60,67,.12)),0 1px 2px rgba(0,0,0,.08);font:600 13px/1 ui-monospace,'SF Mono',Menlo,monospace;color:var(--label,#1d1d1f)}
+</style>
+<style id="skin-ios26-lote14">
+/* lote 14: animacion perfeccionada de bloques plegables */
+.bloque summary{position:relative}
+.bloque summary:before{display:none}
+.bloque summary .plus{flex:0 0 auto;display:inline-block;width:28px;height:28px;border-radius:50%;background:var(--fill-tertiary,#e8e8ed);color:var(--label-secondary,#474747);transition:transform .6s cubic-bezier(.34,1.25,.4,1),background .3s var(--ease),color .3s var(--ease)}
+.bloque summary .plus i{position:absolute;left:50%;top:50%;width:12px;height:1.8px;border-radius:2px;background:currentColor;transform:translate(-50%,-50%)}
+.bloque summary .plus i:last-child{transform:translate(-50%,-50%) rotate(90deg)}
+.bloque summary{position:relative}
+.bloque summary .plus{position:relative}
+.bloque summary:hover .plus{background:var(--fill-secondary,#e2e2e7);transform:scale(1.08)}
+.bloque summary:active .plus{transform:scale(.9)}
+.bloque[open] summary .plus{transform:rotate(45deg)}
+.bloque[open] summary:hover .plus{transform:rotate(45deg) scale(1.08)}
+.bloque[open] summary:active .plus{transform:rotate(45deg) scale(.9)}
+.bloque-cuerpo{display:grid;grid-template-rows:0fr;opacity:0;transform:translateY(-8px);transition:grid-template-rows .48s cubic-bezier(.32,.9,.3,1),opacity .32s var(--ease),transform .48s cubic-bezier(.32,.9,.3,1);animation:none;margin-top:0}
+.bloque-cuerpo .bloque-inner{overflow:hidden;min-height:0;display:flex;flex-direction:column;gap:20px}
+details.bloque.abierto .bloque-cuerpo{grid-template-rows:1fr;opacity:1;transform:none}
+details.bloque.cerrando .bloque-cuerpo{grid-template-rows:0fr;opacity:0;transform:translateY(-8px)}
+details.bloque.sin-resumen .bloque-cuerpo{display:flex;opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.bloque-cuerpo,.bloque summary .plus{transition:none!important}}
+@media(prefers-contrast:more){.bloque summary .plus i{height:2.4px;background:var(--label,#1d1d1f)}}
+</style>
+<style id="skin-ios26-lote15">
+/* lote 15: ajustes de accesibilidad del sistema (doc Apple: probar con configuraciones de pantalla y accesibilidad) */
+@media (prefers-reduced-transparency: reduce){
+  :root{--material-chrome-opacity:1!important;--material-thick-opacity:1!important;--material-regular-opacity:1!important;--material-thin-opacity:1!important;--material-ultrathin-opacity:1!important}
+  .material-chrome,.material-thick,.material-regular,.material-thin,.material-ultrathin,.velo-ventana{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+  .velo-ventana{background:rgba(0,0,0,.55)}
+  .ventana{background:#fdfdfd}
+  :root[data-theme='dark'] .ventana{background:#1c1c1e}
+  @media (prefers-color-scheme: dark){ :root:not([data-theme='light']) .ventana{background:#1c1c1e} }
+}
+@media (prefers-contrast: more){
+  .fm,.ayuda,.vacio,.rotacion-nota,.vsub,.stat .k,.campo label{color:#3a3a3c}
+  [data-theme="dark"] .fm,[data-theme="dark"] .ayuda,[data-theme="dark"] .vacio,[data-theme="dark"] .rotacion-nota,[data-theme="dark"] .vsub,[data-theme="dark"] .stat .k,[data-theme="dark"] .campo label{color:#aeaeb2}
+  .fila-item,.check-fila,.tarjeta,.consola-caja{outline:1px solid rgba(60,60,67,.32);outline-offset:-1px}
+  [data-theme="dark"] .fila-item,[data-theme="dark"] .check-fila,[data-theme="dark"] .tarjeta,[data-theme="dark"] .consola-caja{outline-color:rgba(235,235,245,.38)}
+  .atajo-fila{border-bottom-width:1px}
+}
+</style>
+<style id="skin-ios26-lote16">
+/* lote 16: hojas y ventanas segun HIG (scroll edge, grabber, zonas tactiles 44px, destructivo rojo) */
+.ventana{display:flex;flex-direction:column}
+.ventana-cuerpo{overflow:visible}
+.ventana{padding:0 36px 32px;scrollbar-width:none}
+.ventana::-webkit-scrollbar{display:none}
+.ventana-top{position:sticky;top:0;z-index:5;margin:0 -36px 22px;padding:32px 36px 14px;border-radius:20px 20px 0 0;background:linear-gradient(rgba(250,250,250,.97),rgba(250,250,250,.88));backdrop-filter:blur(28px) saturate(1.8);-webkit-backdrop-filter:blur(28px) saturate(1.8)}
+:root[data-theme='dark'] .ventana-top{background:linear-gradient(rgba(24,24,26,.97),rgba(24,24,26,.88))}
+@media (prefers-color-scheme:dark){:root:not([data-theme='light']) .ventana-top{background:linear-gradient(rgba(24,24,26,.97),rgba(24,24,26,.88))}}
+.ventana:before{content:'';display:none}
+@media (max-width:740px){
+  .ventana:before{display:none!important}
+  .ventana-top{flex-wrap:wrap}
+  .ventana-top>div{flex:1;min-width:0}
+  .ventana-top:before{content:'';flex:0 0 100%;max-width:36px;height:5px;border-radius:3px;background:var(--fill-secondary,#d6d6d6);margin:0 auto 10px}
+  .ventana{padding:0 20px 40px}
+  .ventana.vh{padding-bottom:calc(40px + env(safe-area-inset-bottom))}
+  .ventana.vh .ventana-top{border-radius:34px 34px 0 0}
+  .ventana-top{margin:0 -20px 18px;padding:20px 20px 12px;border-radius:22px 22px 0 0}
+}
+.vx{position:relative}
+.vx:after{content:'';position:absolute;inset:-7px}
+.mini-btn{position:relative}
+.mini-btn:after{content:'';position:absolute;inset:-6px}
+.btn.peligro{color:var(--color-system-red,#ff3b30);outline-color:rgba(255,59,48,.45)}
+:root[data-theme='dark'] .btn.peligro{color:#ff6961;outline-color:rgba(255,105,97,.45)}
+@media (prefers-color-scheme:dark){:root:not([data-theme='light']) .btn.peligro{color:#ff6961;outline-color:rgba(255,105,97,.45)}}
+.btn.peligro:hover:not(:disabled){background:rgba(255,59,48,.1);outline-color:rgba(255,59,48,.7)}
+@media (prefers-reduced-transparency: reduce){.ventana-top{background:#fdfdfd}:root[data-theme='dark'] .ventana-top{background:#1c1c1e}}
+.btn .spin{display:inline-block;width:15px;height:15px;margin-right:8px;vertical-align:-2px;border-radius:50%;border:2px solid currentColor;border-top-color:transparent;opacity:.9;animation:gira .7s linear infinite}
+@keyframes gira{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.btn .spin{animation-duration:1.8s}}
+.btn[data-ocupado]:disabled{opacity:1;cursor:progress}
+.nav{border-bottom:.5px solid rgba(127,127,127,0);transition:border-bottom-color .3s var(--ease)}
+.nav.baja{border-bottom-color:rgba(127,127,127,.35)}
+.nav-marca{transition:color .3s var(--ease),font-weight .3s var(--ease);color:var(--label-secondary,#474747)}
+.nav.baja .nav-marca{color:var(--label-primary,#1d1d1f);font-weight:600}
+/* lote 20: titulo grande que se encoge al scroll, botones movil en una linea, indicadores con forma+color */
+header h1{transform:scale(calc(1 - var(--encoger,0)*.32));transform-origin:left bottom}
+header .eyebrow,header p{opacity:calc(1 - var(--encoger,0))}
+header{margin-bottom:calc(76px - var(--encoger,0)*44px)}
+@media(max-width:740px){header{margin-bottom:calc(48px - var(--encoger,0)*26px)}}
+.botones .btn{white-space:nowrap}
+@media(max-width:740px){.botones{gap:6px}.botones .btn{font-size:12px;padding:12px 8px}}
+.punto{background:transparent;border:1.5px solid var(--color-mid-gray,#a0a0a4);transition:background .5s var(--ease),border-color .5s var(--ease)}
+.punto.online{background:var(--color-primary-ink,#1d1d1f);border-color:transparent}
+.punto.trabajando{background:var(--color-mid-gray,#707070);border-color:transparent}
+.estado-orb{background:transparent;border:2px solid var(--color-mid-gray,#c7c7cc);transition:background .5s var(--ease),border-color .5s var(--ease)}
+.estado-orb.online,.estado-orb.trabajando{border-color:transparent}
+@media(prefers-reduced-motion:reduce){header h1{transform:none!important}header .eyebrow,header p{opacity:1!important}header{margin-bottom:76px!important}}
+@media(prefers-reduced-motion:reduce) and (max-width:740px){header{margin-bottom:48px!important}}
+/* lote 22: escala tipografica Apple - tracking por tamano (SF: mas apretado en grande, abierto en pequeno), titulos semibold, cabeceras de seccion pequenas en mayusculas */
+body{letter-spacing:-.022em}
+header h1{letter-spacing:-.03em;font-weight:700}
+.tarjeta-titulo h2{letter-spacing:-.022em}
+.nombre{letter-spacing:-.021em}
+.stat .v{letter-spacing:-.02em}
+.btn,.inst-pill,.mini-btn,input,select,textarea{letter-spacing:-.016em}
+.campo label,.fn{letter-spacing:-.006em}
+.ayuda,.fm,.detalle,.pill-version,.pildora-estado,.toast{letter-spacing:0}
+.stat .k{font-size:var(--text-caption1,12px);font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.seccion-sub,.campo-grupo{font-size:var(--text-subheadline,15px);font-weight:600;text-transform:none;letter-spacing:-.01em;margin-top:24px}
+.vtitulo,.ventana-top h2{letter-spacing:-.022em}
+/* lote 23: accesibilidad - contraste WCAG AA en la consola (caja oscura en ambos temas) */
+:root .consola-caja .lina,:root .consola-caja .lina.panel{color:#e5e5ea}
+:root .consola-caja .lina.err,:root .consola-caja .lina.error{color:#ff6961}
+:root .consola-caja .lina.warn{color:#ffb340}
+:root .consola-caja .lina.join{color:#30d158}
+:root .consola-caja .lina .hora{color:#a1a1a6}
+:root .consola-caja .consola-vacia{color:#a1a1a6}
+/* lote 24 (revision final): grabber centrado en movil (era un flex item en la fila del titulo) y botones de ventana que ajustan lineas sin desbordar */
+.ventana .btn{height:auto;min-height:44px;white-space:normal;line-height:1.25;padding-top:11px;padding-bottom:11px}
+@media (max-width:740px){
+  .ventana-top:before{position:absolute;top:8px;left:50%;transform:translateX(-50%);flex:none;width:36px;max-width:none;height:5px;margin:0}
+  .ventana-top{padding-top:26px}
+}
 </style>
 </head>
 <body>
-<nav class="nav"><div class="nav-inner"><a href="#">Kike Hosting</a><div class="nav-links"><a href="#inst-pills">Servidor</a><a href="#ajustes-cuerpo">Ajustes</a><a href="#copias">Copias</a></div></div></nav>
+<div class="wallpaper"></div>
+<nav class="nav"><div class="nav-inner"><a href="#" class="nav-marca">Kike Hosting</a><div class="theme-controls"><div class="nav-links"><a href="#inst-pills">Servidor</a><a href="#" onclick="abrirVentana('v-ajustes');return false">Ajustes</a><a href="#" onclick="abrirVentana('v-copias');return false">Copias</a></div><button class="theme-toggle" type="button" aria-label="Cambiar a modo oscuro" title="Cambiar a modo oscuro"><svg class="theme-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 13.1A8.6 8.6 0 0 1 10.9 3.5a8.6 8.6 0 1 0 9.6 9.6Z"/></svg><svg class="theme-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg></button>
+</div></div></nav>
   <div class="orbe orbe-1"></div>
   <div class="orbe orbe-2"></div>
   <div class="orbe orbe-3"></div>
@@ -39,6 +1482,7 @@
             <div>
               <div class="nombre" id="inst-nombre">—</div>
               <div class="detalle" id="inst-detalle">Sin instancia seleccionada</div>
+              <div class="pill-version" id="pill-version" style="display:none"></div>
             </div>
           </div>
           <div class="stats">
@@ -55,10 +1499,28 @@
             <summary>Nueva instancia</summary>
             <form class="bloque-cuerpo" onsubmit="crearInstancia(event)">
               <div class="campo"><label>Nombre</label><input type="text" id="nueva-nombre" placeholder="test" pattern="[A-Za-z0-9_\-]+" maxlength="32" required></div>
+              <div class="campo"><label>Tipo de servidor</label><select id="nueva-tipo"><option value="vanilla">Vanilla (oficial Mojang)</option><option value="paper">Paper (plugins)</option><option value="purpur">Purpur (plugins)</option><option value="fabric">Fabric (mods)</option><option value="forge">Forge (mods)</option><option value="neoforge">NeoForge (mods)</option></select></div>
               <div class="campo"><label>Versión</label><select id="nueva-version"></select></div>
               <button class="btn primario" type="submit" id="btn-crear">Crear servidor</button>
             </form>
           </details>
+          <details class="bloque" id="importar-mundo">
+            <summary>Importar mundo</summary>
+            <form class="bloque-cuerpo" onsubmit="importarMundo(event)">
+              <p class="ayuda">Mundo Java Edition en .zip, con level.dat en la raíz o dentro de una carpeta. Hasta 2 GiB comprimidos y 8 GiB descomprimidos. No se enciende el servidor al importar.</p>
+              <div class="campo"><label for="import-zip">Archivo del mundo</label><div class="archivo-subir"><input id="import-zip" type="file" accept=".zip,application/zip" required onchange="$('import-filename').textContent=this.files[0]?.name||'Ningún archivo seleccionado'"><button class="btn" type="button" onclick="$('import-zip').click()">Elegir ZIP</button><span id="import-filename" class="nombre-archivo">Ningún archivo seleccionado</span></div></div>
+              <div class="campo"><label for="import-mode">Destino</label><select id="import-mode" onchange="modoImportar()"><option value="new">Nueva instancia (recomendado)</option><option value="existing">Sustituir mundo seleccionado</option></select></div>
+              <div id="import-new" class="bloque-cuerpo" style="margin-top:0">
+                <div class="campo"><label for="import-name">Nombre nuevo</label><input id="import-name" type="text" maxlength="32" pattern="[A-Za-z0-9_-]+" placeholder="mi-mundo"></div>
+                <div class="campo"><label for="import-version">Versión del mundo</label><select id="import-version"></select><span class="ayuda">Usa la versión con la que guardaste el mundo. No abras mundos nuevos en versiones antiguas.</span></div>
+              </div>
+              <div id="import-replace" hidden><label class="check-fila"><input id="import-confirm" type="checkbox"><span>Confirmo que quiero sustituir el mundo seleccionado. Debe estar apagado; antes se guardará una copia automática.</span></label></div>
+              <progress id="import-progress" max="100" value="0" style="width:100%;accent-color:var(--cyan)" hidden></progress>
+              <p id="import-status" class="ayuda" role="status" aria-live="polite"></p>
+              <button id="import-submit" class="btn primario" type="submit">Importar mundo</button>
+            </form>
+          </details>
+
         </section>
 
         <section class="tarjeta">
@@ -94,7 +1556,7 @@
             <summary>Operadores (ops)</summary>
             <div class="bloque-cuerpo">
               <div class="input-fila">
-                <input type="text" id="op-nombre" placeholder="Nombre de jugador (ej: Jugador)" maxlength="16">
+                <input type="text" id="op-nombre" placeholder="Nombre de jugador (ej: _4DRI4N_)" maxlength="16">
                 <button class="btn" onclick="addOp()">Dar op</button>
               </div>
               <div class="op-chips" id="op-chips"><div class="vacio">Sin ops.</div></div>
@@ -127,13 +1589,37 @@
           </details>
 
           <details class="bloque">
+            <summary>Versión y tipo de servidor</summary>
+            <div class="bloque-cuerpo">
+              <div class="ayuda" id="srv-actual">Ahora: —</div>
+              <div class="grid2">
+                <div class="campo"><label>Tipo</label><select id="cambio-tipo"><option value="vanilla">Vanilla (oficial Mojang)</option><option value="paper">Paper (plugins)</option><option value="purpur">Purpur (plugins)</option><option value="fabric">Fabric (mods)</option><option value="forge">Forge (mods)</option><option value="neoforge">NeoForge (mods)</option></select></div>
+                <div class="campo"><label>Versión</label><select id="cambio-version"></select></div>
+              </div>
+              <div class="ayuda">Cambiar hace primero una copia de seguridad del mundo. El mundo no se toca y el servidor debe estar apagado.</div>
+              <button class="btn" type="button" id="btn-cambiar-srv" onclick="cambiarServidor()">Cambiar (con copia de seguridad)</button>
+            </div>
+          </details>
+
+          <details class="bloque">
+            <summary>Plugins y mods</summary>
+            <div class="bloque-cuerpo">
+              <div id="addons-body"><div class="vacio">Elige una instancia.</div></div>
+            </div>
+          </details>
+
+          <details class="bloque">
             <summary>Rendimiento y editor avanzado</summary>
             <div class="bloque-cuerpo">
               <div class="grid2">
                 <div class="campo"><label>RAM del servidor (GB)</label><input type="number" id="panel-ram" min="1" max="24" step="1"></div>
                 <div class="campo"><label>Copias automáticas (min)</label><input type="number" id="panel-backup-min" min="5" max="1440" step="5"></div>
+                <div class="campo"><label>Apagar si está vacío (min) <span class="ayuda">0 = nunca</span></label><input type="number" id="panel-autostop-min" min="0" max="120" step="5"></div>
               </div>
+              <label class="check-fila"><input type="checkbox" id="panel-autostart"><span>Arrancar el último servidor al abrir el panel <span class="ayuda">si se va la luz y el PC vuelve, el servidor se enciende solo</span></span></label>
+              <div class="campo"><label>Copia extra en otro disco (carpeta) <span class="ayuda">vacío = desactivado; cada copia se replica ahí con la misma rotación</span></label><input type="text" id="panel-mirror-dir" placeholder="F:\KikeHosting-Backups"></div>
               <div class="campo"><label>Argumentos Java extra <span class="ayuda">solo si sabes lo que haces</span></label><input type="text" id="panel-extra-args" placeholder="-XX:+UseG1GC …"></div>
+              <button class="btn" type="button" onclick="ponerFlagsAikar()">⚡ Rellenar flags optimizados (Aikar)</button>
               <button class="btn" onclick="guardarPanelConfig()">Guardar rendimiento</button>
               <div class="seccion-sub">PIN del panel</div>
               <div class="grid2">
@@ -157,6 +1643,7 @@
           <div class="tarjeta-titulo"><div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 4h14l3 3v13H3V4zM7 4v6h10V4M7 20v-6h10v6"/></svg></div><div><h2>Copias de seguridad</h2><div class="sub">Del mundo, automáticas y manuales</div></div></div>
           <div id="copias"><div class="vacio">Todavía no hay copias.</div></div>
           <button class="btn" style="margin-top:8px;width:100%" id="btn-backup" onclick="backupAhora()" disabled>Crear copia ahora</button>
+          <div class="fm" id="disk-free" style="margin-top:8px"></div>
           <p class="rotacion-nota" id="rotacion-nota"></p>
           <details class="bloque">
             <summary>Restaurar una copia</summary>
@@ -176,17 +1663,39 @@
             <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9l3 3-3 3m6 0h4"/></svg></div><div><h2>Consola en vivo</h2><div class="sub">Todo lo que dice el servidor, al momento</div></div>
           </div>
           <div class="consola-caja" id="consola"><div class="consola-vacia">La consola cobra vida cuando enciendas el servidor.</div></div>
+          <button id="consola-bajar" class="mini-btn consola-bajar" onclick="bajarConsola()" style="display:none">↓ Ir al final</button>
           <div class="consola-input">
-            <input type="text" id="cmd" placeholder="Escribe un comando: say hola, list, op Jugador…" onkeydown="cmdKey(event)">
+            <input type="text" id="cmd" placeholder="Escribe un comando: say hola, list, op 4DRI4N…" onkeydown="cmdKey(event)">
             <button class="btn" id="btn-cmd" onclick="enviarCmd()">Enviar</button>
           </div>
         </section>
       </div>
     </div>
 
-    <footer>
-      <span>Kike Hosting · protegido con PIN · acceso local y Tailscale</span>
+<section class="launchpad" id="launchpad"><div class="lp-grid"><button class="lp-tile" onclick="abrirVentana('v-ajustes')"><span class="lp-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v3m0 14v3M2 12h3m14 0h3M5 5l2 2m10 10l2 2M5 19l2-2M17 7l2-2"/></svg></span><span class="lp-nombre">Ajustes</span><span class="lp-desc">Mundo, operadores, lista blanca y datapacks</span></button><button class="lp-tile" onclick="abrirVentana('v-version')"><span class="lp-ico"><svg viewBox="0 0 24 24"><path d="M12 3v12m0 0l-4-4m4 4l4-4"/><path d="M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg></span><span class="lp-nombre">Versión y tipo</span><span class="lp-desc">Vanilla, Paper, Fabric, Forge y más</span></button><button class="lp-tile" onclick="abrirVentana('v-plugins')"><span class="lp-ico"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/><path d="M17 3v8h8M3 13h8v8"/></svg></span><span class="lp-nombre">Plugins y mods</span><span class="lp-desc">Instala de Modrinth o sube tus .jar</span></button><button class="lp-tile" onclick="abrirVentana('v-copias')"><span class="lp-ico"><svg viewBox="0 0 24 24"><path d="M4 4h14l3 3v13H3V4zM7 4v6h10V4M7 20v-6h10v6"/></svg></span><span class="lp-nombre">Copias</span><span class="lp-desc">Automáticas, manuales y restaurar</span></button><button class="lp-tile" onclick="abrirVentana('v-jugadores')"><span class="lp-ico"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 21v-3a6 6 0 0112 0v3M16 5a3 3 0 010 6m3 10v-3a6 6 0 00-2-4"/></svg></span><span class="lp-nombre">Jugadores</span><span class="lp-desc">Quién está dentro ahora</span></button><button class="lp-tile" onclick="abrirVentana('v-rendimiento')"><span class="lp-ico"><svg viewBox="0 0 24 24"><path d="M4 14a8 8 0 1116 0"/><path d="M12 14l4-4"/><path d="M2 14h2m16 0h2"/></svg></span><span class="lp-nombre">Rendimiento</span><span class="lp-desc">RAM, flags y editor avanzado</span></button></div></section>
+
+    <div class="velo-ventana" id="v-atajos" onclick="if(event.target===this)cerrarVentana('v-atajos')">
+  <div class="ventana" role="dialog" aria-modal="true">
+    <div class="ventana-top"><div><h2>Atajos de teclado</h2><div class="vsub">Para moverte más rápido por el panel</div></div><button class="vx" aria-label="Cerrar" title="Cerrar (Esc)" onclick="cerrarVentana('v-atajos')">✕</button></div>
+    <div class="ventana-cuerpo">
+      <div class="atajo-fila"><span>Escribir un comando en la consola</span><kbd>/</kbd></div>
+      <div class="atajo-fila"><span>Copias de seguridad</span><kbd>C</kbd></div>
+      <div class="atajo-fila"><span>Jugadores conectados</span><kbd>J</kbd></div>
+      <div class="atajo-fila"><span>Ajustes</span><kbd>A</kbd></div>
+      <div class="atajo-fila"><span>Rendimiento y avanzado</span><kbd>R</kbd></div>
+      <div class="atajo-fila"><span>Versión y tipo</span><kbd>V</kbd></div>
+      <div class="atajo-fila"><span>Plugins y mods</span><kbd>P</kbd></div>
+      <div class="atajo-fila"><span>Cambiar entre modo claro y oscuro</span><kbd>T</kbd></div>
+      <div class="atajo-fila"><span>Esta ventana de atajos</span><kbd>?</kbd></div>
+      <div class="atajo-fila"><span>Cerrar cualquier ventana</span><kbd>Esc</kbd></div>
+    </div>
+  </div>
+</div>
+<footer>
+      <span>Kike Hosting · v3 · protegido con PIN · solo escucha en este PC y tu Tailscale</span>
       <span>
+        <button class="apagar-panel" onclick="abrirVentana('v-atajos')">Atajos</button>
+        &nbsp;·&nbsp;
         <button class="apagar-panel" onclick="salir()">Salir</button>
         &nbsp;·&nbsp;
         <button class="apagar-panel" onclick="apagarPanel()">Apagar el panel</button>
@@ -195,7 +1704,8 @@
   </div>
 
   <div class="login-velo" id="login-velo">
-    <div class="tarjeta login-card">
+    <div class="tarjeta login-card" style="position:relative"><div style="position:absolute;top:12px;right:12px"><button class="theme-toggle" type="button" aria-label="Cambiar a modo oscuro" title="Cambiar a modo oscuro"><svg class="theme-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 13.1A8.6 8.6 0 0 1 10.9 3.5a8.6 8.6 0 1 0 9.6 9.6Z"/></svg><svg class="theme-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg></button>
+</div>
       <div class="logo-orb" style="margin:0 auto 16px">K</div>
       <h2 style="font-size:21px;font-weight:800;letter-spacing:-.4px">Kike <span style="background:linear-gradient(90deg,#67e8f9,#a78bfa);-webkit-background-clip:text;background-clip:text;color:transparent">Hosting</span></h2>
       <p id="login-sub" style="color:var(--txt-dim);font-size:13px;margin:8px 0 20px;line-height:1.55">Escribe tu PIN para entrar.</p>
@@ -215,6 +1725,19 @@ let instancia = null;
 let historial = [], hIdx = -1;
 const $ = id => document.getElementById(id);
 
+function btnProgreso(btn, txt) {
+  if (!btn || btn.dataset.ocupado) return;
+  btn.dataset.ocupado = '1';
+  btn.dataset.txt = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spin" aria-hidden="true"></span>' + txt;
+}
+function btnListo(btn) {
+  if (!btn || !btn.dataset.ocupado) return;
+  delete btn.dataset.ocupado;
+  btn.innerHTML = btn.dataset.txt;
+  btn.disabled = false;
+}
 function toast(msg, err) {
   if (!msg) return;
   const t = $('toast');
@@ -284,16 +1807,19 @@ async function salir() {
 }
 async function cambiarPin() {
   const a = $('pin-actual').value.trim(), n = $('pin-nuevo').value.trim();
+  const b = (window.event && window.event.target && window.event.target.closest) ? window.event.target.closest('button') : null;
+  btnProgreso(b, 'Cambiando...');
   try {
     await api('/api/panel/pin', { body: { current: a, next: n } });
     $('pin-actual').value = ''; $('pin-nuevo').value = '';
     toast('PIN cambiado');
   } catch (e) { toast(e.message, true); }
+  btnListo(b);
 }
 
 function pintarEstado(data) {
   const lista = data.instances || [];
-  if (!instancia || !lista.find(i => i.name === instancia)) instancia = lista.length ? lista[0].name : null;
+  const antesI = instancia; if (!instancia || !lista.find(i => i.name === instancia)) instancia = lista.length ? lista[0].name : null; if (instancia && instancia !== antesI) cargarAddons();
   const inst = lista.find(i => i.name === instancia);
   $('inst-pills').innerHTML = lista.map(i =>
     `<div class="inst-pill${i.name === instancia ? ' activa' : ''}" onclick="elegirInstancia('${i.name}')">${esc(i.name)}${i.status !== 'offline' ? ' ●' : ''}</div>`
@@ -303,13 +1829,21 @@ function pintarEstado(data) {
   pill.className = 'punto' + (st === 'online' ? ' online' : (st === 'starting' || st === 'stopping' ? ' trabajando' : ''));
   orb.className = 'estado-orb' + (st === 'online' ? ' online' : (st === 'starting' || st === 'stopping' ? ' trabajando' : ''));
   $('texto-estado').textContent = st === 'online' ? 'Encendido' : st === 'starting' ? 'Encendiendo…' : st === 'stopping' ? 'Apagando…' : 'Apagado';
+  document.title = (st === 'online' ? '\u25CF ' : (st === 'starting' || st === 'stopping') ? '\u25D0 ' : '\u25CB ') + 'Kike Hosting';
   $('inst-nombre').textContent = inst ? inst.name : '—';
   $('inst-detalle').textContent = inst ? 'Minecraft ' + inst.version + (inst.pid ? ' · pid ' + inst.pid : '') : 'Crea tu primera instancia abajo';
+  const pv = $('pill-version');
+  if (data.mcLatest && inst && inst.version && data.mcLatest !== inst.version) { pv.textContent = '⬆ Nueva versión disponible: Minecraft ' + data.mcLatest; pv.style.display = 'inline-block'; } else { pv.style.display = 'none'; }
+  const sa = $('srv-actual');
+  if (sa) sa.textContent = inst ? 'Ahora: ' + (TYPE_LABELS[inst.type || 'vanilla'] || inst.type) + ' · Minecraft ' + inst.version : 'Ahora: —';
+  window.__verInst = inst ? inst.version : '';
+  if (!syncCambio && inst) { syncCambio = true; const ct = $('cambio-tipo'); if (ct) { ct.value = inst.type || 'vanilla'; cargarCambioVersiones(inst.version); } }
   $('ajustes-sub').textContent = inst ? 'De "' + inst.name + '"' : 'De la instancia seleccionada';
   $('stat-ram').textContent = inst && inst.ramMB ? (inst.ramMB / 1024).toFixed(1) + ' GB' : '—';
   $('stat-up').textContent = inst ? fmtUp(inst.uptimeSec) : '—';
   $('stat-jug').textContent = inst ? inst.players.length + '/' + inst.maxPlayers : '0/0';
   $('btn-start').disabled = !inst || st !== 'offline';
+  $('btn-start').classList.toggle('primario', !$('btn-start').disabled);
   $('btn-stop').disabled = !inst || (st !== 'online' && st !== 'starting');
   $('btn-restart').disabled = !inst || (st !== 'online' && st !== 'starting');
   $('btn-backup').disabled = !inst;
@@ -317,12 +1851,15 @@ function pintarEstado(data) {
   $('cfg-nota').textContent = st === 'offline' ? 'Se aplican al próximo arranque del servidor.' : 'El servidor está encendido: los cambios se aplican al reiniciarlo.';
   pintarJugadores(inst ? inst.players : []);
   if (inst) pintarCopias(inst.backups || []);
+  if (data.diskFreeGB !== undefined && data.diskFreeGB !== null) $('disk-free').textContent = data.diskFreeGB < 5 ? '⚠️ Quedan ' + data.diskFreeGB + ' GB libres en el disco' : 'Quedan ' + data.diskFreeGB + ' GB libres en el disco';
   if (data.config) $('rotacion-nota').textContent = `Automáticas cada ${data.config.backupIntervalMin} min con el servidor encendido y una al apagar. Se guardan las ${data.config.rollingKeep} últimas + ${data.config.weeklyKeep} semanales; las viejas se borran solas.`;
 }
 function elegirInstancia(n) {
   if (n === instancia) return;
   instancia = n;
+  syncCambio = false;
   cargarTodo();
+  cargarAddons();
 }
 function pintarJugadores(players) {
   const c = $('jugadores');
@@ -335,8 +1872,13 @@ function pintarCopias(backups) {
   c.innerHTML = backups.map(b => {
     const f = new Date(b.date);
     const cuando = f.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' }) + ' · ' + f.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
-    return `<div class="fila-item"><span style="font-size:17px">🗂️</span><div style="flex:1;min-width:0"><div class="fn">${esc(b.file)}</div><div class="fm">${cuando} · ${b.sizeMB} MB</div></div><button class="mini-btn" onclick="borrarCopia('${encodeURIComponent(b.file)}')">Borrar</button></div>`;
+    return `<div class="fila-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="flex:0 0 auto;color:var(--label-secondary)"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/></svg><div style="flex:1;min-width:0"><div class="fn">${esc(b.file)}</div><div class="fm">${cuando} · ${b.sizeMB} MB</div></div><button class="mini-btn" onclick="borrarCopia('${encodeURIComponent(b.file)}')">Borrar</button></div>`;
   }).join('');
+  try {
+    const newest = Math.max.apply(null, backups.map(b => new Date(b.date).getTime()));
+    const dias = Math.floor((Date.now() - newest) / 864e5);
+    if (dias >= 7) c.insertAdjacentHTML('afterbegin', '<div class="aviso-copia">Tu copia más reciente tiene ' + dias + ' días. Crea una nueva para no perder nada.</div>');
+  } catch (_) {}
   $('restore-sel').innerHTML = backups.map(b => `<option value="${esc(b.file)}">${esc(b.file)} (${b.sizeMB} MB)</option>`).join('');
   if (!$('restore-nombre').value) $('restore-nombre').value = instancia ? instancia + '-rescate' : '';
 }
@@ -344,7 +1886,7 @@ async function restaurarCopia() {
   const file = $('restore-sel').value;
   const newName = $('restore-nombre').value.trim();
   if (!file || !newName || !instancia) return;
-  $('btn-restaurar').disabled = true;
+  btnProgreso($('btn-restaurar'), 'Restaurando...');
   toast('Restaurando copia como "' + newName + '"… puede tardar con mundos grandes');
   try {
     await api(`/api/backups/${instancia}/${encodeURIComponent(file)}/restore`, { body: { newName } });
@@ -353,7 +1895,7 @@ async function restaurarCopia() {
     instancia = newName;
     cargarTodo();
   } catch (e) { toast(e.message, true); }
-  $('btn-restaurar').disabled = false;
+  btnListo($('btn-restaurar'));
 }
 
 function addLinea(entry) {
@@ -361,13 +1903,22 @@ function addLinea(entry) {
   const vacia = c.querySelector('.consola-vacia');
   if (vacia) vacia.remove();
   const d = document.createElement('div');
-  d.className = 'lina ' + (entry.stream === 'panel' ? 'panel' : entry.stream === 'error' ? 'error' : '');
+  let cls10 = entry.stream === 'panel' ? 'panel' : entry.stream === 'error' ? 'err' : '';
+  const ln10 = entry.line || '';
+  if (!cls10) {
+    if (/\b(ERROR|FATAL|SEVERE)\b/.test(ln10)) cls10 = 'err';
+    else if (/\bWARN(ING)?\b/.test(ln10)) cls10 = 'warn';
+    else if (/<[^>]{1,24}>\s/.test(ln10)) cls10 = 'chat';
+    else if (/(joined|left) the game/.test(ln10)) cls10 = 'join';
+  }
+  d.className = 'lina' + (cls10 ? ' ' + cls10 : '');
   const h = new Date(entry.t).toLocaleTimeString('es-ES', { hour12: false });
   d.innerHTML = '<span class="hora">' + h + '</span>' + esc(entry.line);
   const pegado = c.scrollTop + c.clientHeight >= c.scrollHeight - 60;
   c.appendChild(d);
   while (c.children.length > 900) c.removeChild(c.firstChild);
   if (pegado) c.scrollTop = c.scrollHeight;
+  if (window.actualizaBajar) actualizaBajar();
 }
 
 // ---------- ajustes ----------
@@ -389,6 +1940,7 @@ async function cargarConfig() {
 }
 async function guardarConfig() {
   if (!instancia) return;
+  const bc = $('btn-guardar-cfg'); btnProgreso(bc, 'Guardando...');
   const props = {};
   for (const k of CFG_KEYS) {
     const el = $('cfg-' + k);
@@ -400,14 +1952,22 @@ async function guardarConfig() {
     await api('/api/instances/' + instancia + '/config', { body: { props } });
     toast('Ajustes guardados');
   } catch (e) { toast(e.message, true); }
+  btnListo(bc);
 }
 async function guardarRaw() {
   if (!instancia) return;
+  const b = (window.event && window.event.target && window.event.target.closest) ? window.event.target.closest('button') : null;
+  btnProgreso(b, 'Guardando...');
   try {
     await api('/api/instances/' + instancia + '/config/raw', { body: { raw: $('cfg-raw').value } });
     toast('server.properties guardado');
     cargarConfig();
   } catch (e) { toast(e.message, true); }
+  btnListo(b);
+}
+function ponerFlagsAikar() {
+  $('panel-extra-args').value = '-XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1';
+  toast('Flags optimizados listos: pulsa "Guardar rendimiento" para aplicarlos');
 }
 async function cargarPanelConfig() {
   try {
@@ -415,13 +1975,19 @@ async function cargarPanelConfig() {
     $('panel-ram').value = Math.round((j.ramMB || 3072) / 1024);
     $('panel-backup-min').value = j.backupIntervalMin;
     $('panel-extra-args').value = j.extraJavaArgs || '';
+    $('panel-autostart').checked = !!j.autoStartLastServer;
+    $('panel-autostop-min').value = j.autoStopEmptyMin || 0;
+    $('panel-mirror-dir').value = j.backupMirrorDir || '';
   } catch (e) {}
 }
 async function guardarPanelConfig() {
+  const b = (window.event && window.event.target && window.event.target.closest) ? window.event.target.closest('button') : null;
+  btnProgreso(b, 'Guardando...');
   try {
-    await api('/api/panel/config', { body: { ramMB: (+$('panel-ram').value) * 1024, extraJavaArgs: $('panel-extra-args').value, backupIntervalMin: +$('panel-backup-min').value } });
+    await api('/api/panel/config', { body: { ramMB: (+$('panel-ram').value) * 1024, extraJavaArgs: $('panel-extra-args').value, backupIntervalMin: +$('panel-backup-min').value, autoStartLastServer: $('panel-autostart').checked, autoStopEmptyMin: +$('panel-autostop-min').value, backupMirrorDir: $('panel-mirror-dir').value } });
     toast('Rendimiento guardado');
   } catch (e) { toast(e.message, true); }
+  btnListo(b);
 }
 
 // ---------- ops ----------
@@ -431,7 +1997,7 @@ async function cargarOps() {
     const j = await api('/api/instances/' + instancia + '/ops');
     const ops = j.ops || [];
     $('op-chips').innerHTML = ops.length
-      ? ops.map(o => `<div class="op-chip">${esc(o.name)}<button title="Quitar op" onclick="delOp('${esc(o.name)}')">✕</button></div>`).join('')
+      ? ops.map(o => `<div class="op-chip">${esc(o.name)}<button title="Quitar op" aria-label="Quitar op" onclick="delOp('${esc(o.name)}')">✕</button></div>`).join('')
       : '<div class="vacio">Sin ops.</div>';
   } catch (e) {}
 }
@@ -461,7 +2027,7 @@ async function cargarWhitelist() {
     $('wl-enabled').checked = !!j.enabled;
     const wl = j.entries || [];
     $('wl-chips').innerHTML = wl.length
-      ? wl.map(w => `<div class="op-chip">${esc(w.name)}<button title="Quitar de la lista" onclick="wlDel('${esc(w.name)}')">✕</button></div>`).join('')
+      ? wl.map(w => `<div class="op-chip">${esc(w.name)}<button title="Quitar de la lista" aria-label="Quitar de la lista" onclick="wlDel('${esc(w.name)}')">✕</button></div>`).join('')
       : '<div class="vacio">Lista vacía: si la activas, no entra NADIE (ni tú).</div>';
   } catch (e) {}
 }
@@ -510,6 +2076,8 @@ async function subirDatapack() {
   if (!f || !instancia) return;
   if (f.size > 50 * 1048576) { toast('Máximo 50 MB', true); return; }
   toast('Subiendo ' + f.name + '…');
+  const b = (window.event && window.event.target && window.event.target.closest) ? window.event.target.closest('button') : null;
+  btnProgreso(b, 'Subiendo...');
   const b64 = await new Promise(res => { const fr = new FileReader(); fr.onload = () => res(fr.result.split(',')[1]); fr.readAsDataURL(f); });
   try {
     await api('/api/instances/' + instancia + '/datapacks', { body: { filename: f.name, dataBase64: b64 } });
@@ -517,6 +2085,7 @@ async function subirDatapack() {
     $('dp-file').value = ''; dpElegido($('dp-file'));
     cargarDatapacks();
   } catch (e) { toast(e.message, true); }
+  btnListo(b);
 }
 async function borrarDatapack(fn) {
   try {
@@ -537,15 +2106,15 @@ async function accion(a) {
 async function crearInstancia(ev) {
   ev.preventDefault();
   const nombre = $('nueva-nombre').value.trim(), version = $('nueva-version').value;
-  $('btn-crear').disabled = true;
+  btnProgreso($('btn-crear'), 'Creando...');
   toast('Creando "' + nombre + '"… descarga de Mojang en marcha');
   try {
-    await api('/api/instances', { body: { name: nombre, version } });
+    await api('/api/instances', { body: { name: nombre, version, type: $('nueva-tipo').value } });
     instancia = nombre;
     toast('Instancia "' + nombre + '" lista. Dale a Encender.');
     cargarTodo();
   } catch (e) { toast(e.message, true); }
-  $('btn-crear').disabled = false;
+  btnListo($('btn-crear'));
 }
 async function enviarCmd() {
   const inp = $('cmd'), cmd = inp.value.trim();
@@ -560,8 +2129,10 @@ function cmdKey(ev) {
 }
 async function backupAhora() {
   if (!instancia) return;
+  const b = $('btn-backup'); btnProgreso(b, 'Creando copia...');
   toast('Haciendo copia del mundo…');
   try { const j = await api(`/api/instances/${instancia}/backup`, {}); toast('Copia lista: ' + j.file); } catch (e) { toast(e.message, true); }
+  btnListo(b);
 }
 async function borrarCopia(file) {
   if (!instancia) return;
@@ -574,6 +2145,68 @@ async function apagarPanel() {
   setTimeout(() => document.body.innerHTML = '<div style="display:grid;place-items:center;height:100vh;color:#9aa7bd;font-family:Inter,sans-serif">Panel apagado. Puedes cerrar esta pestaña.</div>', 800);
 }
 
+const TYPE_LABELS = { vanilla: 'Vanilla', paper: 'Paper', purpur: 'Purpur', fabric: 'Fabric', forge: 'Forge', neoforge: 'NeoForge' };
+let syncCambio = false;
+async function cargarCambioVersiones(seleccionar) {
+  const t = $('cambio-tipo') ? $('cambio-tipo').value : 'vanilla';
+  try {
+    const j = await api('/api/loader-versions?type=' + t);
+    $('cambio-version').innerHTML = j.versions.map(v => `<option value="${v}" ${v === seleccionar ? 'selected' : ''}>${v}</option>`).join('');
+  } catch (e) { $('cambio-version').innerHTML = ''; }
+}
+async function cambiarServidor() {
+  if (!instancia) return;
+  const type = $('cambio-tipo').value, version = $('cambio-version').value;
+  if (!version) { toast('Espera a que cargue la lista de versiones.', true); return; }
+  if (!confirm('¿Cambiar "' + instancia + '" a ' + TYPE_LABELS[type] + ' ' + version + '?\n\nPrimero se hace una copia de seguridad del mundo. El mundo NO se toca.')) return;
+  $('btn-cambiar-srv').disabled = true;
+  toast('Haciendo copia y cambiando a ' + TYPE_LABELS[type] + ' ' + version + '… (mira la consola)');
+  try {
+    const j = await api('/api/instances/change-server', { body: { name: instancia, type, version } });
+    toast(j.sinCambios ? 'Ya estaba así' : 'Cambiado a ' + TYPE_LABELS[type] + ' ' + version);
+    cargarTodo();
+  } catch (e) { toast(e.message, true); }
+  $('btn-cambiar-srv').disabled = false;
+}
+async function cargarAddons() {
+  const body = $('addons-body'); if (!body) return;
+  if (!instancia) { body.innerHTML = '<div class="vacio">Elige una instancia.</div>'; return; }
+  let j;
+  try { j = await api('/api/instances/' + instancia + '/addons'); } catch (e) { body.innerHTML = '<div class="vacio">' + esc(e.message) + '</div>'; return; }
+  if (!j.supported) { body.innerHTML = '<div class="vacio">Vanilla no admite plugins ni mods. Cambia el tipo en "Versión y tipo de servidor" (hace copia antes).</div>'; return; }
+  const filas = j.addons.map(a => '<div class="fila-item"><div style="flex:1;min-width:0"><div class="fn">' + esc(a.file) + '</div><div class="fm">' + a.sizeMB + ' MB · ' + (a.enabled ? 'activo' : 'desactivado') + '</div></div><button class="mini-btn" onclick="toggleAddon(\'' + esc(a.file) + '\')">' + (a.enabled ? 'Desactivar' : 'Activar') + '</button><button class="mini-btn" onclick="borrarAddon(\'' + esc(a.file) + '\')">Borrar</button></div>').join('') || '<div class="vacio">Ninguno todavía.</div>';
+  body.innerHTML = filas
+    + '<div class="seccion-sub">Subir un .jar</div>'
+    + '<div class="archivo-subir"><button class="btn" type="button" onclick="$(\'addon-file\').click()">Elegir .jar…</button><input type="file" id="addon-file" accept=".jar" style="display:none" onchange="$(\'addon-nombre\').textContent=this.files[0]?this.files[0].name:\'Ninguno elegido\'"><span class="nombre-archivo" id="addon-nombre">Ninguno elegido</span><button class="btn primario" type="button" onclick="subirAddon()">Subir</button></div>'
+    + '<div class="seccion-sub">Buscar en Modrinth (' + j.dir + ', Minecraft ' + (window.__verInst || '') + ')</div>'
+    + '<div class="input-fila"><input type="text" id="mr-q" placeholder="sodium, luckperms…" onkeydown="if(event.key===\'Enter\')buscarModrinth()"><button class="btn" type="button" onclick="buscarModrinth()">Buscar</button></div>'
+    + '<div id="mr-res"></div>';
+}
+async function toggleAddon(f) { try { await api('/api/instances/' + instancia + '/addons/toggle', { body: { file: f } }); cargarAddons(); } catch (e) { toast(e.message, true); } }
+async function borrarAddon(f) { if (!confirm('¿Borrar ' + f + '?')) return; try { await api('/api/instances/' + instancia + '/addons/delete', { body: { file: f } }); cargarAddons(); } catch (e) { toast(e.message, true); } }
+async function subirAddon() {
+  const inp = $('addon-file');
+  if (!inp || !inp.files[0]) { toast('Elige un .jar primero', true); return; }
+  try {
+    const r = await fetch('/api/instances/' + instancia + '/addons/upload?file=' + encodeURIComponent(inp.files[0].name), { method: 'POST', headers: { 'Content-Type': 'application/octet-stream' }, body: inp.files[0] });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(j.error || 'Error ' + r.status);
+    toast('Subido'); cargarAddons();
+  } catch (e) { toast(e.message, true); }
+}
+async function buscarModrinth() {
+  const q = $('mr-q').value.trim(); const res = $('mr-res');
+  res.innerHTML = '<div class="vacio">Buscando…</div>';
+  try {
+    const j = await api('/api/instances/' + instancia + '/addons/search?q=' + encodeURIComponent(q));
+    res.innerHTML = j.results.map(r => '<div class="fila-item"><div style="flex:1;min-width:0"><div class="fn">' + esc(r.title) + '</div><div class="fm">' + esc(r.desc) + ' · ' + r.downloads + ' descargas</div></div><button class="mini-btn" onclick="instalarAddon(\'' + r.id + '\',this)">Instalar</button></div>').join('') || '<div class="vacio">Sin resultados compatibles con esta versión.</div>';
+  } catch (e) { res.innerHTML = '<div class="vacio">' + esc(e.message) + '</div>'; }
+}
+async function instalarAddon(id, btn) {
+  btn.disabled = true; btn.textContent = 'Instalando…';
+  try { const j = await api('/api/instances/' + instancia + '/addons/install', { body: { projectId: id } }); toast('Instalado: ' + j.file); cargarAddons(); }
+  catch (e) { toast(e.message, true); btn.disabled = false; btn.textContent = 'Instalar'; }
+}
 async function cargarTodo() {
   try {
     const data = await api('/api/state');
@@ -589,9 +2222,10 @@ async function cargarTodo() {
   } catch (e) { toast('No puedo hablar con el panel: ' + e.message, true); }
 }
 async function cargarVersiones() {
+  const tipo = ($('nueva-tipo') && $('nueva-tipo').value) || 'vanilla';
   try {
-    const j = await api('/api/versions');
-    $('nueva-version').innerHTML = j.versions.map(v => `<option value="${v}" ${v === j.latest ? 'selected' : ''}>${v}${v === j.latest ? ' (última)' : ''}</option>`).join('');
+    const j = await api('/api/loader-versions?type=' + tipo);
+    $('nueva-version').innerHTML = j.versions.map((v, i) => `<option value="${v}" ${i === 0 ? 'selected' : ''}>${v}${i === 0 ? ' (última)' : ''}</option>`).join('');
   } catch (e) { $('nueva-version').innerHTML = '<option value="26.3">26.3</option>'; }
 }
 
@@ -601,6 +2235,18 @@ if (location.search.includes('plano')) {
   document.head.appendChild(st);
 }
 
+if ('IntersectionObserver' in window) {
+  const h1grande = document.querySelector('header h1');
+  if (h1grande) new IntersectionObserver(en => {
+    const n = document.querySelector('.nav'); if (n) n.classList.toggle('baja', !en[0].isIntersecting);
+  }, { rootMargin: '-44px 0px 0px 0px' }).observe(h1grande);
+}
+(function(){
+  const raiz=document.documentElement; let _tk=0;
+  const encoger=()=>{const p=Math.min(1,Math.max(0,(window.scrollY||0)/160));raiz.style.setProperty('--encoger',p.toFixed(3));};
+  window.addEventListener('scroll',()=>{if(!_tk)_tk=requestAnimationFrame(()=>{encoger();_tk=0;})},{passive:true});
+  encoger();
+})();
 function iniciarApp() {
   if (es) { es.close(); es = null; }
   es = new EventSource('/api/events');
@@ -613,6 +2259,9 @@ function iniciarApp() {
   cargarVersiones();
   cargarPanelConfig();
   cargarTodo();
+  cargarAddons();
+  if ($('nueva-tipo')) $('nueva-tipo').addEventListener('change', cargarVersiones);
+  if ($('cambio-tipo')) $('cambio-tipo').addEventListener('change', () => cargarCambioVersiones());
 }
 setInterval(() => { if (autenticado && instancia) api('/api/state').then(pintarEstado).catch(() => {}); }, 5000);
 
@@ -623,6 +2272,124 @@ fetch('/api/panel/auth-state').then(r => r.json()).then(j => {
   else if (!j.authenticated) mostrarLogin(false);
   else { autenticado = true; iniciarApp(); }
 }).catch(() => toast('No puedo hablar con el panel', true));
+function modoImportar(){const n=$('import-mode').value==='new';$('import-new').style.display=n?'flex':'none';$('import-replace').hidden=n;}
+async function importarMundo(e){
+ e.preventDefault();const file=$('import-zip').files[0],mode=$('import-mode').value,name=mode==='new'?$('import-name').value.trim():instancia;
+ const status=$('import-status'),bar=$('import-progress'),button=$('import-submit');
+ if(!file||!/\.zip$/i.test(file.name)||file.size>2*1024**3){status.textContent='Selecciona un ZIP de hasta 2 GiB.';return;}
+ if(mode==='new'&&!$('import-version').value){status.textContent='Espera a que cargue la lista de versiones.';return;}
+ if(!name||!/^[A-Za-z0-9_-]{1,32}$/.test(name)){status.textContent='Indica un nombre válido o selecciona una instancia.';return;}
+ if(mode==='existing'&&!$('import-confirm').checked){status.textContent='Marca la confirmación de sustitución. Se hará copia previa.';return;}
+ if(mode==='existing'&&!confirm('¿Sustituir el mundo de "'+name+'"? Antes se guardará una copia del mundo actual.'))return;
+ const q=new URLSearchParams({mode,name,version:$('import-version').value,confirm:mode==='existing'?'REEMPLAZAR':''});
+ button.disabled=true;bar.hidden=false;bar.value=0;status.textContent='Subiendo ZIP…';
+ try{
+ const result=await new Promise((resolve,reject)=>{
+ const x=new XMLHttpRequest();x.open('POST','/api/world-import?'+q);x.setRequestHeader('Content-Type','application/zip');x.timeout=0;
+ x.upload.onprogress=e=>{if(e.lengthComputable){bar.value=Math.round(e.loaded/e.total*100);status.textContent='Subiendo ZIP: '+bar.value+' %';}};
+ x.upload.onload=()=>{bar.removeAttribute('value');status.textContent='ZIP subido. Validando, preparando la copia e importando… No cierres el panel.';};
+ x.onerror=()=>reject(new Error('Conexión interrumpida. Comprueba el estado antes de repetir la importación.'));
+ x.onload=()=>{let j;try{j=JSON.parse(x.responseText);}catch(_){reject(new Error('Respuesta no válida del panel.'));return;}x.status>=200&&x.status<300?resolve(j):reject(new Error(j.error||'No se pudo importar.'));};x.send(file);
+ });
+ instancia=name;await cargarTodo();bar.value=100;status.textContent='Mundo importado en "'+name+'". '+(result.backup?'Copia anterior: '+result.backup:'El servidor sigue apagado.');$('import-zip').value='';$('import-confirm').checked=false;
+ }catch(e){bar.value=0;status.textContent=e.message;toast(e.message,true);}finally{button.disabled=false;}
+}
+
+new MutationObserver(()=>{$('import-version').innerHTML=$('nueva-version').innerHTML;}).observe($('nueva-version'),{childList:true});
+</script>
+<script>(()=>{
+ const root=document.documentElement,system=matchMedia('(prefers-color-scheme: dark)');
+ function sync(){const dark=(root.dataset.theme||(system.matches?'dark':'light'))==='dark';root.dataset.themeEffective=dark?'dark':'light';document.querySelectorAll('.theme-toggle').forEach(button=>{const label='Cambiar a modo '+(dark?'claro':'oscuro');button.setAttribute('aria-label',label);button.title=label;button.setAttribute('aria-pressed',String(dark));});}
+ document.querySelectorAll('.theme-toggle').forEach(button=>button.addEventListener('click',()=>{const next=root.dataset.themeEffective==='dark'?'light':'dark';root.dataset.theme=next;try{localStorage.setItem('apple-theme',next);}catch(_){}sync();}));
+ system.addEventListener('change',sync);window.addEventListener('storage',e=>{if(e.key==='apple-theme'){if(['light','dark'].includes(e.newValue))root.dataset.theme=e.newValue;else delete root.dataset.theme;sync();}});sync();
+})();
+</script><script>
+function abrirVentana(id){document.querySelectorAll('.velo-ventana.ver').forEach(function(v){if(v.id!==id)cerrarVentana(v)});var v=document.getElementById(id);if(!v)return;v.classList.add('ver');document.body.style.overflow='hidden'}
+function cerrarVentana(v){if(typeof v==='string')v=document.getElementById(v);if(!v)return;v.classList.remove('ver');if(!document.querySelector('.velo-ventana.ver'))document.body.style.overflow=''}
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){document.querySelectorAll('.velo-ventana.ver').forEach(cerrarVentana)}});
+document.addEventListener('DOMContentLoaded',function(){
+function hacerVentana(id,titulo,sub){
+ var v=document.createElement('div');v.className='velo-ventana';v.id=id;
+ v.innerHTML='<div class="ventana" role="dialog" aria-modal="true"><div class="ventana-top"><div><h2></h2>'+(sub?'<div class="vsub"></div>':'')+'</div><button class="vx" aria-label="Cerrar" title="Cerrar (Esc)">✕</button></div><div class="ventana-cuerpo"></div></div>';
+ v.querySelector('h2').textContent=titulo;
+ if(sub)v.querySelector('.vsub').textContent=sub;
+ v.addEventListener('mousedown',function(e){if(e.target===v)cerrarVentana(v)});
+ v.querySelector('.vx').onclick=function(){cerrarVentana(v)};
+ document.body.appendChild(v);
+ return v.querySelector('.ventana-cuerpo');
+}
+var ajustes=document.getElementById('ajustes-cuerpo');
+var ajustesCard=ajustes&&ajustes.closest?ajustes.closest('section.tarjeta'):null;
+function bloquePor(txt){if(!ajustesCard)return null;var bs=ajustesCard.querySelectorAll('details.bloque');for(var i=0;i<bs.length;i++){if(bs[i].querySelector('summary')&&bs[i].querySelector('summary').textContent.indexOf(txt)>-1)return bs[i]}return null}
+function meterBloque(cuerpo,b){if(!b)return;b.open=true;b.classList.add('sin-resumen');cuerpo.appendChild(b)}
+var bVer=bloquePor('Versión y tipo'),bPlu=bloquePor('Plugins y mods'),bRen=bloquePor('Rendimiento');
+[bVer,bPlu,bRen].forEach(function(b){if(b&&b.parentNode)b.parentNode.removeChild(b)});
+var cA=hacerVentana('v-ajustes','Ajustes','De la instancia seleccionada');if(ajustes)cA.appendChild(ajustes);
+if(ajustesCard){var subA=ajustesCard.querySelector('#ajustes-sub');var dstA=document.querySelector('#v-ajustes .vsub');if(subA&&dstA){dstA.parentNode.replaceChild(subA,dstA);subA.className='vsub'}}
+if(ajustesCard){var rest=ajustesCard.querySelectorAll('details.bloque');for(var i=0;i<rest.length;i++)cA.appendChild(rest[i])}
+meterBloque(hacerVentana('v-version','Versión y tipo','Cámbialo con copia de seguridad previa'),bVer);
+meterBloque(hacerVentana('v-plugins','Plugins y mods','Modrinth o tus propios .jar'),bPlu);
+meterBloque(hacerVentana('v-rendimiento','Rendimiento y avanzado','RAM, flags de Java, PIN y server.properties'),bRen);
+var jug=document.getElementById('jugadores');var jugCard=jug&&jug.closest?jug.closest('section.tarjeta'):null;
+var cop=document.getElementById('copias');var copCard=cop&&cop.closest?cop.closest('section.tarjeta'):null;
+var cJ=hacerVentana('v-jugadores','Jugadores','Conectados ahora');if(jug)cJ.appendChild(jug);
+var cC=hacerVentana('v-copias','Copias de seguridad','Del mundo, automáticas y manuales');
+['copias','btn-backup','disk-free','rotacion-nota'].forEach(function(id){var n=document.getElementById(id);if(n)cC.appendChild(n)});
+var copCardRest=null;var bs=document.querySelectorAll('details.bloque');for(var i=0;i<bs.length;i++){if(bs[i].querySelector('summary')&&bs[i].querySelector('summary').textContent.indexOf('Restaurar una copia')>-1){copCardRest=bs[i];break}}
+if(copCardRest)cC.appendChild(copCardRest);
+[ajustesCard,jugCard,copCard].forEach(function(card){if(card&&card.parentNode)card.parentNode.removeChild(card)});
+});
+</script><script>
+function bajarConsola(){const c=$('consola'); if(c){c.scrollTop=c.scrollHeight; actualizaBajar();}}
+function actualizaBajar(){const c=$('consola'),b=$('consola-bajar'); if(!c||!b)return; const peg=c.scrollTop+c.clientHeight>=c.scrollHeight-60; b.style.display=peg?'none':'inline-flex';}
+document.addEventListener('DOMContentLoaded',()=>{const c=$('consola'); if(c) c.addEventListener('scroll',actualizaBajar);});
+</script>
+<script>
+document.addEventListener('keydown',function(e){
+  if(e.metaKey||e.ctrlKey||e.altKey) return;
+  const t=e.target; if(t && t.matches && t.matches('input,textarea,select')) return;
+  try{ if(typeof autenticado!=='undefined' && !autenticado) return; }catch(_){ }
+  if(e.key==='/'){ e.preventDefault(); const cmd=$('cmd'); if(cmd) cmd.focus(); return; }
+  if(e.key==='?'){ e.preventDefault(); abrirVentana('v-atajos'); return; }
+  if(e.key==='t'||e.key==='T'){ const b=document.querySelector('.theme-toggle'); if(b) b.click(); return; }
+  const mapa={c:'v-copias',j:'v-jugadores',a:'v-ajustes',r:'v-rendimiento',v:'v-version',p:'v-plugins'};
+  const k=e.key&&e.key.toLowerCase?e.key.toLowerCase():e.key;
+  if(mapa[k]){ e.preventDefault(); abrirVentana(mapa[k]); }
+});
+document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('details.bloque').forEach(function(d){
+    const s=d.querySelector(':scope > summary');
+    if(s && !s.querySelector('.plus')){
+      const plus=document.createElement('span'); plus.className='plus'; plus.setAttribute('aria-hidden','true');
+      plus.innerHTML='<i></i><i></i>';
+      s.insertBefore(plus, s.firstChild);
+    }
+    const c=d.querySelector(':scope > .bloque-cuerpo');
+    if(c && !c.querySelector(':scope > .bloque-inner')){
+      const w=document.createElement('div'); w.className='bloque-inner';
+      while(c.firstChild) w.appendChild(c.firstChild);
+      c.appendChild(w);
+    }
+  });
+});
+document.addEventListener('click',function(e){
+  const s=e.target && e.target.closest ? e.target.closest('details.bloque > summary') : null;
+  if(!s) return;
+  const d=s.parentElement;
+  if(d.classList.contains('sin-resumen')) return;
+  e.preventDefault();
+  if(d.dataset.animando) return;
+  if(d.open){
+    d.dataset.animando='1';
+    d.classList.add('cerrando');
+    setTimeout(function(){ d.open=false; d.classList.remove('cerrando'); delete d.dataset.animando; }, 430);
+  } else {
+    d.dataset.animando='1';
+    d.open=true;
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){ d.classList.add('abierto'); }); });
+    setTimeout(function(){ delete d.dataset.animando; }, 500);
+  }
+});
 </script>
 </body>
 </html>

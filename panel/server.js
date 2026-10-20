@@ -9,21 +9,25 @@ const { spawn, execFile } = require('child_process');
 const os = require('os');
 const crypto = require('crypto');
 
+const worldImport = require('./world-import');
+const worldImports = new Set();
 const ROOT = path.resolve(__dirname, '..');
 const INSTANCES_DIR = path.join(ROOT, 'instances');
 const BACKUPS_DIR = path.join(ROOT, 'backups');
 const CONFIG_PATH = path.join(ROOT, 'mc-host.config.json');
-const PANEL_PORT = Number(process.env.PANEL_PORT || 8787);
-if (!Number.isInteger(PANEL_PORT) || PANEL_PORT < 1024 || PANEL_PORT > 65535) throw new Error('PANEL_PORT debe estar entre 1024 y 65535');
+const PANEL_PORT = 8788;
 const MOCK = !!process.env.PANEL_MOCK;
 
 const DEFAULT_CONFIG = {
-  javaBin: MOCK ? process.execPath : (process.env.JAVA_BIN || 'java'),
-  ramMB: 4096,
+  javaBin: MOCK ? process.execPath : 'java',
+  ramMB: 3072,
   extraJavaArgs: '',
   backupIntervalMin: 30,
   rollingKeep: 7,
   weeklyKeep: 4,
+  autoStartLastServer: false,
+  autoStopEmptyMin: 0,
+  backupMirrorDir: '',
   motd: 'Kike Hosting',
   maxPlayers: 10,
 };
@@ -122,7 +126,7 @@ function parseLogLine(inst, line) {
 
 function publicState(inst) {
   return {
-    name: inst.name, version: inst.version, status: inst.status, pid: inst.pid || null,
+    name: inst.name, version: inst.version, type: inst.type || 'vanilla', status: inst.status, pid: inst.pid || null,
     uptimeSec: inst.startedAt ? Math.floor((now() - inst.startedAt) / 1000) : 0,
     players: [...inst.players], maxPlayers: inst.maxPlayers || config.maxPlayers,
     ramMB: inst.ramMB || null,
@@ -139,7 +143,7 @@ async function loadInstances() {
     try {
       const meta = JSON.parse(await fsp.readFile(metaPath, 'utf8'));
       instances.set(d.name, {
-        name: d.name, version: meta.version || '?', status: 'offline', proc: null, pid: null,
+        name: d.name, version: meta.version || '?', type: meta.type || 'vanilla', status: 'offline', proc: null, pid: null,
         startedAt: null, players: new Set(), logBuf: [], maxPlayers: config.maxPlayers, ramMB: null,
       });
     } catch (_) {}
@@ -165,52 +169,220 @@ async function serverJarUrl(version) {
   return meta.downloads.server.url;
 }
 
+// ---------- loaders (paper/purpur/fabric/forge/neoforge) ----------
+const LOADERS = ['vanilla', 'paper', 'purpur', 'fabric', 'forge', 'neoforge'];
+const ADDON_DIR = { paper: 'plugins', purpur: 'plugins', fabric: 'mods', forge: 'mods', neoforge: 'mods' };
+const MODRINTH_TYPE = { paper: 'plugin', purpur: 'plugin', fabric: 'mod', forge: 'mod', neoforge: 'mod' };
+const MODRINTH_LOADERS = { paper: ['paper'], purpur: ['purpur', 'paper'], fabric: ['fabric'], forge: ['forge'], neoforge: ['neoforge'] };
+const JAR_NAME = { vanilla: 'server.jar', paper: 'paper.jar', purpur: 'purpur.jar', fabric: 'fabric-server-launch.jar' };
+const UA = { 'User-Agent': 'KikeHosting/1.0 (panel casero)' };
+
+async function fetchJson(url) { const r = await fetch(url, { headers: UA }); if (!r.ok) throw new Error('HTTP ' + r.status + ' en ' + url.split('/')[2]); return r.json(); }
+async function fetchText(url) { const r = await fetch(url, { headers: UA }); if (!r.ok) throw new Error('HTTP ' + r.status + ' en ' + url.split('/')[2]); return r.text(); }
+async function downloadChecked(url, dest, hash, algo, log) {
+  const r = await fetch(url, { headers: UA });
+  if (!r.ok) throw new Error('Descarga HTTP ' + r.status);
+  const buf = Buffer.from(await r.arrayBuffer());
+  if (hash) {
+    const real = crypto.createHash(algo).update(buf).digest('hex');
+    if (real.toLowerCase() !== String(hash).trim().toLowerCase()) throw new Error('Checksum ' + algo + ' NO coincide; descarga abortada');
+    log && log('Checksum ' + algo + ' verificado (' + buf.length + ' bytes).');
+  } else { log && log('Aviso: sin checksum disponible para esta descarga.'); }
+  await fsp.writeFile(dest, buf);
+  return buf.length;
+}
+function findFile(dir, name, depth) {
+  if ((depth || 0) > 6 || !fs.existsSync(dir)) return null;
+  for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+    const p = path.join(dir, e.name);
+    if (e.isDirectory()) { const r = findFile(p, name, (depth || 0) + 1); if (r) return r; }
+    else if (e.name === name) return p;
+  }
+  return null;
+}
+function runLogged(cmd, args, cwd, log) {
+  return new Promise((res2, rej) => {
+    const p = spawn(cmd, args, { cwd });
+    let tail = [];
+    const eat = d => d.toString('utf8').split(/\r?\n/).filter(Boolean).forEach(l => { tail.push(l); if (tail.length > 30) tail.shift(); log && log(l.slice(0, 300)); });
+    p.stdout.on('data', eat); p.stderr.on('data', eat);
+    p.on('error', rej);
+    p.on('exit', c => c === 0 ? res2() : rej(new Error('El instalador falló (código ' + c + '): ' + tail.slice(-3).join(' | ').slice(-250))));
+  });
+}
+async function loaderMcVersions(type) {
+  if (type === 'vanilla') { const man = await mojangManifest(); return man.versions.filter(v => v.type === 'release').slice(0, 15).map(v => v.id); }
+  if (type === 'paper') {
+    const j = await fetchJson('https://fill.papermc.io/v3/projects/paper');
+    const out = [];
+    for (const fam of Object.keys(j.versions)) for (const v of j.versions[fam]) if (!v.includes('-')) out.push(v);
+    return out.slice(0, 15);
+  }
+  if (type === 'purpur') { const j = await fetchJson('https://api.purpurmc.org/v2/purpur'); return j.versions.slice(-15).reverse(); }
+  if (type === 'fabric') { const j = await fetchJson('https://meta.fabricmc.net/v2/versions/game'); return j.filter(v => v.stable).slice(0, 15).map(v => v.version); }
+  if (type === 'neoforge' || type === 'forge') {
+    const url = type === 'neoforge' ? 'https://maven.neoforged.net/releases/net/neoforged/neoforge/maven-metadata.xml' : 'https://maven.minecraftforge.net/net/minecraftforge/forge/maven-metadata.xml';
+    const xml = await fetchText(url);
+    const vs = [...xml.matchAll(/<version>([^<]+)<\/version>/g)].map(x => x[1]);
+    const mcs = [];
+    for (const v of vs) {
+      let mc;
+      if (type === 'forge') mc = v.split('-')[0];
+      else { const p2 = v.split('.'); mc = (+p2[0] >= 26) ? p2[0] + '.' + p2[1] : '1.' + p2[0] + '.' + p2[1]; }
+      if (!/^(26\.|1\.21\.|1\.20\.)/.test(mc)) continue;
+      if (!mcs.includes(mc)) mcs.push(mc);
+    }
+    return mcs.slice(-15).reverse();
+  }
+  throw new Error('Tipo desconocido: ' + type);
+}
+async function resolveInstallerVersion(type, mc) {
+  const url = type === 'neoforge' ? 'https://maven.neoforged.net/releases/net/neoforged/neoforge/maven-metadata.xml' : 'https://maven.minecraftforge.net/net/minecraftforge/forge/maven-metadata.xml';
+  const xml = await fetchText(url);
+  const vs = [...xml.matchAll(/<version>([^<]+)<\/version>/g)].map(x => x[1]);
+  const prefix = type === 'forge' ? mc + '-' : mc + '.';
+  const cands = vs.filter(v => v.startsWith(prefix));
+  if (!cands.length) throw new Error(type + ' no soporta Minecraft ' + mc + ' todavía');
+  return cands[cands.length - 1];
+}
+async function installServerFiles(type, version, dir, log) {
+  if (type === 'vanilla') {
+    const man = await mojangManifest();
+    const v = man.versions.find(x => x.id === version && x.type === 'release');
+    if (!v) throw new Error('Versión no encontrada: ' + version);
+    const dl = (await fetchJson(v.url)).downloads.server;
+    log('Descargando servidor vanilla ' + version + ' de Mojang...');
+    await downloadChecked(dl.url, path.join(dir, 'server.jar'), dl.sha1, 'sha1', log);
+  } else if (type === 'paper') {
+    const builds = await fetchJson('https://fill.papermc.io/v3/projects/paper/versions/' + encodeURIComponent(version) + '/builds');
+    const b = (builds || []).find(x => x.channel === 'STABLE') || (builds || [])[0];
+    if (!b || !b.downloads || !b.downloads['server:default']) throw new Error('Paper no tiene builds para ' + version);
+    const dl = b.downloads['server:default'];
+    log('Descargando Paper ' + version + ' build ' + b.id + '...');
+    await downloadChecked(dl.url, path.join(dir, 'paper.jar'), dl.checksums && dl.checksums.sha256, 'sha256', log);
+  } else if (type === 'purpur') {
+    const info = await fetchJson('https://api.purpurmc.org/v2/purpur/' + encodeURIComponent(version) + '/latest');
+    log('Descargando Purpur ' + version + ' build ' + info.build + '...');
+    await downloadChecked('https://api.purpurmc.org/v2/purpur/' + encodeURIComponent(version) + '/' + info.build + '/download', path.join(dir, 'purpur.jar'), info.md5, 'md5', log);
+  } else if (type === 'fabric') {
+    const loaders = await fetchJson('https://meta.fabricmc.net/v2/versions/loader/' + encodeURIComponent(version));
+    if (!loaders.length) throw new Error('Fabric no soporta Minecraft ' + version + ' todavía');
+    const loaderV = loaders[0].loader.version;
+    const instV = (await fetchJson('https://meta.fabricmc.net/v2/versions/installer'))[0].version;
+    const jar = 'fabric-installer.jar';
+    const base = 'https://maven.fabricmc.net/net/fabricmc/fabric-installer/' + instV + '/fabric-installer-' + instV + '.jar';
+    const sha = (await fetchText(base + '.sha1')).trim();
+    log('Descargando instalador de Fabric ' + instV + '...');
+    await downloadChecked(base, path.join(dir, jar), sha, 'sha1', log);
+    log('Instalando Fabric loader ' + loaderV + ' para ' + version + '...');
+    await runLogged(config.javaBin, ['-jar', jar, 'server', '-mcversion', version, '-loader', loaderV, '-downloadMinecraft'], dir, log);
+    await fsp.unlink(path.join(dir, jar)).catch(() => {});
+  } else if (type === 'forge' || type === 'neoforge') {
+    const full = await resolveInstallerVersion(type, version);
+    const base = type === 'neoforge'
+      ? 'https://maven.neoforged.net/releases/net/neoforged/neoforge/' + full + '/neoforge-' + full + '-installer.jar'
+      : 'https://maven.minecraftforge.net/net/minecraftforge/forge/' + full + '/forge-' + full + '-installer.jar';
+    const sha = (await fetchText(base + '.sha1')).trim();
+    const jar = type + '-installer.jar';
+    log('Descargando instalador de ' + (type === 'neoforge' ? 'NeoForge' : 'Forge') + ' ' + full + '...');
+    await downloadChecked(base, path.join(dir, jar), sha, 'sha1', log);
+    log('Instalando ' + type + ' (puede tardar unos minutos)...');
+    await runLogged(config.javaBin, ['-jar', jar, '--installServer', '.'], dir, log);
+    await fsp.unlink(path.join(dir, jar)).catch(() => {});
+    const f = findFile(path.join(dir, 'libraries'), 'unix_args.txt');
+    if (!f) throw new Error('El instalador terminó pero falta libraries/unix_args.txt');
+  } else throw new Error('Tipo desconocido: ' + type);
+}
+function buildStartArgs(inst) {
+  const t = inst.type || 'vanilla';
+  const dir = instDir(inst.name);
+  if (t === 'forge' || t === 'neoforge') {
+    const argFile = findFile(path.join(dir, 'libraries'), 'unix_args.txt');
+    if (!argFile) throw new Error('No encuentro libraries/unix_args.txt (¿se instaló bien ' + t + '?)');
+    const args = [...buildJavaArgs()];
+    if (fs.existsSync(path.join(dir, 'user_jvm_args.txt'))) args.push('@user_jvm_args.txt');
+    args.push('@' + path.relative(dir, argFile).replace(/\\/g, '/'), 'nogui');
+    return args;
+  }
+  return [...buildJavaArgs(), '-jar', JAR_NAME[t] || 'server.jar', 'nogui'];
+}
+function addonDirName(inst) { return ADDON_DIR[inst.type || 'vanilla'] || null; }
+async function listAddons(inst) {
+  const dirName = addonDirName(inst);
+  if (!dirName) return { supported: false, dir: null, type: inst.type || 'vanilla', addons: [] };
+  const dir = path.join(instDir(inst.name), dirName);
+  const out = [];
+  for (const f of await fsp.readdir(dir).catch(() => [])) {
+    if (!/\.jar(\.disabled)?$/.test(f)) continue;
+    const st = await fsp.stat(path.join(dir, f));
+    out.push({ file: f, sizeMB: +(st.size / 1048576).toFixed(2), enabled: f.endsWith('.jar') });
+  }
+  out.sort((a, b) => a.file.localeCompare(b.file));
+  return { supported: true, dir: dirName, type: inst.type || 'vanilla', addons: out };
+}
+async function modrinthSearch(inst, q) {
+  const type = inst.type || 'vanilla';
+  const pt = MODRINTH_TYPE[type];
+  if (!pt) throw new Error('Vanilla no admite plugins ni mods; cambia el tipo de servidor primero.');
+  const facets = JSON.stringify([['project_type:' + pt], MODRINTH_LOADERS[type].map(l => 'categories:' + l), ['versions:' + inst.version]]);
+  const j = await fetchJson('https://api.modrinth.com/v2/search?limit=10&query=' + encodeURIComponent(q) + '&facets=' + encodeURIComponent(facets));
+  return (j.hits || []).map(h2 => ({ id: h2.project_id, slug: h2.slug, title: h2.title, desc: (h2.description || '').slice(0, 140), downloads: h2.downloads }));
+}
+async function modrinthInstall(inst, projectId, log) {
+  const dirName = addonDirName(inst);
+  if (!dirName) throw new Error('Vanilla no admite plugins ni mods.');
+  const url = 'https://api.modrinth.com/v2/project/' + encodeURIComponent(projectId) + '/version?loaders=' + encodeURIComponent(JSON.stringify(MODRINTH_LOADERS[inst.type || 'vanilla'])) + '&game_versions=' + encodeURIComponent(JSON.stringify([inst.version]));
+  const vs = await fetchJson(url);
+  if (!vs.length) throw new Error('Sin versión compatible con Minecraft ' + inst.version + ' (' + (inst.type || 'vanilla') + ')');
+  const f = vs[0].files.find(x => x.primary) || vs[0].files[0];
+  const dir = path.join(instDir(inst.name), dirName);
+  await fsp.mkdir(dir, { recursive: true });
+  const dest = path.join(dir, path.basename(f.filename));
+  if (fs.existsSync(dest) || fs.existsSync(dest + '.disabled')) throw new Error('Ese archivo ya está instalado');
+  log('Instalando ' + f.filename + ' (' + vs[0].version_number + ') de Modrinth...');
+  await downloadChecked(f.url, dest, f.hashes && f.hashes.sha1, 'sha1', log);
+  return f.filename;
+}
+
 // ---------- acciones ----------
-async function createInstance(name, version, log) {
+async function createInstance(name, version, log, type = 'vanilla') {
   if (!safeName(name)) throw new Error('Nombre no válido (usa letras, números, - y _)');
+  if (!LOADERS.includes(type)) throw new Error('Tipo de servidor no válido');
   if (instances.has(name)) throw new Error('Ya existe una instancia con ese nombre');
   const dir = instDir(name);
   await fsp.mkdir(dir, { recursive: true });
-  const jarPath = path.join(dir, 'server.jar');
-  if (!fs.existsSync(jarPath)) {
-    const url = MOCK ? null : await serverJarUrl(version);
-    if (MOCK) { await fsp.writeFile(jarPath, 'mock'); }
-    else {
-      log && log('Descargando servidor ' + version + ' de Mojang...');
-      const r = await fetch(url);
-      if (!r.ok) throw new Error('jar HTTP ' + r.status);
-      await fsp.writeFile(jarPath, Buffer.from(await r.arrayBuffer()));
-    }
-  }
-  await fsp.writeFile(path.join(dir, 'eula.txt'), 'eula=false\n');
+  if (MOCK) { await fsp.writeFile(path.join(dir, 'server.jar'), 'mock'); }
+  else await installServerFiles(type, version, dir, m => log && log(m));
+  await fsp.writeFile(path.join(dir, 'eula.txt'), 'eula=true\n');
   await fsp.writeFile(path.join(dir, 'server.properties'), [
     'server-port=25565', 'online-mode=true', 'max-players=' + config.maxPlayers,
     'motd=' + config.motd, 'view-distance=10', 'simulation-distance=8',
     'spawn-protection=16', 'enable-command-block=false', 'white-list=false', '',
   ].join('\n'));
-  await fsp.writeFile(path.join(dir, 'kike-instance.json'), JSON.stringify({ name, version, createdAt: new Date().toISOString() }, null, 2));
+  await fsp.writeFile(path.join(dir, 'kike-instance.json'), JSON.stringify({ name, version, type, createdAt: new Date().toISOString() }, null, 2));
   instances.set(name, {
-    name, version, status: 'offline', proc: null, pid: null, startedAt: null,
+    name, version, type, status: 'offline', proc: null, pid: null, startedAt: null,
     players: new Set(), logBuf: [], maxPlayers: config.maxPlayers, ramMB: null,
   });
   return instances.get(name);
 }
 
 function startInstance(inst) {
+  if(worldImports.size)throw new Error('Espera a que termine la importación del mundo.');
   if (runningName) throw new Error('Ya hay un servidor encendido (' + runningName + '). Apágalo primero.');
   if (inst.status !== 'offline') throw new Error('El servidor no está apagado');
   const dir = instDir(inst.name);
-  if (!MOCK && !/^eula=true\s*$/m.test(fs.readFileSync(path.join(dir, 'eula.txt'), 'utf8'))) throw new Error('Lee https://www.minecraft.net/eula y, si aceptas, cambia eula=false por eula=true en el eula.txt de esta instancia.');
   inst.status = 'starting';
   inst.startedAt = now();
   inst.players = new Set();
   const args = MOCK
     ? [path.join(__dirname, 'fake-server.js')]
-    : [...buildJavaArgs(), '-jar', 'server.jar', 'nogui'];
+    : buildStartArgs(inst);
   const proc = spawn(config.javaBin, args, { cwd: dir, stdio: ['pipe', 'pipe', 'pipe'] });
   inst.proc = proc;
   inst.pid = proc.pid;
   runningName = inst.name;
+  config.lastServer = inst.name; saveConfig();
   pushLog(inst, '[panel] Encendiendo ' + inst.name + ' (' + inst.version + ')', 'panel');
   let carry = '';
   proc.stdout.on('data', d => {
@@ -240,6 +412,7 @@ async function stopInstance(inst) {
     inst.proc.once('exit', () => { clearTimeout(t); res(); });
   });
   try { await backupInstance(inst, 'auto-apagado'); } catch (e) { pushLog(inst, '[panel] Copia al apagar falló: ' + e.message, 'error'); }
+  if (config.lastServer === inst.name) { config.lastServer = null; saveConfig(); }
 }
 
 function sendCommand(inst, cmd) {
@@ -258,8 +431,8 @@ function isoWeek(d) {
   const first = new Date(Date.UTC(t.getUTCFullYear(), 0, 4));
   return t.getUTCFullYear() + '-W' + String(1 + Math.round((t - first) / 6048e5)).padStart(2, '0');
 }
-async function listBackups(name) {
-  const dir = path.join(BACKUPS_DIR, name);
+async function listBackups(name, baseDir = BACKUPS_DIR) {
+  const dir = path.join(baseDir, name);
   try {
     const out = [];
     for (const f of await fsp.readdir(dir)) {
@@ -296,11 +469,20 @@ async function backupInstance(inst, tag = 'manual') {
   } finally { if (running) sendCommand(inst, 'save-on'); }
   pushLog(inst, '[panel] Copia guardada: ' + file, 'panel');
   await rotateBackups(inst.name);
+  try {
+    if (config.backupMirrorDir) {
+      const mdir = path.join(config.backupMirrorDir, inst.name);
+      await fsp.mkdir(mdir, { recursive: true });
+      await fsp.copyFile(path.join(BACKUPS_DIR, inst.name, file), path.join(mdir, file));
+      await rotateBackups(inst.name, config.backupMirrorDir);
+      pushLog(inst, '[panel] Copia replicada en ' + config.backupMirrorDir, 'panel');
+    }
+  } catch (e) { pushLog(inst, '[panel] Copia extra al otro disco falló: ' + e.message, 'error'); }
   broadcast({ type: 'backups', inst: inst.name, backups: await listBackups(inst.name) });
   return file;
 }
-async function rotateBackups(name) {
-  const all = await listBackups(name);
+async function rotateBackups(name, baseDir = BACKUPS_DIR) {
+  const all = await listBackups(name, baseDir);
   const keep = new Set(all.slice(0, config.rollingKeep).map(b => b.file));
   const byWeek = new Map();
   for (const b of all) {
@@ -308,7 +490,7 @@ async function rotateBackups(name) {
     if (!byWeek.has(w)) byWeek.set(w, b.file);
   }
   [...byWeek.values()].slice(0, config.weeklyKeep).forEach(f => keep.add(f));
-  for (const b of all) if (!keep.has(b.file)) { try { await fsp.unlink(path.join(BACKUPS_DIR, name, b.file)); } catch (_) {} }
+  for (const b of all) if (!keep.has(b.file)) { try { await fsp.unlink(path.join(baseDir, name, b.file)); } catch (_) {} }
 }
 setInterval(async () => {
   if (!runningName) return;
@@ -318,6 +500,16 @@ setInterval(async () => {
   if (now() - inst.lastAutoBackup >= config.backupIntervalMin * 60000) {
     inst.lastAutoBackup = now();
     try { await backupInstance(inst, 'auto'); } catch (e) { pushLog(inst, '[panel] Copia automática falló: ' + e.message, 'error'); }
+  }
+  if (config.autoStopEmptyMin > 0) {
+    if (inst.players.size === 0) {
+      inst.emptySince = inst.emptySince || now();
+      if (now() - inst.emptySince >= config.autoStopEmptyMin * 60000) {
+        inst.emptySince = null;
+        pushLog(inst, '[panel] Apagado automático: sin jugadores durante ' + config.autoStopEmptyMin + ' min', 'panel');
+        try { await stopInstance(inst); } catch (e) { pushLog(inst, '[panel] Auto-apagado falló: ' + e.message, 'error'); }
+      }
+    } else inst.emptySince = null;
   }
 }, 30000);
 setInterval(() => {
@@ -383,17 +575,29 @@ function datapacksDir(inst) { return path.join(instDir(inst.name), 'world', 'dat
 // ---------- HTTP ----------
 function readBody(req) {
   return new Promise((res, rej) => {
-    let b = ''; req.on('data', c => { b += c; if (b.length > 7e7) req.destroy(); });
+    let b = ''; req.on('data', c => { b += c; if (b.length > 7e7) { rej(new Error('Cuerpo demasiado grande')); req.destroy(); } });
     req.on('end', () => { try { res(b ? JSON.parse(b) : {}); } catch (e) { rej(e); } });
     req.on('error', rej);
   });
 }
-function json(res, code, obj) { res.writeHead(code, { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' }); res.end(JSON.stringify(obj)); }
+const SEC_HEADERS = { 'X-Content-Type-Options': 'nosniff', 'Referrer-Policy': 'no-referrer', 'X-Frame-Options': 'DENY' };
+function json(res, code, obj) { res.writeHead(code, { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store', ...SEC_HEADERS }); res.end(JSON.stringify(obj)); }
 
 const requestHandler = async (req, res) => {
   const u = new URL(req.url, 'http://x');
   const p = u.pathname;
   try {
+    // Anti-CSRF: mutaciones solo desde el propio panel (mismo origen) y con un Content-Type que un formulario externo no puede forjar
+    if (p.startsWith('/api/') && (req.method === 'POST' || req.method === 'PUT' || req.method === 'PATCH')) {
+      const origin = req.headers.origin;
+      if (origin) {
+        let oh = '';
+        try { oh = new URL(origin).host; } catch (_) { oh = ''; }
+        if (oh !== req.headers.host) return json(res, 403, { error: 'Origen no permitido' });
+      }
+      const ct = String(req.headers['content-type'] || '').toLowerCase();
+      if (!ct.includes('application/json') && !ct.includes('application/zip') && !ct.includes('application/octet-stream')) return json(res, 415, { error: 'Content-Type no permitido' });
+    }
     const needsSetup = !config.pinHash;
     const authed = !!getSession(req);
     if (p === '/api/panel/auth-state' && req.method === 'GET') {
@@ -434,20 +638,13 @@ const requestHandler = async (req, res) => {
       if (needsSetup) return json(res, 403, { needsSetup: true, error: 'Configura el PIN del panel' });
       if (!authed) return json(res, 401, { error: 'Necesitas iniciar sesión con tu PIN' });
     }
+    if(worldImports.size && ['POST','DELETE','PUT','PATCH'].includes(req.method) && p!=='/api/world-import')throw new Error('Espera a que termine la importación del mundo.');
     if (p === '/' || p === '/index.html') {
-      const k = u.searchParams.get('k');
-      if (k) {
-        const s = sessions.get(k);
-        if (s && s.exp > now()) {
-          res.writeHead(302, { 'Set-Cookie': 'kh=' + k + '; HttpOnly; SameSite=Lax; Path=/; Max-Age=' + 7 * 24 * 3600, Location: '/' });
-          return res.end();
-        }
-      }
-      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8', ...SEC_HEADERS });
       return res.end(fs.readFileSync(path.join(__dirname, 'public', 'index.html')));
     }
     if (p === '/api/events') {
-      res.writeHead(200, { 'Content-Type': 'text/event-stream', 'Cache-Control': 'no-store', Connection: 'keep-alive' });
+      res.writeHead(200, { 'Content-Type': 'text/event-stream', 'Cache-Control': 'no-store', Connection: 'keep-alive', ...SEC_HEADERS });
       res.write('retry: 2000\n\n');
       sseClients.add(res);
       req.on('close', () => sseClients.delete(res));
@@ -456,7 +653,11 @@ const requestHandler = async (req, res) => {
     if (p === '/api/state' && req.method === 'GET') {
       const out = [];
       for (const inst of instances.values()) out.push({ ...publicState(inst), backups: await listBackups(inst.name) });
-      return json(res, 200, { runningName, instances: out, config: { backupIntervalMin: config.backupIntervalMin, rollingKeep: config.rollingKeep, weeklyKeep: config.weeklyKeep } });
+      const stfs = await fsp.statfs(ROOT).catch(() => null);
+      const diskFreeGB = stfs ? +(stfs.bavail * stfs.bsize / 1073741824).toFixed(1) : null;
+      const mcLatest = (manifestCache.data && manifestCache.data.latest) ? manifestCache.data.latest.release : null;
+      if (!manifestCache.data || now() - manifestCache.at >= 10 * 60 * 1000) mojangManifest().catch(() => {});
+      return json(res, 200, { runningName, instances: out, diskFreeGB, mcLatest, config: { backupIntervalMin: config.backupIntervalMin, rollingKeep: config.rollingKeep, weeklyKeep: config.weeklyKeep } });
     }
     if (p === '/api/log' && req.method === 'GET') {
       const inst = instances.get(u.searchParams.get('inst') || '');
@@ -466,10 +667,46 @@ const requestHandler = async (req, res) => {
       const man = await mojangManifest();
       return json(res, 200, { latest: man.latest.release, versions: man.versions.filter(v => v.type === 'release').slice(0, 12).map(v => v.id) });
     }
+    if (p === '/api/world-import' && req.method === 'POST') {
+      const name=u.searchParams.get('name'), mode=u.searchParams.get('mode');
+      if(!safeName(name)||!['new','existing'].includes(mode))throw new Error('Nombre o destino no válido.');
+      if(worldImports.size)throw new Error('Ya hay una importación para esta instancia.');
+      let inst=instances.get(name);
+      if(mode==='existing'&&(!inst||inst.proc||inst.status!=='offline'))throw new Error('La instancia debe estar apagada antes de importar.');
+      if(mode==='existing'&&u.searchParams.get('confirm')!=='REEMPLAZAR')throw new Error('Confirma la sustitución del mundo. Primero se guardará una copia.');
+      if(mode==='new'&&(inst||fs.existsSync(instDir(name))))throw new Error('Ya existe una instancia con ese nombre.');
+      const version=u.searchParams.get('version');
+      if(mode==='new'&&(!version||version.length>32))throw new Error('Elige la versión de Minecraft del mundo.');
+      worldImports.add(name);
+      let tmp,backup=null,created=false,moved=false;
+      try {
+        tmp=await fsp.mkdtemp(path.join(ROOT,'.world-import-'));
+        await worldImport.receive(req,path.join(tmp,'upload.zip'));
+        const zipMeta=await worldImport.inspect(path.join(tmp,'upload.zip'));
+        const disk=await fsp.statfs(ROOT);
+        if(disk.bavail*disk.bsize < zipMeta.total+512*1024**2)throw new Error('No hay suficiente espacio libre para extraer el mundo con seguridad.');
+        await worldImport.extract(path.join(tmp,'upload.zip'),path.join(tmp,'world'));
+        if(mode==='new'){
+          created=true;inst=await createInstance(name,version);
+        } else {
+          if(inst.proc||inst.status!=='offline')throw new Error('La instancia ya no está apagada.');
+          const {props}=readProps(inst);
+          if(props['level-name']&&props['level-name']!=='world')throw new Error('Esta instancia usa level-name personalizado. No se cambiará su mundo.');
+          if(fs.existsSync(path.join(instDir(name),'world')))backup=await backupInstance(inst,'pre-import-'+crypto.randomBytes(3).toString('hex'));
+        }
+        const dst=path.join(instDir(name),'world');
+        if(fs.existsSync(dst)){await fsp.rename(dst,path.join(tmp,'previous-world'));moved=true;}
+        try{await fsp.rename(path.join(tmp,'world'),dst);}catch(e){if(moved)await fsp.rename(path.join(tmp,'previous-world'),dst);throw e;}
+        broadcastState(inst);
+        return json(res,200,{ok:true,inst:publicState(inst),backup});
+      }catch(e){if(created){instances.delete(name);await fsp.rm(instDir(name),{recursive:true,force:true});}throw e;}
+      finally{worldImports.delete(name);if(tmp&&(!fs.existsSync(path.join(tmp,'previous-world'))||fs.existsSync(path.join(instDir(name),'world'))))await fsp.rm(tmp,{recursive:true,force:true});}
+    }
+
     if (p === '/api/instances' && req.method === 'POST') {
       const b = await readBody(req);
       const logs = [];
-      const inst = await createInstance(b.name, b.version, m => logs.push(m));
+      const inst = await createInstance(b.name, b.version, m => logs.push(m), String(b.type || 'vanilla'));
       return json(res, 200, { ok: true, inst: publicState(inst), logs });
     }
     let m = p.match(/^\/api\/instances\/([A-Za-z0-9_-]+)\/(start|stop|restart|command|backup)$/);
@@ -519,22 +756,124 @@ const requestHandler = async (req, res) => {
         ].join('; ');
         await new Promise((res2, rej) => execFile('powershell', ['-NoProfile', '-Command', ps], { timeout: 300000 }, (e, so, se) => e ? rej(new Error((se || e.message).trim())) : res2()));
       }
-      await fsp.writeFile(path.join(dest, 'kike-instance.json'), JSON.stringify({ name: newName, version: src.version, createdAt: new Date().toISOString(), restoredFrom: srcName + '/' + zipFile }, null, 2));
+      await fsp.writeFile(path.join(dest, 'kike-instance.json'), JSON.stringify({ name: newName, version: src.version, type: src.type || 'vanilla', createdAt: new Date().toISOString(), restoredFrom: srcName + '/' + zipFile }, null, 2));
       instances.set(newName, {
-        name: newName, version: src.version, status: 'offline', proc: null, pid: null,
+        name: newName, version: src.version, type: src.type || 'vanilla', status: 'offline', proc: null, pid: null,
         startedAt: null, players: new Set(), logBuf: [], maxPlayers: config.maxPlayers, ramMB: null,
       });
       pushLog(src, '[panel] Copia ' + zipFile + ' restaurada como instancia nueva "' + newName + '"', 'panel');
       return json(res, 200, { ok: true, inst: publicState(instances.get(newName)) });
     }
+    if (p === '/api/loader-versions' && req.method === 'GET') {
+      const type = u.searchParams.get('type') || 'vanilla';
+      if (!LOADERS.includes(type)) throw new Error('Tipo no válido');
+      return json(res, 200, { versions: await loaderMcVersions(type) });
+    }
+    if (p === '/api/instances/change-server' && req.method === 'POST') {
+      const b = await readBody(req);
+      const inst = instances.get(String(b.name || ''));
+      if (!inst) return json(res, 404, { error: 'no existe' });
+      if (inst.proc || inst.status !== 'offline' || runningName) throw new Error('Apaga el servidor antes de cambiar la versión o el tipo.');
+      const type = String(b.type || inst.type || 'vanilla');
+      if (!LOADERS.includes(type)) throw new Error('Tipo no válido');
+      const version = String(b.version || '');
+      if (!(await loaderMcVersions(type)).includes(version)) throw new Error('Esa versión no está disponible para ' + type + '.');
+      if (version === inst.version && type === (inst.type || 'vanilla')) return json(res, 200, { ok: true, sinCambios: true });
+      if (fs.existsSync(path.join(instDir(inst.name), 'world'))) {
+        pushLog(inst, '[panel] Copia de seguridad antes de cambiar a ' + type + ' ' + version + '...', 'panel');
+        await backupInstance(inst, 'cambio-version');
+      } else {
+        pushLog(inst, '[panel] Sin mundo todavía: cambio sin copia (no hay nada que proteger).', 'panel');
+      }
+      await installServerFiles(type, version, instDir(inst.name), m2 => pushLog(inst, '[panel] ' + m2, 'panel'));
+      for (const [t2, jar2] of Object.entries(JAR_NAME)) { if (t2 !== type) await fsp.unlink(path.join(instDir(inst.name), jar2)).catch(() => {}); }
+      const metaPath = path.join(instDir(inst.name), 'kike-instance.json');
+      let meta = {};
+      try { meta = JSON.parse(await fsp.readFile(metaPath, 'utf8')); } catch (_) {}
+      meta.name = inst.name; meta.version = version; meta.type = type;
+      await fsp.writeFile(metaPath, JSON.stringify(meta, null, 2));
+      inst.version = version; inst.type = type;
+      pushLog(inst, '[panel] Servidor cambiado a ' + type + ' ' + version + '. El mundo no se ha tocado.', 'panel');
+      broadcastState(inst);
+      return json(res, 200, { ok: true, inst: publicState(inst) });
+    }
+    m = p.match(/^\/api\/instances\/([A-Za-z0-9_-]+)\/addons$/);
+    if (m && req.method === 'GET') {
+      const inst = instances.get(m[1]);
+      if (!inst) return json(res, 404, { error: 'no existe' });
+      return json(res, 200, await listAddons(inst));
+    }
+    m = p.match(/^\/api\/instances\/([A-Za-z0-9_-]+)\/addons\/(toggle|delete)$/);
+    if (m && req.method === 'POST') {
+      const inst = instances.get(m[1]);
+      if (!inst) return json(res, 404, { error: 'no existe' });
+      if (inst.proc || inst.status !== 'offline' || runningName) throw new Error('Apaga el servidor antes de tocar plugins o mods.');
+      const dirName = addonDirName(inst);
+      if (!dirName) throw new Error('Este tipo de servidor no admite plugins ni mods.');
+      const b = await readBody(req);
+      const file = path.basename(String(b.file || ''));
+      if (!/\.jar(\.disabled)?$/.test(file)) throw new Error('Archivo no válido');
+      const fp = path.join(instDir(inst.name), dirName, file);
+      if (m[2] === 'delete') await fsp.unlink(fp);
+      else await fsp.rename(fp, fp.endsWith('.disabled') ? fp.slice(0, -9) : fp + '.disabled');
+      return json(res, 200, await listAddons(inst));
+    }
+    m = p.match(/^\/api\/instances\/([A-Za-z0-9_-]+)\/addons\/upload$/);
+    if (m && req.method === 'POST') {
+      const inst = instances.get(m[1]);
+      if (!inst) return json(res, 404, { error: 'no existe' });
+      const dirName = addonDirName(inst);
+      if (!dirName) throw new Error('Este tipo de servidor no admite plugins ni mods.');
+      const file = path.basename(u.searchParams.get('file') || '');
+      if (!/^[\w.()+-]{1,80}\.jar$/i.test(file)) throw new Error('Nombre de archivo no válido (.jar)');
+      const dir = path.join(instDir(inst.name), dirName);
+      await fsp.mkdir(dir, { recursive: true });
+      const dest = path.join(dir, file);
+      if (fs.existsSync(dest) || fs.existsSync(dest + '.disabled')) throw new Error('Ese archivo ya existe');
+      let size = 0; const chunks = [];
+      for await (const ch of req) { size += ch.length; if (size > 60 * 1024 * 1024) { req.destroy(); throw new Error('Archivo demasiado grande (máx 60 MB)'); } chunks.push(ch); }
+      await fsp.writeFile(dest, Buffer.concat(chunks));
+      pushLog(inst, '[panel] Subido ' + file + ' a ' + dirName + '/', 'panel');
+      return json(res, 200, await listAddons(inst));
+    }
+    m = p.match(/^\/api\/instances\/([A-Za-z0-9_-]+)\/addons\/search$/);
+    if (m && req.method === 'GET') {
+      const inst = instances.get(m[1]);
+      if (!inst) return json(res, 404, { error: 'no existe' });
+      const q = String(u.searchParams.get('q') || '').slice(0, 60);
+      return json(res, 200, { results: await modrinthSearch(inst, q) });
+    }
+    m = p.match(/^\/api\/instances\/([A-Za-z0-9_-]+)\/addons\/install$/);
+    if (m && req.method === 'POST') {
+      const inst = instances.get(m[1]);
+      if (!inst) return json(res, 404, { error: 'no existe' });
+      if (inst.proc || inst.status !== 'offline' || runningName) throw new Error('Apaga el servidor antes de instalar plugins o mods.');
+      const b = await readBody(req);
+      const f = await modrinthInstall(inst, String(b.projectId || ''), m2 => pushLog(inst, '[panel] ' + m2, 'panel'));
+      return json(res, 200, { ok: true, file: f, ...(await listAddons(inst)) });
+    }
     if (p === '/api/panel/config' && req.method === 'GET') {
-      return json(res, 200, { ramMB: config.ramMB || 3072, extraJavaArgs: config.extraJavaArgs || '', backupIntervalMin: config.backupIntervalMin, rollingKeep: config.rollingKeep, weeklyKeep: config.weeklyKeep });
+      return json(res, 200, { ramMB: config.ramMB || 3072, extraJavaArgs: config.extraJavaArgs || '', backupIntervalMin: config.backupIntervalMin, rollingKeep: config.rollingKeep, weeklyKeep: config.weeklyKeep, autoStartLastServer: !!config.autoStartLastServer, autoStopEmptyMin: config.autoStopEmptyMin || 0, backupMirrorDir: config.backupMirrorDir || '' });
     }
     if (p === '/api/panel/config' && req.method === 'POST') {
       const b = await readBody(req);
       if (b.ramMB !== undefined) { const v = parseInt(b.ramMB, 10); if (!(v >= 1024 && v <= 24576)) throw new Error('RAM fuera de rango (1-24 GB)'); config.ramMB = v; }
-      if (b.extraJavaArgs !== undefined) config.extraJavaArgs = String(b.extraJavaArgs).slice(0, 300);
-      if (b.backupIntervalMin !== undefined) { const v = parseInt(b.backupIntervalMin, 10); if (v >= 5 && v <= 1440) config.backupIntervalMin = v; }
+      if (b.extraJavaArgs !== undefined) config.extraJavaArgs = String(b.extraJavaArgs).slice(0, 1200);
+      if (b.backupIntervalMin !== undefined) { const v = parseInt(b.backupIntervalMin, 10); if (!(v >= 5 && v <= 1440)) throw new Error("Intervalo de copias fuera de rango (5-1440 min)"); config.backupIntervalMin = v; }
+      if (b.autoStartLastServer !== undefined) config.autoStartLastServer = !!b.autoStartLastServer;
+      if (b.autoStopEmptyMin !== undefined) { const v = parseInt(b.autoStopEmptyMin, 10); if (!(v === 0 || (v >= 5 && v <= 120))) throw new Error('Auto-apagado por inactividad fuera de rango (0 = nunca, o 5-120 min)'); config.autoStopEmptyMin = v; }
+      if (b.backupMirrorDir !== undefined) {
+        const raw = String(b.backupMirrorDir).trim();
+        if (!raw) { config.backupMirrorDir = ''; }
+        else {
+          const mm = raw.match(/^([A-Za-z]):[\\/](.+)$/);
+          if (!mm || !mm[2].replace(/[\\/]/g, '')) throw new Error('Ruta de copia extra no válida (ej: D:\\KikeHosting-Backups). Debe ser una carpeta, no la raíz del disco.');
+          if (/[<>:"|?*]/.test(mm[2])) throw new Error('La ruta contiene caracteres no válidos');
+          const sysLetter = String(process.env.SystemDrive || 'C:').charAt(0).toUpperCase();
+          if (mm[1].toUpperCase() === sysLetter) throw new Error('La copia extra debe ir en otro disco, no en el del sistema (' + sysLetter + ':)');
+          config.backupMirrorDir = mm[1].toUpperCase() + ':\\' + mm[2].replace(/[\\/]+/g, '\\').replace(/\\+$/g, '');
+        }
+      }
       saveConfig();
       return json(res, 200, { ok: true });
     }
@@ -689,4 +1028,19 @@ loadInstances().then(async () => {
     } catch (e) { console.error('No pude abrir ' + host + ': ' + e.message); }
   }
   if (!started) { console.error('No pude abrir el puerto ' + PANEL_PORT); process.exit(1); }
+
+  // Autoarranque opcional: si está activado en Ajustes, vuelve a encender el último servidor que estaba en marcha
+  if (config.autoStartLastServer && config.lastServer) {
+    const inst = instances.get(config.lastServer);
+    if (inst && inst.status === 'offline' && !runningName) {
+      setTimeout(() => {
+        try {
+          if (!runningName && inst.status === 'offline') {
+            pushLog(inst, '[panel] Autoarranque: encendiendo ' + inst.name + ' (último servidor en marcha)', 'panel');
+            startInstance(inst);
+          }
+        } catch (e) { pushLog(inst, '[panel] Autoarranque falló: ' + e.message, 'error'); }
+      }, 4000);
+    }
+  }
 });
