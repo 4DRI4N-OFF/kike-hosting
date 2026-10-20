@@ -1381,9 +1381,9 @@ details.bloque.sin-resumen .bloque-cuerpo{display:flex;opacity:1;transform:none}
 .ventana-cuerpo{overflow:visible}
 .ventana{padding:0 36px 32px;scrollbar-width:none}
 .ventana::-webkit-scrollbar{display:none}
-.ventana-top{position:sticky;top:0;z-index:5;margin:0 -36px 22px;padding:32px 36px 14px;border-radius:20px 20px 0 0;background:rgba(250,250,250,.72);backdrop-filter:blur(20px) saturate(1.6);-webkit-backdrop-filter:blur(20px) saturate(1.6)}
-:root[data-theme='dark'] .ventana-top{background:rgba(24,24,26,.72)}
-@media (prefers-color-scheme:dark){:root:not([data-theme='light']) .ventana-top{background:rgba(24,24,26,.72)}}
+.ventana-top{position:sticky;top:0;z-index:5;margin:0 -36px 22px;padding:32px 36px 14px;border-radius:20px 20px 0 0;background:linear-gradient(rgba(250,250,250,.97),rgba(250,250,250,.88));backdrop-filter:blur(28px) saturate(1.8);-webkit-backdrop-filter:blur(28px) saturate(1.8)}
+:root[data-theme='dark'] .ventana-top{background:linear-gradient(rgba(24,24,26,.97),rgba(24,24,26,.88))}
+@media (prefers-color-scheme:dark){:root:not([data-theme='light']) .ventana-top{background:linear-gradient(rgba(24,24,26,.97),rgba(24,24,26,.88))}}
 .ventana:before{content:'';display:none}
 @media (max-width:740px){
   .ventana:before{display:none!important}
