@@ -8,6 +8,1062 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style id="ios26-tokens">
+/* ==========================================================================
+   iOS 26 Design Tokens — CSS Custom Properties
+   Source: Apple iOS & iPadOS 26 Figma Community Kit
+   Target: Pure Svelte 5 (runes mode)
+   ========================================================================== */
+
+
+/* --------------------------------------------------------------------------
+   Light Mode (Default)
+   -------------------------------------------------------------------------- */
+
+:root {
+
+  /* -- System Colors (12) ------------------------------------------------ */
+  --color-red: #ff383c;
+  --color-orange: #ff8d28;
+  --color-yellow: #ffcc00;
+  --color-green: #34c759;
+  --color-mint: #00c8b3;
+  --color-teal: #00c3d0;
+  --color-cyan: #00c0e8;
+  --color-blue: #0088ff;
+  --color-indigo: #6155f5;
+  --color-purple: #cb30e0;
+  --color-pink: #ff2d55;
+  --color-brown: #ac7f5e;
+
+  /* -- Labels (4 levels) ------------------------------------------------- */
+  --label-primary: #000000;
+  --label-secondary: rgba(60, 60, 67, 0.6);
+  --label-tertiary: rgba(60, 60, 67, 0.3);
+  --label-quaternary: rgba(60, 60, 67, 0.18);
+
+  /* -- Backgrounds (6) --------------------------------------------------- */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f2f2f7;
+  --bg-tertiary: #ffffff;
+  --bg-grouped-primary: #f2f2f7;
+  --bg-grouped-secondary: #ffffff;
+  --bg-grouped-tertiary: #f2f2f7;
+
+  /* -- Fills (4 levels) -------------------------------------------------- */
+  --fill-primary: rgba(120, 120, 128, 0.2);
+  --fill-secondary: rgba(120, 120, 128, 0.16);
+  --fill-tertiary: rgba(118, 118, 128, 0.12);
+  --fill-quaternary: rgba(116, 116, 128, 0.08);
+
+  /* -- Grays (8) --------------------------------------------------------- */
+  --black: #000000;
+  --gray: #8e8e93;
+  --gray-2: #aeaeb2;
+  --gray-3: #c7c7cc;
+  --gray-4: #d1d1d6;
+  --gray-5: #e5e5ea;
+  --gray-6: #f2f2f7;
+  --white: #ffffff;
+
+  /* -- Separators -------------------------------------------------------- */
+  --separator-opaque: #c6c6c8;
+  --separator: rgba(0, 0, 0, 0.12);
+
+  /* -- Vibrant Labels (Light) -------------------------------------------- */
+  --vibrant-label-primary: #000000;
+  --vibrant-label-secondary: #3d3d3d;
+  --vibrant-label-tertiary: rgba(61, 61, 61, 0.5);
+  --vibrant-label-quaternary: rgba(61, 61, 61, 0.5);
+
+  /* -- Vibrant Fills (Light) --------------------------------------------- */
+  --vibrant-fill-primary: #cccccc;
+  --vibrant-fill-secondary: #e0e0e0;
+  --vibrant-fill-tertiary: #ededed;
+
+  /* -- Typography -------------------------------------------------------- */
+  --font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+
+  /* Type Scale — Size */
+  --text-large-title: 34px;
+  --text-title1: 28px;
+  --text-title2: 22px;
+  --text-title3: 20px;
+  --text-headline: 17px;
+  --text-body: 17px;
+  --text-callout: 16px;
+  --text-subheadline: 15px;
+  --text-footnote: 13px;
+  --text-caption1: 12px;
+  --text-caption2: 11px;
+
+  /* Type Scale — Line Height */
+  --lh-large-title: 41px;
+  --lh-title1: 34px;
+  --lh-title2: 28px;
+  --lh-title3: 25px;
+  --lh-headline: 22px;
+  --lh-body: 22px;
+  --lh-callout: 21px;
+  --lh-subheadline: 20px;
+  --lh-footnote: 18px;
+  --lh-caption1: 16px;
+  --lh-caption2: 13px;
+
+  /* Type Scale — Loose Line Height (+2px for multiline) */
+  --lh-large-title-loose: 43px;
+  --lh-title1-loose: 36px;
+  --lh-title2-loose: 30px;
+  --lh-title3-loose: 27px;
+  --lh-headline-loose: 24px;
+  --lh-body-loose: 24px;
+  --lh-callout-loose: 23px;
+
+  /* Type Scale — Letter Spacing */
+  --ls-large-title: 0.4px;
+  --ls-title1: 0.38px;
+  --ls-title2: -0.26px;
+  --ls-title3: -0.45px;
+  --ls-headline: -0.43px;
+  --ls-body: -0.43px;
+  --ls-callout: -0.31px;
+  --ls-subheadline: -0.23px;
+  --ls-footnote: -0.08px;
+  --ls-caption1: 0px;
+  --ls-caption2: 0.06px;
+
+  /* Type Scale — Font Weight */
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* -- Materials (Liquid Glass & Blur) ----------------------------------- */
+
+  /* Background Materials — Blur Radius */
+  --blur-chrome: 50px;
+  --blur-thick: 100px;
+  --blur-regular: 100px;
+  --blur-thin: 100px;
+  --blur-ultrathin: 100px;
+
+  /* Background Materials — Opacity */
+  --material-chrome-opacity: 0.75;
+  --material-thick-opacity: 0.84;
+  --material-regular-opacity: 0.60;
+  --material-thin-opacity: 0.40;
+  --material-ultrathin-opacity: 0.03;
+
+  /* Liquid Glass */
+  --glass-large-bg: rgba(250, 250, 250, 0.7);
+  --glass-large-radius: 14px;
+  --glass-large-shadow-blur: 40px;
+
+  --glass-medium-bg: rgba(245, 245, 245, 0.6);
+  --glass-medium-radius: 12px;
+  --glass-medium-shadow-blur: 40px;
+
+  --glass-small-bg: #f7f7f7;
+  --glass-small-border: #dddddd;
+  --glass-small-shadow-blur: 40px;
+
+  --glass-primary-bg: #ffffff;
+  --glass-primary-icon-color: #0091ff;
+  --glass-primary-shadow-blur: 40px;
+
+  --glass-clear-bg: rgba(255, 255, 255, 0.07);
+  --glass-clear-radius: 5px;
+  --glass-clear-shadow-blur: 40px;
+
+  /* Scroll Edge Effects */
+  --scroll-edge-soft-blur: 10px;
+  --scroll-edge-hard-blur: 60px;
+  --scroll-edge-gradient-blur: 60px;
+
+  /* -- Spacing (4px base grid) ------------------------------------------- */
+  --space-0: 0px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 28px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* -- Layout ------------------------------------------------------------ */
+  --safe-area-top: 59px;
+  --safe-area-bottom: 34px;
+  --content-inset: 16px;
+  --list-row-height: 44px;
+  --toolbar-height: 44px;
+  --tabbar-height: 49px;
+  --separator-height: 0.5px;
+}
+
+
+/* --------------------------------------------------------------------------
+   Dark Mode
+   -------------------------------------------------------------------------- */
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+
+    /* -- System Colors (Dark adjustments) -------------------------------- */
+    --color-red: #ff453a;
+    --color-orange: #ff9f0a;
+    --color-yellow: #ffd60a;
+    --color-green: #30d158;
+    --color-mint: #63e6e2;
+    --color-teal: #40c8e0;
+    --color-cyan: #64d2ff;
+    --color-blue: #0a84ff;
+    --color-indigo: #5e5ce6;
+    --color-purple: #bf5af2;
+    --color-pink: #ff375f;
+    --color-brown: #ac8e68;
+
+    /* -- Labels (Dark) --------------------------------------------------- */
+    --label-primary: #ffffff;
+    --label-secondary: rgba(235, 235, 245, 0.6);
+    --label-tertiary: rgba(235, 235, 245, 0.3);
+    --label-quaternary: rgba(235, 235, 245, 0.18);
+
+    /* -- Backgrounds (Dark) ---------------------------------------------- */
+    --bg-primary: #000000;
+    --bg-secondary: #1c1c1e;
+    --bg-tertiary: #2c2c2e;
+    --bg-grouped-primary: #000000;
+    --bg-grouped-secondary: #1c1c1e;
+    --bg-grouped-tertiary: #2c2c2e;
+
+    /* -- Fills (Dark) ---------------------------------------------------- */
+    --fill-primary: rgba(120, 120, 128, 0.36);
+    --fill-secondary: rgba(120, 120, 128, 0.32);
+    --fill-tertiary: rgba(118, 118, 128, 0.24);
+    --fill-quaternary: rgba(118, 118, 128, 0.18);
+
+    /* -- Grays (Dark) ---------------------------------------------------- */
+    --black: #000000;
+    --gray: #8e8e93;
+    --gray-2: #636366;
+    --gray-3: #48484a;
+    --gray-4: #3a3a3c;
+    --gray-5: #2c2c2e;
+    --gray-6: #1c1c1e;
+    --white: #ffffff;
+
+    /* -- Separators (Dark) ----------------------------------------------- */
+    --separator-opaque: #38383a;
+    --separator: rgba(84, 84, 88, 0.65);
+
+    /* -- Vibrant Labels (Dark) ------------------------------------------- */
+    --vibrant-label-primary: #ffffff;
+    --vibrant-label-secondary: #999999;
+    --vibrant-label-tertiary: #404040;
+    --vibrant-label-quaternary: #262626;
+
+    /* -- Vibrant Fills (Dark) -------------------------------------------- */
+    --vibrant-fill-primary: #333333;
+    --vibrant-fill-secondary: #1f1f1f;
+    --vibrant-fill-tertiary: #121212;
+
+    /* -- Liquid Glass (Dark) --------------------------------------------- */
+    --glass-large-bg: rgba(0, 0, 0, 0.8);
+    --glass-medium-bg: rgba(0, 0, 0, 0.6);
+    --glass-small-bg: rgba(0, 0, 0, 0.6);
+    --glass-small-border: rgba(255, 255, 255, 0.06);
+    --glass-clear-bg: rgba(255, 255, 255, 0.07);
+
+    /* -- Materials (Dark overlays) --------------------------------------- */
+    --material-chrome-opacity: 0.75;
+    --material-thick-opacity: 0.84;
+    --material-regular-opacity: 0.60;
+    --material-thin-opacity: 0.40;
+    --material-ultrathin-opacity: 0.03;
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   Manual Dark Mode Override (data-theme="dark")
+   -------------------------------------------------------------------------- */
+
+:root[data-theme="dark"] {
+
+  /* -- System Colors (Dark adjustments) -------------------------------- */
+  --color-red: #ff453a;
+  --color-orange: #ff9f0a;
+  --color-yellow: #ffd60a;
+  --color-green: #30d158;
+  --color-mint: #63e6e2;
+  --color-teal: #40c8e0;
+  --color-cyan: #64d2ff;
+  --color-blue: #0a84ff;
+  --color-indigo: #5e5ce6;
+  --color-purple: #bf5af2;
+  --color-pink: #ff375f;
+  --color-brown: #ac8e68;
+
+  /* -- Labels (Dark) --------------------------------------------------- */
+  --label-primary: #ffffff;
+  --label-secondary: rgba(235, 235, 245, 0.6);
+  --label-tertiary: rgba(235, 235, 245, 0.3);
+  --label-quaternary: rgba(235, 235, 245, 0.18);
+
+  /* -- Backgrounds (Dark) ---------------------------------------------- */
+  --bg-primary: #000000;
+  --bg-secondary: #1c1c1e;
+  --bg-tertiary: #2c2c2e;
+  --bg-grouped-primary: #000000;
+  --bg-grouped-secondary: #1c1c1e;
+  --bg-grouped-tertiary: #2c2c2e;
+
+  /* -- Fills (Dark) ---------------------------------------------------- */
+  --fill-primary: rgba(120, 120, 128, 0.36);
+  --fill-secondary: rgba(120, 120, 128, 0.32);
+  --fill-tertiary: rgba(118, 118, 128, 0.24);
+  --fill-quaternary: rgba(118, 118, 128, 0.18);
+
+  /* -- Grays (Dark) ---------------------------------------------------- */
+  --black: #000000;
+  --gray: #8e8e93;
+  --gray-2: #636366;
+  --gray-3: #48484a;
+  --gray-4: #3a3a3c;
+  --gray-5: #2c2c2e;
+  --gray-6: #1c1c1e;
+  --white: #ffffff;
+
+  /* -- Separators (Dark) ----------------------------------------------- */
+  --separator-opaque: #38383a;
+  --separator: rgba(84, 84, 88, 0.65);
+
+  /* -- Vibrant Labels (Dark) ------------------------------------------- */
+  --vibrant-label-primary: #ffffff;
+  --vibrant-label-secondary: #999999;
+  --vibrant-label-tertiary: #404040;
+  --vibrant-label-quaternary: #262626;
+
+  /* -- Vibrant Fills (Dark) -------------------------------------------- */
+  --vibrant-fill-primary: #333333;
+  --vibrant-fill-secondary: #1f1f1f;
+  --vibrant-fill-tertiary: #121212;
+
+  /* -- Liquid Glass (Dark) --------------------------------------------- */
+  --glass-large-bg: rgba(0, 0, 0, 0.8);
+  --glass-medium-bg: rgba(0, 0, 0, 0.6);
+  --glass-small-bg: rgba(0, 0, 0, 0.6);
+  --glass-small-border: rgba(255, 255, 255, 0.06);
+  --glass-clear-bg: rgba(255, 255, 255, 0.07);
+
+  /* -- Materials (Dark overlays) --------------------------------------- */
+  --material-chrome-opacity: 0.75;
+  --material-thick-opacity: 0.84;
+  --material-regular-opacity: 0.60;
+  --material-thin-opacity: 0.40;
+  --material-ultrathin-opacity: 0.03;
+}
+
+</style>
+<style id="ios26-materials">
+/* ==========================================================================
+   iOS 26 Materials — Liquid Glass & Blur Effects
+   Requires: tokens.css
+   ========================================================================== */
+
+
+/* --------------------------------------------------------------------------
+   Background Materials (Frosted Glass Blur)
+   These simulate the system-level background materials.
+   Apply behind content that sits above a blurred background.
+   -------------------------------------------------------------------------- */
+
+.material-chrome {
+  background-color: rgba(255, 255, 255, var(--material-chrome-opacity));
+  backdrop-filter: blur(var(--blur-chrome));
+  -webkit-backdrop-filter: blur(var(--blur-chrome));
+}
+
+.material-thick {
+  background-color: rgba(255, 255, 255, var(--material-thick-opacity));
+  backdrop-filter: blur(var(--blur-thick));
+  -webkit-backdrop-filter: blur(var(--blur-thick));
+}
+
+.material-regular {
+  background-color: rgba(255, 255, 255, var(--material-regular-opacity));
+  backdrop-filter: blur(var(--blur-regular));
+  -webkit-backdrop-filter: blur(var(--blur-regular));
+}
+
+.material-thin {
+  background-color: rgba(255, 255, 255, var(--material-thin-opacity));
+  backdrop-filter: blur(var(--blur-thin));
+  -webkit-backdrop-filter: blur(var(--blur-thin));
+}
+
+.material-ultrathin {
+  background-color: rgba(255, 255, 255, var(--material-ultrathin-opacity));
+  backdrop-filter: blur(var(--blur-ultrathin));
+  -webkit-backdrop-filter: blur(var(--blur-ultrathin));
+}
+
+/* Dark mode material adjustments */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .material-chrome {
+    background-color: rgba(0, 0, 0, var(--material-chrome-opacity));
+  }
+  :root:not([data-theme="light"]) .material-thick {
+    background-color: rgba(0, 0, 0, var(--material-thick-opacity));
+  }
+  :root:not([data-theme="light"]) .material-regular {
+    background-color: rgba(0, 0, 0, var(--material-regular-opacity));
+  }
+  :root:not([data-theme="light"]) .material-thin {
+    background-color: rgba(0, 0, 0, var(--material-thin-opacity));
+  }
+  :root:not([data-theme="light"]) .material-ultrathin {
+    background-color: rgba(0, 0, 0, var(--material-ultrathin-opacity));
+  }
+}
+
+/* Manual dark mode material overrides */
+[data-theme="dark"] .material-chrome {
+  background-color: rgba(0, 0, 0, var(--material-chrome-opacity));
+}
+[data-theme="dark"] .material-thick {
+  background-color: rgba(0, 0, 0, var(--material-thick-opacity));
+}
+[data-theme="dark"] .material-regular {
+  background-color: rgba(0, 0, 0, var(--material-regular-opacity));
+}
+[data-theme="dark"] .material-thin {
+  background-color: rgba(0, 0, 0, var(--material-thin-opacity));
+}
+[data-theme="dark"] .material-ultrathin {
+  background-color: rgba(0, 0, 0, var(--material-ultrathin-opacity));
+}
+
+
+/* --------------------------------------------------------------------------
+   Liquid Glass — Large
+   Use for: Toolbars, Tab Bars, Navigation Bars
+   -------------------------------------------------------------------------- */
+
+.liquid-glass-large {
+  background-color: var(--glass-large-bg);
+  border-radius: var(--glass-large-radius);
+  box-shadow: 0 0 var(--glass-large-shadow-blur) rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(var(--glass-large-shadow-blur));
+  -webkit-backdrop-filter: blur(var(--glass-large-shadow-blur));
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .liquid-glass-large {
+    background-color: var(--glass-large-bg);
+    box-shadow:
+      0 0 var(--glass-large-shadow-blur) rgba(0, 0, 0, 0.3),
+      inset 0 0 0 0.5px rgba(255, 255, 255, 0.06);
+  }
+}
+[data-theme="dark"] .liquid-glass-large {
+  background-color: var(--glass-large-bg);
+  box-shadow:
+    0 0 var(--glass-large-shadow-blur) rgba(0, 0, 0, 0.3),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.06);
+}
+
+
+/* --------------------------------------------------------------------------
+   Liquid Glass — Medium
+   Use for: Floating action buttons, grouped controls
+   -------------------------------------------------------------------------- */
+
+.liquid-glass-medium {
+  background-color: var(--glass-medium-bg);
+  border-radius: var(--glass-medium-radius);
+  box-shadow: 0 0 var(--glass-medium-shadow-blur) rgba(0, 0, 0, 0.06);
+  backdrop-filter: blur(var(--glass-medium-shadow-blur));
+  -webkit-backdrop-filter: blur(var(--glass-medium-shadow-blur));
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .liquid-glass-medium {
+    background-color: var(--glass-medium-bg);
+    box-shadow:
+      0 0 var(--glass-medium-shadow-blur) rgba(0, 0, 0, 0.25),
+      inset 0 0 0 0.5px rgba(255, 255, 255, 0.06);
+  }
+}
+[data-theme="dark"] .liquid-glass-medium {
+  background-color: var(--glass-medium-bg);
+  box-shadow:
+    0 0 var(--glass-medium-shadow-blur) rgba(0, 0, 0, 0.25),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.06);
+}
+
+
+/* --------------------------------------------------------------------------
+   Liquid Glass — Small
+   Use for: Small buttons, icon buttons, badge-like elements
+   -------------------------------------------------------------------------- */
+
+.liquid-glass-small {
+  background-color: var(--glass-small-bg);
+  border: 0.5px solid var(--glass-small-border);
+  border-radius: 8px;
+  box-shadow: 0 0 var(--glass-small-shadow-blur) rgba(0, 0, 0, 0.04);
+  backdrop-filter: blur(var(--glass-small-shadow-blur));
+  -webkit-backdrop-filter: blur(var(--glass-small-shadow-blur));
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .liquid-glass-small {
+    background-color: var(--glass-small-bg);
+    border-color: var(--glass-small-border);
+    box-shadow:
+      0 0 var(--glass-small-shadow-blur) rgba(0, 0, 0, 0.2),
+      inset 0 0 0 0.5px rgba(255, 255, 255, 0.06);
+  }
+}
+[data-theme="dark"] .liquid-glass-small {
+  background-color: var(--glass-small-bg);
+  border-color: var(--glass-small-border);
+  box-shadow:
+    0 0 var(--glass-small-shadow-blur) rgba(0, 0, 0, 0.2),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.06);
+}
+
+
+/* --------------------------------------------------------------------------
+   Liquid Glass — Primary (Blue Tinted)
+   Use for: Primary action buttons, highlighted navigation items
+   -------------------------------------------------------------------------- */
+
+.liquid-glass-primary {
+  background-color: var(--glass-primary-bg);
+  border-radius: 8px;
+  box-shadow: 0 0 var(--glass-primary-shadow-blur) rgba(0, 0, 0, 0.06);
+  color: var(--glass-primary-icon-color);
+  backdrop-filter: blur(var(--glass-primary-shadow-blur));
+  -webkit-backdrop-filter: blur(var(--glass-primary-shadow-blur));
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .liquid-glass-primary {
+    background-color: var(--glass-primary-bg);
+    box-shadow:
+      0 0 var(--glass-primary-shadow-blur) rgba(0, 0, 0, 0.3),
+      inset 0 0 0 0.5px rgba(255, 255, 255, 0.06);
+  }
+}
+[data-theme="dark"] .liquid-glass-primary {
+  background-color: var(--glass-primary-bg);
+  box-shadow:
+    0 0 var(--glass-primary-shadow-blur) rgba(0, 0, 0, 0.3),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.06);
+}
+
+
+/* --------------------------------------------------------------------------
+   Liquid Glass — Clear
+   Use for: Subtle overlays, minimal glass effect
+   -------------------------------------------------------------------------- */
+
+.liquid-glass-clear {
+  background-color: var(--glass-clear-bg);
+  border-radius: var(--glass-clear-radius);
+  box-shadow: 0 0 var(--glass-clear-shadow-blur) rgba(0, 0, 0, 0.02);
+  backdrop-filter: blur(var(--glass-clear-shadow-blur));
+  -webkit-backdrop-filter: blur(var(--glass-clear-shadow-blur));
+}
+
+
+/* --------------------------------------------------------------------------
+   Scroll Edge Effects
+   Apply to scroll containers. The gradient masks content at scroll edges.
+   -------------------------------------------------------------------------- */
+
+/* Soft: gradient + blur fade */
+
+.scroll-edge-soft-top {
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black var(--scroll-edge-soft-blur),
+    black 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black var(--scroll-edge-soft-blur),
+    black 100%
+  );
+}
+
+.scroll-edge-soft-bottom {
+  mask-image: linear-gradient(
+    to top,
+    transparent 0%,
+    black var(--scroll-edge-soft-blur),
+    black 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to top,
+    transparent 0%,
+    black var(--scroll-edge-soft-blur),
+    black 100%
+  );
+}
+
+.scroll-edge-soft-leading {
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black var(--scroll-edge-soft-blur),
+    black 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black var(--scroll-edge-soft-blur),
+    black 100%
+  );
+}
+
+.scroll-edge-soft-trailing {
+  mask-image: linear-gradient(
+    to left,
+    transparent 0%,
+    black var(--scroll-edge-soft-blur),
+    black 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to left,
+    transparent 0%,
+    black var(--scroll-edge-soft-blur),
+    black 100%
+  );
+}
+
+/* Hard: solid + blur boundary */
+
+.scroll-edge-hard-top {
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 1px,
+    black 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 1px,
+    black 100%
+  );
+  backdrop-filter: blur(var(--scroll-edge-hard-blur));
+  -webkit-backdrop-filter: blur(var(--scroll-edge-hard-blur));
+}
+
+.scroll-edge-hard-bottom {
+  mask-image: linear-gradient(
+    to top,
+    transparent 0%,
+    black 1px,
+    black 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to top,
+    transparent 0%,
+    black 1px,
+    black 100%
+  );
+  backdrop-filter: blur(var(--scroll-edge-hard-blur));
+  -webkit-backdrop-filter: blur(var(--scroll-edge-hard-blur));
+}
+
+.scroll-edge-hard-leading {
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 1px,
+    black 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 1px,
+    black 100%
+  );
+  backdrop-filter: blur(var(--scroll-edge-hard-blur));
+  -webkit-backdrop-filter: blur(var(--scroll-edge-hard-blur));
+}
+
+.scroll-edge-hard-trailing {
+  mask-image: linear-gradient(
+    to left,
+    transparent 0%,
+    black 1px,
+    black 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to left,
+    transparent 0%,
+    black 1px,
+    black 100%
+  );
+  backdrop-filter: blur(var(--scroll-edge-hard-blur));
+  -webkit-backdrop-filter: blur(var(--scroll-edge-hard-blur));
+}
+
+
+/* --------------------------------------------------------------------------
+   Combined Scroll Edge (top + bottom)
+   Common case: vertical scroll container with both edges fading.
+   -------------------------------------------------------------------------- */
+
+.scroll-edge-soft-vertical {
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black var(--scroll-edge-soft-blur),
+    black calc(100% - var(--scroll-edge-soft-blur)),
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black var(--scroll-edge-soft-blur),
+    black calc(100% - var(--scroll-edge-soft-blur)),
+    transparent 100%
+  );
+}
+
+.scroll-edge-soft-horizontal {
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black var(--scroll-edge-soft-blur),
+    black calc(100% - var(--scroll-edge-soft-blur)),
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black var(--scroll-edge-soft-blur),
+    black calc(100% - var(--scroll-edge-soft-blur)),
+    transparent 100%
+  );
+}
+
+</style>
+<style id="ios26-typography">
+/* ==========================================================================
+   iOS 26 Typography — Type Scale Classes
+   All 11 text styles with emphasized, italic, and loose modifiers
+   Requires: tokens.css
+   ========================================================================== */
+
+
+/* --------------------------------------------------------------------------
+   Base Type Styles
+   -------------------------------------------------------------------------- */
+
+.text-large-title {
+  font-family: var(--font-family);
+  font-size: var(--text-large-title);
+  line-height: var(--lh-large-title);
+  letter-spacing: var(--ls-large-title);
+  font-weight: var(--weight-regular);
+  font-style: normal;
+}
+
+.text-title1 {
+  font-family: var(--font-family);
+  font-size: var(--text-title1);
+  line-height: var(--lh-title1);
+  letter-spacing: var(--ls-title1);
+  font-weight: var(--weight-regular);
+  font-style: normal;
+}
+
+.text-title2 {
+  font-family: var(--font-family);
+  font-size: var(--text-title2);
+  line-height: var(--lh-title2);
+  letter-spacing: var(--ls-title2);
+  font-weight: var(--weight-regular);
+  font-style: normal;
+}
+
+.text-title3 {
+  font-family: var(--font-family);
+  font-size: var(--text-title3);
+  line-height: var(--lh-title3);
+  letter-spacing: var(--ls-title3);
+  font-weight: var(--weight-regular);
+  font-style: normal;
+}
+
+.text-headline {
+  font-family: var(--font-family);
+  font-size: var(--text-headline);
+  line-height: var(--lh-headline);
+  letter-spacing: var(--ls-headline);
+  font-weight: var(--weight-semibold);
+  font-style: normal;
+}
+
+.text-body {
+  font-family: var(--font-family);
+  font-size: var(--text-body);
+  line-height: var(--lh-body);
+  letter-spacing: var(--ls-body);
+  font-weight: var(--weight-regular);
+  font-style: normal;
+}
+
+.text-callout {
+  font-family: var(--font-family);
+  font-size: var(--text-callout);
+  line-height: var(--lh-callout);
+  letter-spacing: var(--ls-callout);
+  font-weight: var(--weight-regular);
+  font-style: normal;
+}
+
+.text-subheadline {
+  font-family: var(--font-family);
+  font-size: var(--text-subheadline);
+  line-height: var(--lh-subheadline);
+  letter-spacing: var(--ls-subheadline);
+  font-weight: var(--weight-regular);
+  font-style: normal;
+}
+
+.text-footnote {
+  font-family: var(--font-family);
+  font-size: var(--text-footnote);
+  line-height: var(--lh-footnote);
+  letter-spacing: var(--ls-footnote);
+  font-weight: var(--weight-regular);
+  font-style: normal;
+}
+
+.text-caption1 {
+  font-family: var(--font-family);
+  font-size: var(--text-caption1);
+  line-height: var(--lh-caption1);
+  letter-spacing: var(--ls-caption1);
+  font-weight: var(--weight-regular);
+  font-style: normal;
+}
+
+.text-caption2 {
+  font-family: var(--font-family);
+  font-size: var(--text-caption2);
+  line-height: var(--lh-caption2);
+  letter-spacing: var(--ls-caption2);
+  font-weight: var(--weight-regular);
+  font-style: normal;
+}
+
+
+/* --------------------------------------------------------------------------
+   Emphasized Modifier
+   Applies the emphasized (bold/semibold) weight for each style.
+   Usage: <p class="text-body emphasized">
+   -------------------------------------------------------------------------- */
+
+.text-large-title.emphasized {
+  font-weight: var(--weight-bold);
+}
+
+.text-title1.emphasized {
+  font-weight: var(--weight-bold);
+}
+
+.text-title2.emphasized {
+  font-weight: var(--weight-bold);
+}
+
+.text-title3.emphasized {
+  font-weight: var(--weight-semibold);
+}
+
+/* Headline is already semibold; emphasized has no additional effect */
+.text-headline.emphasized {
+  font-weight: var(--weight-semibold);
+}
+
+.text-body.emphasized {
+  font-weight: var(--weight-semibold);
+}
+
+.text-callout.emphasized {
+  font-weight: var(--weight-semibold);
+}
+
+.text-subheadline.emphasized {
+  font-weight: var(--weight-semibold);
+}
+
+.text-footnote.emphasized {
+  font-weight: var(--weight-semibold);
+}
+
+.text-caption1.emphasized {
+  font-weight: var(--weight-medium);
+}
+
+.text-caption2.emphasized {
+  font-weight: var(--weight-semibold);
+}
+
+
+/* --------------------------------------------------------------------------
+   Italic Modifier
+   Usage: <p class="text-body italic">
+   -------------------------------------------------------------------------- */
+
+.text-large-title.italic,
+.text-title1.italic,
+.text-title2.italic,
+.text-title3.italic,
+.text-headline.italic,
+.text-body.italic,
+.text-callout.italic,
+.text-subheadline.italic,
+.text-footnote.italic,
+.text-caption1.italic,
+.text-caption2.italic {
+  font-style: italic;
+}
+
+
+/* --------------------------------------------------------------------------
+   Emphasized + Italic (compound modifier)
+   Usage: <p class="text-body emphasized italic">
+   -------------------------------------------------------------------------- */
+
+.text-large-title.emphasized.italic {
+  font-weight: var(--weight-bold);
+  font-style: italic;
+}
+
+.text-title1.emphasized.italic {
+  font-weight: var(--weight-bold);
+  font-style: italic;
+}
+
+.text-title2.emphasized.italic {
+  font-weight: var(--weight-bold);
+  font-style: italic;
+}
+
+.text-title3.emphasized.italic {
+  font-weight: var(--weight-semibold);
+  font-style: italic;
+}
+
+.text-headline.emphasized.italic {
+  font-weight: var(--weight-semibold);
+  font-style: italic;
+}
+
+.text-body.emphasized.italic {
+  font-weight: var(--weight-semibold);
+  font-style: italic;
+}
+
+.text-callout.emphasized.italic {
+  font-weight: var(--weight-semibold);
+  font-style: italic;
+}
+
+.text-subheadline.emphasized.italic {
+  font-weight: var(--weight-semibold);
+  font-style: italic;
+}
+
+.text-footnote.emphasized.italic {
+  font-weight: var(--weight-semibold);
+  font-style: italic;
+}
+
+.text-caption1.emphasized.italic {
+  font-weight: var(--weight-medium);
+  font-style: italic;
+}
+
+.text-caption2.emphasized.italic {
+  font-weight: var(--weight-semibold);
+  font-style: italic;
+}
+
+
+/* --------------------------------------------------------------------------
+   Loose Leading Modifier
+   Adds +2px line-height for multiline text blocks.
+   Only applicable to Large Title through Callout (7 styles).
+   Usage: <p class="text-body text-loose">
+   -------------------------------------------------------------------------- */
+
+.text-large-title.text-loose {
+  line-height: var(--lh-large-title-loose);
+}
+
+.text-title1.text-loose {
+  line-height: var(--lh-title1-loose);
+}
+
+.text-title2.text-loose {
+  line-height: var(--lh-title2-loose);
+}
+
+.text-title3.text-loose {
+  line-height: var(--lh-title3-loose);
+}
+
+.text-headline.text-loose {
+  line-height: var(--lh-headline-loose);
+}
+
+.text-body.text-loose {
+  line-height: var(--lh-body-loose);
+}
+
+.text-callout.text-loose {
+  line-height: var(--lh-callout-loose);
+}
+
+
+/* --------------------------------------------------------------------------
+   Semantic Color Utilities
+   Apply label colors to text.
+   -------------------------------------------------------------------------- */
+
+.text-primary {
+  color: var(--label-primary);
+}
+
+.text-secondary {
+  color: var(--label-secondary);
+}
+
+.text-tertiary {
+  color: var(--label-tertiary);
+}
+
+.text-quaternary {
+  color: var(--label-quaternary);
+}
+
+</style>
 <style>
 :root{--bg:#fff;--glass:#f5f5f7;--glass-strong:#e8e8ed;--borde:#d6d6d6;--borde-suave:transparent;--txt:#1d1d1f;--txt-dim:#707070;--cyan:#0066cc;--violeta:#474747;--verde:#474747;--ambar:#707070;--rojo:#b64400;--radio:28px;--radio-s:20px;--ease:cubic-bezier(.65,0,.35,1)}
 *{margin:0;padding:0;box-sizing:border-box}html{color-scheme:light;scroll-behavior:smooth}body{font-family:'SF Pro Text','Inter',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fff;color:var(--txt);font-size:17px;line-height:1.47;letter-spacing:-.022em;-webkit-font-smoothing:antialiased;overflow-x:hidden}button,input,select,textarea{font:inherit}button,a,input,select,summary,textarea{outline-offset:5px}button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid #0066cc}.orbe{display:none}.nav{height:44px;background:rgba(250,250,252,.94);backdrop-filter:blur(20px);position:sticky;top:0;z-index:10}.nav-inner{max-width:1200px;margin:auto;padding:0 32px;height:100%;display:flex;align-items:center;justify-content:space-between;font-size:12px;letter-spacing:0}.nav a{color:#474747;text-decoration:none}.nav a:hover{text-decoration:underline}.nav-links{display:flex;gap:28px}.envoltura{max-width:1264px;margin:auto;padding:80px 32px 40px}header{position:relative;margin-bottom:76px;animation:entra .8s var(--ease) both;display:flex;flex-direction:column;align-items:flex-start;gap:20px}header .logo-orb{display:none}header h1{font-size:clamp(56px,7vw,96px);font-weight:700;line-height:1.04;letter-spacing:-.015em}header h1 span{color:#1d1d1f}header p{font-size:21px;color:#707070;max-width:560px;margin-top:24px;line-height:1.38;letter-spacing:.011em}.eyebrow{font-size:17px;color:#474747;margin-bottom:16px}.pildora-estado{position:absolute;right:0;top:10px;display:flex;align-items:center;gap:9px;font-size:14px;background:#f5f5f7;padding:10px 18px;border-radius:999px}.punto{width:8px;height:8px;border-radius:50%;background:#a0a0a4;transition:background .5s var(--ease)}.punto.online{background:#1d1d1f}.punto.trabajando{background:#707070;animation:respira 1.5s ease-in-out infinite}.rejilla{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:start}.col{display:contents}.tarjeta{background:#f5f5f7;border:0;border-radius:28px;padding:36px;min-width:0;animation:entra .75s var(--ease) both;box-shadow:none}.tarjeta:nth-child(2){animation-delay:.09s}.tarjeta:nth-child(3){animation-delay:.15s}.col:first-child>.tarjeta:nth-child(1){grid-area:1/1}.col:first-child>.tarjeta:nth-child(2){grid-area:2/1/3/3;background:#fff;padding:76px 0}.col:first-child>.tarjeta:nth-child(3){grid-area:3/1}.col:first-child>.tarjeta:nth-child(4){grid-area:3/2}.col:nth-child(2)>.tarjeta{grid-area:1/2}.tarjeta-titulo{display:flex;gap:12px;align-items:center;margin-bottom:28px}.tarjeta-titulo .ico{display:grid;place-items:center;color:#474747;width:28px;height:28px;flex-shrink:0}.ico svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}.tarjeta-titulo h2{font-size:40px;line-height:1.15;letter-spacing:-.02em;font-weight:600}.tarjeta-titulo .sub{font-size:14px;color:#707070;margin-top:6px}.inst-pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}.inst-pill{padding:8px 18px;cursor:pointer;border-radius:999px;background:#e8e8ed;color:#474747;font-size:14px;transition:background .35s var(--ease),transform .35s var(--ease)}.inst-pill:hover{background:#dcdce1;transform:translateY(-2px)}.inst-pill.activa{background:#1d1d1f;color:#fff}.estado-hero{display:flex;align-items:center;gap:16px;margin-bottom:28px;padding:20px 0}.estado-orb{width:40px;height:40px;border-radius:50%;background:#e3e4e5;flex-shrink:0;transition:background .5s var(--ease)}.estado-orb.online{background:#474747}.estado-orb.trabajando{background:#707070;animation:respira 1.8s ease-in-out infinite}.nombre{font-size:24px;font-weight:600;letter-spacing:-.02em}.detalle{color:#707070;font-size:14px;margin-top:4px}.pill-version{display:inline-block;margin-top:8px;padding:6px 14px;border-radius:999px;background:var(--color-cool-wash,#e8f0fe);color:var(--color-focus,#0066cc);font-size:13px;font-weight:600}
@@ -106,8 +1162,127 @@ input:focus,select:focus,textarea:focus,button:focus-visible{border-color:var(--
 .lp-grid{grid-template-columns:repeat(2,1fr)}
 }
 </style>
+<style id="skin-ios26">
+/* === iOS 26 Liquid Glass skin (2026-10-20) === */
+:root{
+  --cyan:var(--color-blue); --violeta:var(--color-indigo); --verde:var(--color-green);
+  --ambar:var(--color-orange); --rojo:var(--color-red);
+  --txt:var(--label-primary); --txt-dim:var(--label-secondary);
+  --borde:var(--separator); --radio:20px; --radio-s:12px;
+  --ease:cubic-bezier(.25,.46,.45,.94);
+  --spring-snappy:cubic-bezier(.34,1.56,.64,1); --spring-bouncy:cubic-bezier(.68,-.55,.265,1.55);
+  --spring-gentle:cubic-bezier(.25,.46,.45,.94); --spring-stiff:cubic-bezier(.25,0,1,1);
+  --color-focus:var(--color-blue); --color-electric-blue:var(--color-blue); --color-ember:var(--color-red);
+}
+body{font-family:var(--font-family);background:var(--bg-grouped-primary)}
+body::before{display:none}
+.wallpaper{position:fixed;inset:0;z-index:-1;background:
+  radial-gradient(120% 90% at 15% 0%, rgba(10,132,255,.35), transparent 55%),
+  radial-gradient(100% 80% at 90% 15%, rgba(191,90,242,.30), transparent 55%),
+  radial-gradient(120% 100% at 50% 110%, rgba(48,209,88,.28), transparent 60%),
+  var(--bg-grouped-primary)}
+/* --- Liquid Glass surfaces --- */
+.tarjeta{background:rgba(250,250,250,.7);backdrop-filter:blur(40px) saturate(1.8);-webkit-backdrop-filter:blur(40px) saturate(1.8);border:0;box-shadow:0 8px 40px rgba(0,0,0,.08)}
+.lp-tile,.inst-pill,.pill-version{background:rgba(245,245,245,.6);backdrop-filter:blur(28px) saturate(1.8);-webkit-backdrop-filter:blur(28px) saturate(1.8);border:0;box-shadow:0 4px 16px rgba(0,0,0,.06)}
+.login-card{background:rgba(250,250,250,.7);backdrop-filter:blur(40px) saturate(1.8);-webkit-backdrop-filter:blur(40px) saturate(1.8);border:0;box-shadow:0 24px 80px rgba(0,0,0,.14)}
+.nav{background:rgba(255,255,255,.6);backdrop-filter:blur(40px) saturate(1.8);-webkit-backdrop-filter:blur(40px) saturate(1.8);border-bottom:.5px solid var(--separator)}
+@media (prefers-color-scheme:dark){:root:not([data-theme='light']) .tarjeta,:root:not([data-theme='light']) .login-card{background:rgba(0,0,0,.8);box-shadow:inset 0 0 0 .5px rgba(255,255,255,.06),0 8px 40px rgba(0,0,0,.4)}
+:root:not([data-theme='light']) .lp-tile,:root:not([data-theme='light']) .inst-pill,:root:not([data-theme='light']) .pill-version{background:rgba(0,0,0,.6);box-shadow:inset 0 0 0 .5px rgba(255,255,255,.06),0 4px 16px rgba(0,0,0,.3)}
+:root:not([data-theme='light']) .nav{background:rgba(0,0,0,.5)}}
+:root[data-theme='dark'] .tarjeta,:root[data-theme='dark'] .login-card{background:rgba(0,0,0,.8);box-shadow:inset 0 0 0 .5px rgba(255,255,255,.06),0 8px 40px rgba(0,0,0,.4)}
+:root[data-theme='dark'] .lp-tile,:root[data-theme='dark'] .inst-pill,:root[data-theme='dark'] .pill-version{background:rgba(0,0,0,.6);box-shadow:inset 0 0 0 .5px rgba(255,255,255,.06),0 4px 16px rgba(0,0,0,.3)}
+:root[data-theme='dark'] .nav{background:rgba(0,0,0,.5)}
+/* --- Hero --- */
+header{padding:28px 0 8px}
+header .eyebrow{color:var(--label-secondary);font-size:var(--text-footnote);font-weight:600;text-transform:none;letter-spacing:.02em}
+header h1{font-size:var(--text-large-title);line-height:41px;letter-spacing:.4px;font-weight:700;background:none;-webkit-text-fill-color:currentColor;color:var(--label-primary);margin:2px 0 6px}
+header .lema{color:var(--label-secondary);font-size:var(--text-subheadline)}
+/* --- Botones iOS --- */
+.btn{height:44px;border-radius:12px;border:0;background:var(--fill-tertiary);color:var(--label-primary);font-weight:600;font-size:var(--text-body);box-shadow:none;transition:all .18s var(--spring-snappy)}
+.btn:hover{background:var(--fill-secondary);transform:none}
+.btn:active{transform:scale(.94)}
+.btn.primario{background:var(--color-blue);color:#fff}
+.btn.primario:hover{background:#0a84ff;box-shadow:0 6px 16px rgba(0,136,255,.3)}
+.btn.peligro{background:var(--fill-tertiary);color:var(--color-red)}
+.btn.peligro:hover{background:var(--fill-secondary)}
+.btn:disabled{opacity:.45}
+/* --- Campos iOS --- */
+input[type=text],input[type=password],input[type=number],select,textarea{background:var(--fill-tertiary);border:0;border-radius:10px;min-height:40px;padding:9px 12px;color:var(--label-primary);font-size:var(--text-body);transition:box-shadow .18s var(--spring-snappy),background .18s}
+input:focus-visible,select:focus-visible,textarea:focus-visible{outline:0;box-shadow:0 0 0 3.5px rgba(0,136,255,.38);background:var(--bg-primary)}
+input[type=range]{accent-color:var(--color-blue)}
+/* --- Toggles iOS 51x31 --- */
+.check-fila input[type=checkbox]{appearance:none;-webkit-appearance:none;width:51px;height:31px;border-radius:16px;background:var(--fill-primary);position:relative;cursor:pointer;transition:background .25s var(--spring-snappy);flex:0 0 auto;margin:0}
+.check-fila input[type=checkbox]::after{content:'';position:absolute;top:2px;left:2px;width:27px;height:27px;border-radius:50%;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.2);transition:transform .25s var(--spring-snappy)}
+.check-fila input[type=checkbox]:checked{background:var(--color-green)}
+.check-fila input[type=checkbox]:checked::after{transform:translateX(20px)}
+/* --- Filas tipo lista --- */
+.fila,.check-fila,.fila-mini{border-radius:10px;transition:background .18s var(--spring-snappy)}
+.fila:hover,.check-fila:hover,.fila-mini:hover{background:var(--fill-quaternary)}
+.fila:active,.check-fila:active{background:var(--fill-tertiary)}
+/* --- Instancias (chips) --- */
+.inst-pill{border-radius:999px;transition:all .25s var(--spring-snappy)}
+.inst-pill:hover{transform:translateY(-1px)}
+.inst-pill.activa{background:var(--color-blue);color:#fff;box-shadow:0 6px 16px rgba(0,136,255,.3)}
+/* --- Estado --- */
+.pildora-estado{background:var(--fill-tertiary);border:0;border-radius:999px;color:var(--label-secondary)}
+.estado-orb.online{background:var(--color-green);box-shadow:0 0 8px rgba(52,199,89,.5)}
+.punto.online{background:var(--color-green)}
+/* --- Launchpad --- */
+.lp-tile{border-radius:16px;position:relative;transition:all .25s var(--spring-snappy)}
+.lp-tile:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,0,0,.12)}
+.lp-tile:active{transform:scale(.97)}
+.lp-tile::after{content:'›';position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--label-tertiary);font-size:20px;font-weight:600}
+.lp-tile .ic{border-radius:7px}
+.lp-tile:nth-of-type(1) .ic{background:var(--color-blue)}.lp-tile:nth-of-type(2) .ic{background:var(--color-indigo)}
+.lp-tile:nth-of-type(3) .ic{background:var(--color-purple)}.lp-tile:nth-of-type(4) .ic{background:var(--color-orange)}
+.lp-tile:nth-of-type(5) .ic{background:var(--color-green)}.lp-tile:nth-of-type(6) .ic{background:var(--color-red)}
+/* --- Ventanas / sheets --- */
+.velo-ventana.abierto{background:rgba(0,0,0,.32);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.ventana{background:rgba(250,250,250,.82);backdrop-filter:blur(40px) saturate(1.8);-webkit-backdrop-filter:blur(40px) saturate(1.8);border:0;border-radius:20px;box-shadow:0 30px 90px rgba(0,0,0,.22);transition:transform .5s var(--spring-gentle),opacity .3s ease}
+@media (prefers-color-scheme:dark){:root:not([data-theme='light']) .ventana{background:rgba(20,20,22,.86);box-shadow:inset 0 0 0 .5px rgba(255,255,255,.06),0 30px 90px rgba(0,0,0,.55)}}
+:root[data-theme='dark'] .ventana{background:rgba(20,20,22,.86);box-shadow:inset 0 0 0 .5px rgba(255,255,255,.06),0 30px 90px rgba(0,0,0,.55)}
+.ventana.vh{border-radius:34px 34px 0 0;padding-bottom:calc(22px + env(safe-area-inset-bottom))}
+.ventana.vh::before{content:'';position:absolute;top:8px;left:50%;transform:translateX(-50%);width:36px;height:5px;border-radius:3px;background:var(--fill-primary)}
+.vx{background:var(--fill-tertiary);color:var(--label-primary);border:0;width:30px;height:30px;border-radius:50%;font-size:13px;transition:all .18s var(--spring-snappy)}
+.vx:hover{background:var(--fill-secondary)}
+.vx:active{transform:scale(.9)}
+/* --- Nav --- */
+.nav-logo .logo-txt{color:var(--label-primary)}
+.nav-a{border-radius:999px;color:var(--label-secondary);transition:all .25s var(--spring-snappy)}
+.nav-a:hover{color:var(--label-primary);background:var(--fill-quaternary)}
+.nav-a.on{color:var(--label-primary);background:var(--fill-primary)}
+.theme-toggle{background:var(--fill-tertiary);border:0;transition:all .18s var(--spring-snappy)}
+.theme-toggle:active{transform:scale(.9)}
+/* --- Toast arriba-centro bouncy --- */
+.toast{top:20px;bottom:auto;left:50%;transform:translate(-50%,-200%) scale(.9);background:rgba(28,28,30,.72);backdrop-filter:blur(28px) saturate(1.8);-webkit-backdrop-filter:blur(28px) saturate(1.8);color:#fff;border-radius:999px;padding:12px 20px;box-shadow:0 12px 40px rgba(0,0,0,.28);font-size:var(--text-subheadline);font-weight:600;transition:transform .45s var(--spring-bouncy),opacity .25s}
+.toast.visible{transform:translate(-50%,0) scale(1)}
+/* --- Consola --- */
+.consola-caja{background:rgba(10,10,12,.86);backdrop-filter:blur(40px) saturate(1.6);-webkit-backdrop-filter:blur(40px) saturate(1.6);border:0;border-radius:16px;color:#e5e5ea;font-family:ui-monospace,Menlo,Consolas,monospace}
+/* --- Login --- */
+.login-btn{border-radius:12px;height:44px}
+/* --- Pie --- */
+footer{color:var(--label-secondary);font-size:var(--text-footnote)}
+/* --- refinamientos ronda 2 --- */
+.login-velo{background:rgba(255,255,255,.35);backdrop-filter:blur(24px) saturate(1.8);-webkit-backdrop-filter:blur(24px) saturate(1.8)}
+@media (prefers-color-scheme:dark){:root:not([data-theme='light']) .login-velo{background:rgba(0,0,0,.4)}}
+:root[data-theme='dark'] .login-velo{background:rgba(0,0,0,.4)}
+input:focus,select:focus,textarea:focus{outline:0;border-color:transparent}
+.check-fila{background:var(--fill-quaternary)}
+.fila-item,.jugador,.op-chip{background:var(--fill-quaternary);border:0;color:var(--label-primary)}
+.mini-btn{background:var(--fill-tertiary);border:0;color:var(--label-primary);transition:all .18s var(--spring-snappy)}
+.mini-btn:hover{background:var(--fill-secondary)}
+.mini-btn:active{transform:scale(.94)}
+footer{background:var(--fill-quaternary);border:0;color:var(--label-secondary)}
+.pin-caja{background:var(--fill-tertiary);border:0}
+@media (prefers-color-scheme:dark){:root:not([data-theme='light']) .consola-caja{background:rgba(10,10,12,.86)}}
+@media (prefers-color-scheme:dark){:root:not([data-theme='light']) .inst-pill.activa{background:var(--color-blue);color:#fff;box-shadow:0 6px 16px rgba(0,136,255,.3)}}
+:root[data-theme='dark'] .inst-pill.activa{background:var(--color-blue);color:#fff;box-shadow:0 6px 16px rgba(0,136,255,.3)}
+.inst-pill.activa .punto{background:#fff}
+
+</style>
 </head>
 <body>
+<div class="wallpaper"></div>
 <nav class="nav"><div class="nav-inner"><a href="#">Kike Hosting</a><div class="theme-controls"><div class="nav-links"><a href="#inst-pills">Servidor</a><a href="#" onclick="abrirVentana('v-ajustes');return false">Ajustes</a><a href="#" onclick="abrirVentana('v-copias');return false">Copias</a></div><button class="theme-toggle" type="button" aria-label="Cambiar a modo oscuro" title="Cambiar a modo oscuro"><svg class="theme-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 13.1A8.6 8.6 0 0 1 10.9 3.5a8.6 8.6 0 1 0 9.6 9.6Z"/></svg><svg class="theme-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg></button>
 </div></div></nav>
   <div class="orbe orbe-1"></div>
