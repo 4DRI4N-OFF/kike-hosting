@@ -1378,15 +1378,22 @@ details.bloque.sin-resumen .bloque-cuerpo{display:flex;opacity:1;transform:none}
 <style id="skin-ios26-lote16">
 /* lote 16: hojas y ventanas segun HIG (scroll edge, grabber, zonas tactiles 44px, destructivo rojo) */
 .ventana{display:flex;flex-direction:column}
-.ventana-cuerpo{flex:1;min-height:0;overflow-y:auto;scrollbar-gutter:stable}
-.ventana-top{position:sticky;top:0;z-index:5;margin:-32px -36px 22px;padding:32px 36px 14px;border-radius:24px 24px 0 0;background:rgba(250,250,250,.72);backdrop-filter:blur(20px) saturate(1.6);-webkit-backdrop-filter:blur(20px) saturate(1.6)}
+.ventana-cuerpo{overflow:visible}
+.ventana{padding:0 36px 32px;scrollbar-width:none}
+.ventana::-webkit-scrollbar{display:none}
+.ventana-top{position:sticky;top:0;z-index:5;margin:0 -36px 22px;padding:32px 36px 14px;border-radius:20px 20px 0 0;background:rgba(250,250,250,.72);backdrop-filter:blur(20px) saturate(1.6);-webkit-backdrop-filter:blur(20px) saturate(1.6)}
 :root[data-theme='dark'] .ventana-top{background:rgba(24,24,26,.72)}
 @media (prefers-color-scheme:dark){:root:not([data-theme='light']) .ventana-top{background:rgba(24,24,26,.72)}}
 .ventana:before{content:'';display:none}
 @media (max-width:740px){
-  .ventana:before{display:block;flex:0 0 auto;width:36px;height:5px;border-radius:3px;background:var(--fill-secondary,#d6d6d6);margin:-14px auto 8px}
-  .ventana-top{margin:-24px -20px 18px;padding:24px 20px 12px;border-radius:22px 22px 0 0}
-  .ventana{padding-bottom:40px}
+  .ventana:before{display:none!important}
+  .ventana-top{flex-wrap:wrap}
+  .ventana-top>div{flex:1;min-width:0}
+  .ventana-top:before{content:'';flex:0 0 100%;max-width:36px;height:5px;border-radius:3px;background:var(--fill-secondary,#d6d6d6);margin:0 auto 10px}
+  .ventana{padding:0 20px 40px}
+  .ventana.vh{padding-bottom:calc(40px + env(safe-area-inset-bottom))}
+  .ventana.vh .ventana-top{border-radius:34px 34px 0 0}
+  .ventana-top{margin:0 -20px 18px;padding:20px 20px 12px;border-radius:22px 22px 0 0}
 }
 .vx{position:relative}
 .vx:after{content:'';position:absolute;inset:-7px}
