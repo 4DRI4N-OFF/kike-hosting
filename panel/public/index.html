@@ -1439,6 +1439,13 @@ header h1{letter-spacing:-.03em;font-weight:700}
 .stat .k{font-size:var(--text-caption1,12px);font-weight:600;text-transform:uppercase;letter-spacing:.06em}
 .seccion-sub,.campo-grupo{font-size:var(--text-subheadline,15px);font-weight:600;text-transform:none;letter-spacing:-.01em;margin-top:24px}
 .vtitulo,.ventana-top h2{letter-spacing:-.022em}
+/* lote 23: accesibilidad - contraste WCAG AA en la consola (caja oscura en ambos temas) */
+:root .consola-caja .lina,:root .consola-caja .lina.panel{color:#e5e5ea}
+:root .consola-caja .lina.err,:root .consola-caja .lina.error{color:#ff6961}
+:root .consola-caja .lina.warn{color:#ffb340}
+:root .consola-caja .lina.join{color:#30d158}
+:root .consola-caja .lina .hora{color:#a1a1a6}
+:root .consola-caja .consola-vacia{color:#a1a1a6}
 </style>
 </head>
 <body>
@@ -1984,7 +1991,7 @@ async function cargarOps() {
     const j = await api('/api/instances/' + instancia + '/ops');
     const ops = j.ops || [];
     $('op-chips').innerHTML = ops.length
-      ? ops.map(o => `<div class="op-chip">${esc(o.name)}<button title="Quitar op" onclick="delOp('${esc(o.name)}')">✕</button></div>`).join('')
+      ? ops.map(o => `<div class="op-chip">${esc(o.name)}<button title="Quitar op" aria-label="Quitar op" onclick="delOp('${esc(o.name)}')">✕</button></div>`).join('')
       : '<div class="vacio">Sin ops.</div>';
   } catch (e) {}
 }
@@ -2014,7 +2021,7 @@ async function cargarWhitelist() {
     $('wl-enabled').checked = !!j.enabled;
     const wl = j.entries || [];
     $('wl-chips').innerHTML = wl.length
-      ? wl.map(w => `<div class="op-chip">${esc(w.name)}<button title="Quitar de la lista" onclick="wlDel('${esc(w.name)}')">✕</button></div>`).join('')
+      ? wl.map(w => `<div class="op-chip">${esc(w.name)}<button title="Quitar de la lista" aria-label="Quitar de la lista" onclick="wlDel('${esc(w.name)}')">✕</button></div>`).join('')
       : '<div class="vacio">Lista vacía: si la activas, no entra NADIE (ni tú).</div>';
   } catch (e) {}
 }
