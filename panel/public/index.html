@@ -1446,6 +1446,12 @@ header h1{letter-spacing:-.03em;font-weight:700}
 :root .consola-caja .lina.join{color:#30d158}
 :root .consola-caja .lina .hora{color:#a1a1a6}
 :root .consola-caja .consola-vacia{color:#a1a1a6}
+/* lote 24 (revision final): grabber centrado en movil (era un flex item en la fila del titulo) y botones de ventana que ajustan lineas sin desbordar */
+.ventana .btn{height:auto;min-height:44px;white-space:normal;line-height:1.25;padding-top:11px;padding-bottom:11px}
+@media (max-width:740px){
+  .ventana-top:before{position:absolute;top:8px;left:50%;transform:translateX(-50%);flex:none;width:36px;max-width:none;height:5px;margin:0}
+  .ventana-top{padding-top:26px}
+}
 </style>
 </head>
 <body>
