@@ -1452,6 +1452,9 @@ header h1{letter-spacing:-.03em;font-weight:700}
   .ventana-top:before{position:absolute;top:8px;left:50%;transform:translateX(-50%);flex:none;width:36px;max-width:none;height:5px;margin:0}
   .ventana-top{padding-top:26px}
 }
+/* lote 24b: teclas de atajos legibles en oscuro (texto y fondo eran casi iguales) */
+:root[data-theme='dark'] kbd{color:#f5f5f7;background:#48484a}
+@media (prefers-color-scheme:dark){:root:not([data-theme='light']) kbd{color:#f5f5f7;background:#48484a}}
 </style>
 </head>
 <body>
